@@ -34,8 +34,8 @@ public class Menu
 				 "\n                 [ S W I T C H   T O    F U L L S C R E E N ]                   \n"
 				);
 		
-		//Print.SITUATION("Type the number of your choice.");
-		Print.CHOICES("START GAME","QUIT");
+		Print.SITUATION("Select action:");
+		System.out.println("\t[1] START GAME\n\t[2] ABOUT\n\t[3] QUIT\n");
 		
 		while(!Data.running) 
 		{
@@ -51,6 +51,20 @@ public class Menu
 				
 			}
 			else if(Data.ANSWER.contentEquals("2"))
+			{
+				Print.LINE();
+				System.out.println();
+				Print.STATUS("A B O U T    T H I S : \n\n"
+						+ "  BY: Joannah C. Argote\n"
+						+ "      github.com/joannahargote\n"
+						+ "      joannahargotec@gmail.com\n\n"
+						+ "   S: March 2019\n\n\n"
+						+ "  [PRESS ENTER TO GO BACK]");
+				Data.ANSWER=Print.scan.nextLine();
+				Menu.main(Images.HANDS);
+				
+			}
+			else if(Data.ANSWER.contentEquals("3"))
 			{
 				System.out.println();
 				Print.STATUS("PLAYER QUIT GAME. THANKS FOR PLAYING!");

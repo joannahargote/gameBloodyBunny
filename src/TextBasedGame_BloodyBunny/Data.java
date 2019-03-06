@@ -81,7 +81,7 @@ public class Data {
 		
 		
 		HOUND.name="HOUND";
-		HOUND.healthPts=90;
+		HOUND.healthPts=80;
 		HOUND.weapon="GUN";
 		HOUND.maxAttack=50;
 		HOUND.alive=true;
