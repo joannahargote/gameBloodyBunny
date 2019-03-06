@@ -134,6 +134,7 @@ public class Images {
 	
 	public static String playerVShound[]= 
 		{
+				"                                                       ",
 				" ___________________                ___________________",
 				"|   \"P L A Y E R\"   |              |  \"H  0  U  N  D\"  |",
 				"|                   |              |                   |",
@@ -170,6 +171,7 @@ public class Images {
 	
 	public static String houndShotArm[]= 
 	{
+		"",
 		" _________________________________________________________",
 		"|                                        \\/ \\V //  \\//\\   |",
 		"|                                     __ _.\\    |       / |",

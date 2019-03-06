@@ -24,8 +24,7 @@ public class _HoundsTorture
 		Print.STATUS("You suddenly gain consciousness.");
 		Print.PLAYER_INFO();
 		Print.STATUS("You are in pain. You can hear someone humming near you.");
-//		Print.IMAGE(Images.playerStart);
-//		Print.SITUATION("Choose action:");
+
 		Print.CHOICES("OPEN YOUR EYES", "PRETEND TO BE UNCONSCIOUS");
 		
 		while(!Data.running)
@@ -53,9 +52,7 @@ public class _HoundsTorture
 		Print.PLAYER_INFO();
 		Print.STATUS("You are in a small room. One door, no windows.\n"
 				+ "  You see the HOUND pocketing a syringe. He points a GUN at you.");
-//		Print.IMAGE(Images.hound);
 		Print.STATUS("HOUND: \"Where is it?\"");
-//		Print.SITUATION("Choose action: ");
 		Print.CHOICES("SAY: \"What are you talking about?\"", "FIGHT HOUND");
 		
 		while(!Data.running) 
@@ -207,10 +204,14 @@ public class _HoundsTorture
 
 	private static void boxCutterWarning() 
 	{
+		
+		Print.STATUS("HOUND holds down your hand firmly over the arm rest of your chair.");
+		Print.STATUS("HOUND: \"We both know what The Group does to theives. But... they didn't\n"
+			    	+ "          specifically order me to chop it off in one clean strike.\n"
+			    	+ "          So why don't you just tell me what you know?\"");
 		Print.IMAGE(Images.boxCutter);
-		Print.STATUS("HOUND holds down your hand and positions a box cutter over your index finger.");
+		Print.STATUS("HOUND positions a box cutter over your index finger. ");
 		Print.STATUS("HOUND looks at you and awaits your response.");
-//		Print.SITUATION("Choose action:");
 		Print.CHOICES("SAY: \"I swear I dont know what you're talking about!\"", "PULL YOUR HAND AWAY");
 		
 		while(!Data.running) 
@@ -241,10 +242,8 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(9);
 		Methods.ATKPTS_LOSE(5);
-//		Print.PLAYER_INFO();
 		Print.STATUS("You struggle weakly. You're bleeding out.");
 		Print.STATUS("HOUND: \"Tell me now or the next one won't be as clean.\"");
-//		Print.SITUATION("Choose action:");
 		Print.CHOICES("SAY: \"I told you I dont know! I can't remember anything!\"", "STAY QUIET");
 		
 		while(!Data.running) 
@@ -297,7 +296,6 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);
-//		Print.PLAYER_INFO();
 		Print.STATUS("You black out.\n\n\n  [PRESS ENTER TO CONTINUE]");
 		Data.ANSWER=Print.scan.nextLine();
 		Print.LINE();
@@ -309,6 +307,9 @@ public class _HoundsTorture
 
 	private static void theShackledHostage()
 	{
+//		HOUND GETS A BREAK AND GAINS HEALTH
+		Data.HOUND.healthPts+=25;
+		
 		Print.STATUS("You wake up as HOUND pours a bucket of cold water over your head.\n"
 				+ "  You look around and see that you are no longer alone.");
 		
@@ -317,7 +318,6 @@ public class _HoundsTorture
 				+ "  HOSTAGE is beaten up worse than you. His mouth is duct taped.\n"
 				+ "  HOUND turns to you.");
 		Print.STATUS("HOUND: \"Tell me or he dies!\"");
-//		Print.SITUATION("Choose action:");
 		Print.CHOICES("SAY: \"Don't kill him!\"", "SAY: \"I don't know him.\"");
 		
 		while(!Data.running) 
@@ -346,7 +346,6 @@ public class _HoundsTorture
 		Print.STATUS("HOUND shoots HOSTAGE in the knee!");
 		Print.STATUS("HOSTAGE lets out a muffled scream.");
 		Print.STATUS("HOUND: \"Give me a good reason to spare him!\"");
-//		Print.SITUATION("Choose action:");
 		Print.CHOICES("SAY: \"I did't do anything wrong!\"", "SAY: \"I can help you.\"");
 		
 		while(!Data.running) 
@@ -380,7 +379,6 @@ public class _HoundsTorture
 		Print.PLAYER_INFO();
 		Print.STATUS("HOUND: \"You know something? People like us... we always do something wrong.\n"
 				+ "          But me... heh, i can ALWAYS shoot to kill. This is your last chance.\"");
-//		Print.SITUATION("Choose action:");
 		Print.CHOICES("ATTACK HOUND", "DO NOTHING");
 		
 		while(!Data.running) 
@@ -463,7 +461,7 @@ public class _HoundsTorture
 		else
 		{
 			//you get caught
-			Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n He towers over you threateningly.");
+			Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n  He towers over you threateningly.");
 			Print.STATUS("HOUND walks toward you slowly.");
 			Print.STATUS("HOUND: \"Wrong choice...\"\n\n\n  [PRESS ENTER TO CONTINUE]");
 			Data.ANSWER=Print.scan.nextLine();
@@ -487,17 +485,14 @@ public class _HoundsTorture
 		case 0: 
 			Print.STATUS("You feel a sharp pain on your arm.");
 			Methods.GET_ADRENALINE(false);
-//			Print.PLAYER_INFO();
 			Print.STATUS("Your heart beats faster. The humming continues."); break;
 		case 1:
 			Print.STATUS("You feel the injection again.");
 			Methods.GET_ADRENALINE(false);
-//			Print.PLAYER_INFO();
 			Print.STATUS("You become light headed. You can feel the room melting around you. "); break;
 		case 2:
 			Print.STATUS("The pain feels distant. Your heart feels like it's in your brain.");
 			Methods.GET_ADRENALINE(false);
-//			Print.PLAYER_INFO();
 			Print.STATUS("The humming stops."); break;	
 		}
 		
@@ -508,7 +503,6 @@ public class _HoundsTorture
 		if(i==2) 
 		{
 			Print.STATUS("Someone whispers: \"Shame if you die now, after everything...\"\n\n\tWhat do you do?");
-			Print.SITUATION("Choose action:");
 			Print.CHOICES("OPEN YOUR EYES", "PLAY DEAD");
 		}
 		else 

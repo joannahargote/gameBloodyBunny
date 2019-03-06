@@ -12,10 +12,11 @@ public class Methods
 	public static void RUN() 
 	{ 
 		Data.hpAndAkDisplayed=false;
-//		Data.playerForfeits=false;
 		Data.running=true;	
 		System.out.println();
 		Print.LINE();
+		System.out.println();
+		
 	}
 	
 	public static void GET_ADRENALINE(boolean voluntary) 

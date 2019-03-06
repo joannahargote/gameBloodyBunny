@@ -45,6 +45,7 @@ public class Menu
 			{
 				Methods.RUN();
 				Print.LINE();
+				System.out.println();
 				Print.STATUS("HELLO, PLAYER. CHOOSE WISELY. GOOD LUCK. \n");
 			
 				_HoundsTorture.StartGame();		
