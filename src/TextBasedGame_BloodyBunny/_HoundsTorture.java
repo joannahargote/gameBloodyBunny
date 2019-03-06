@@ -173,12 +173,12 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				sliceRightFinger();
+				sliceLeftFinger();
 			}
 			else if(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
-				shotLeftFingerOff();
+				shotRightFingerOff();
 			}
 		}	
 	}
@@ -186,10 +186,11 @@ public class _HoundsTorture
 
 
 
-	private static void sliceRightFinger() 
+	private static void sliceLeftFinger() 
 	{
-		Print.STATUS("HOUND slices your index finger off at the joint!\n");
-		Methods.PLAYER_INJURY("right hand");
+		Print.STATUS("HOUND slices your index finger off at the joint!");
+		Methods.PLAYER_INJURY("left hand");
+		Print.IMAGE(Images.sliceLeftFinger1);
 		
 		Methods.HEALTH_LOSE(9);
 		Methods.ATKPTS_LOSE(5);
@@ -206,14 +207,14 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				sliceRightFinger2();
+				sliceLeftFinger2();
 				
 			}
 			else if
 			(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
-				shotLeftFingerOff();
+				shotRightFingerOff();
 			}
 		}
 	}
@@ -221,10 +222,11 @@ public class _HoundsTorture
 
 
 
-	private static void shotLeftFingerOff() 
+	private static void shotRightFingerOff() 
 	{
-		Print.STATUS("HOUND shoots a finger off your other hand!\n");
-		Methods.PLAYER_INJURY("left hand");
+		Print.STATUS("HOUND shoots a finger off your other hand!");
+		Methods.PLAYER_INJURY("right hand");
+		Print.IMAGE(Images.shotRightFinger);
 		
 		Methods.HEALTH_LOSE(15);
 		Methods.ATKPTS_LOSE(10);
@@ -239,11 +241,12 @@ public class _HoundsTorture
 
 
 
-	private static void sliceRightFinger2() 
+	private static void sliceLeftFinger2() 
 	{
 		Print.STATUS("HOUND quietly proceeds to slice at the next finger.\n"
-				+ "  He severs the joint with his hand in a quick twist before proceeding to cut away.");
-		
+				+ "  He severs the joint with his hand in a quick twist before proceeding.");
+		Methods.PLAYER_INJURY("left hand");
+		Print.IMAGE(Images.sliceLeftFinger2);
 		
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);

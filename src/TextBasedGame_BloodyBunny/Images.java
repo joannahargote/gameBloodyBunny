@@ -3,38 +3,95 @@ package TextBasedGame_BloodyBunny;
 public class Images {
 	
 //	# THIS IS WHERE ALL THE CHARACTER IMAGES ARE STORED
+		
+	public static String HANDS[]=
+		{
+				" ______________________________________________________________ ",
+				"|                                                              |",
+				"|              xXx                           xXx               |",
+				"|          xXx XXX xXx                   xXx XXX xXx           |",
+				"|      xXx XXX XXX XXX                   XXX XXX XXX xXx       |",
+				"|      XXX XXX XXX XXX                   XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                   XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                   XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX   xx         xx   XXX XXX XXX XXX       |",
+				"|      XXXXXXXXXXXXXXX  XXX         XXX  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX  xXX         XXx  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX xXXX         XXXx XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
+				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
+				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
+				"                                                                "
+		};
 	
-//	public static String hound2[]= 
-//	{
-//			"               z                  |  \"H  0  U  N  D\"  |",
-//			"              zZ                  |                   |",
-//			"        zZZZZZZZ\"                 |     /|     |\\     |",
-//			"   ZZZZZZZZZZZZZ~                 |    /A|     |A\\    |",
-//			"    ZZZZZZZZZZZZ`                 |    |  \"\"\"\"\"  |    |",
-//			"          XXXXXX'                 |    |    v    |    |",
-//			"          xXXXXX                  |    | <_\\ /_> |    |",
-//			"         /\\/[]\\/\\                 |     \\       /     |",
-//			" XXXXXXXX\\ \\/\\/ /XXXXXXXXX        |      |  _  |      |",
-//			"XXXXXXXXXX\\ \\/ /XXXXXXXXXXX       |-----/ \\_V_/ \\-----|",
-//			"XXXXXXXXXXX\\/-/XXXX===XXXXX       |___________________|"
-//	};
+	public static String shotRightFinger[]=
+		{
+				" ______________________________________________________________ ",
+				"|                                                              |",
+				"|              xXx                           xXx               |",
+				"|          xXx XXX xXx                       XXX xXx           |",
+				"|      xXx XXX XXX XXX                       XXX XXX xXx       |",
+				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                    .  #XX XXX XXX       |",
+				"|      XXX XXX XXX XXX   xx         xx   x## #XX XXX XXX       |",
+				"|      XXXXXXXXXXXXXXX  XXX         XX#  #####XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX  xXX         XX#  #X###XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX xXXX         XXXx #XX#XXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
+				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
+				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
+				"                                                                "
+		};
 	
-//	
-//	public static String blankFrame[]=
-//		{
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                ",
-//				"                                                                "
-//		};
-//	
+	public static String sliceLeftFinger1[]=
+		{
+				" ______________________________________________________________ ",
+				"|                                                              |",
+				"|              xXx                           xXx               |",
+				"|          xXx XXX                       xXx XXX xXx           |",
+				"|      xXx XXX XXX                       XXX XXX XXX xXx       |",
+				"|      XXX XXX XXX                       XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX                       XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX ___                   XXX XXX XXX XXX       |",
+				"|      XXX XXX XXX ###   xx         xx   XXX XXX XXX XXX       |",
+				"|      XXXXXXXXXXXXX##  #XX         XXX  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXX#  xXX         XXx  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX xXXX         XXXx XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
+				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
+				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
+				"                                                                "
+		};
+	
+	public static String sliceLeftFinger2[]=
+		{
+				" ______________________________________________________________ ",
+				"|                                                              |",
+				"|                                            xXx               |",
+				"|          xXx                           xXx XXX xXx           |",
+				"|      xXx XXX                           XXX XXX XXX xXx       |",
+				"|      XXX XXX  _                        XXX XXX XXX XXX       |",
+				"|      XXX XXX _H_                       XXX XXX XXX XXX       |",
+				"|      XXX XXX ### ___                   XXX XXX XXX XXX       |",
+				"|      XXX XXX ### ###   xx         xx   XXX XXX XXX XXX       |",
+				"|      XXXXXXXXXX#####  #XX         XXX  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXX##XX#  xXX         XXx  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXX#XXX xXXX         XXXx XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXX##XXxXXX           XXXxXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXX#XXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
+				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
+				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
+				"                                                                "
+		};
+	
 	public static String boxCutter[]=
 		{
 				"                                                                ",
