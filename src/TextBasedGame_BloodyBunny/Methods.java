@@ -11,6 +11,7 @@ public class Methods
 	
 	public static void RUN() 
 	{ 
+		Data.playerForfeits=false;
 		Data.running=true;	
 		System.out.println();
 		Print.LINE();
@@ -354,7 +355,7 @@ public class Methods
 		}
 	}
 
-	public static void LEAP_OF_FAITH(int chanceInAHundred) 
+	public static void CHANCE(int chanceInAHundred) 
 	{
 		
 		int x=rand.nextInt(100);

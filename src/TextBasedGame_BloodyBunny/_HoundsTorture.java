@@ -84,6 +84,7 @@ public class _HoundsTorture
 	private static void fightHound()
 	{
 
+		
 		while(Data.PLAYER.healthPts>0 && Data.OPPONENT.alive && !Data.playerForfeits)
 		{
 			Methods.FIGHT();
@@ -91,7 +92,66 @@ public class _HoundsTorture
 		
 		if(Data.playerForfeits)
 		{
-			//he gave up
+			Print.LINE();
+			
+			if(Data.PLAYER.healthPts>10) 
+			{
+				Methods.CHANCE(40);
+				
+				if(Data.fortuneSmiles) 
+				{
+					Print.STATUS("HOUND shoots your knee as you run to the door!");
+					Methods.CHANCE(50);
+					if(Data.fortuneSmiles)
+					{
+						Methods.PLAYER_INJURY("left leg");
+					}
+					else
+					{
+						Methods.PLAYER_INJURY("right leg");
+					}
+					
+					Methods.HEALTH_LOSE((Data.PLAYER.healthPts/3)*2);
+					Methods.ATKPTS_LOSE((Data.PLAYER.maxAttack/3)*2);
+					
+					Print.STATUS("Time passed in a painful blur.\n\n\n  [PRESS ENTER TO CONTINUE]");
+					Data.ANSWER=Print.scan.nextLine();
+					
+					//JUMP TO THE HOSTAGE SCENE- too weak to endure torture
+					Print.LINE();
+					theShackledHostage();
+					
+				}
+				else
+				{
+					Print.STATUS("HOUND shoots you in the back of the head as you run to the door!");
+					Print.STATUS("Within a second everything went dark and quiet.\n\n\n  [PRESS ENTER TO CONTINUE]");
+					Data.ANSWER=Print.scan.nextLine();
+					
+					//YOU CAN DIE, OR THE MINER GETS YOU.
+					Methods.CHANCE(35);
+					
+					if(Data.fortuneSmiles) 
+					{
+						Print.STATUS("You somehow survive. You wake up in a shack. \n "
+								+ "the old miner knows you and says that YOUR FRIEND werent as lucky.");
+					}
+					else 
+					{
+						Methods.HEALTH_LOSE(Data.PLAYER.healthPts);
+					}
+				}
+			}
+			else
+			{
+				Print.STATUS("HOUND catches you before you reach the door.\n  He beats you up until you lost consciousness.");
+				Methods.HEALTH_LOSE(6);
+				Print.STATUS("[PRESS ENTER TO CONTINUE]");
+				Data.ANSWER=Print.scan.nextLine();	
+			
+				Print.LINE();
+				theShackledHostage();
+			}
 		}
 		
 		if(!Data.OPPONENT.alive) 
@@ -99,6 +159,7 @@ public class _HoundsTorture
 			//you wander around, get the gun, and find the hostage. 
 			//you can also just leave.
 		}
+		
 	}
 
 	private static void shotRightArm()
@@ -404,7 +465,7 @@ public class _HoundsTorture
 		
 		
 //		rely on luck if you get caught while escaping
-		Methods.LEAP_OF_FAITH(25);
+		Methods.CHANCE(25);
 		
 		if(Data.fortuneSmiles)
 		{
