@@ -172,7 +172,7 @@ public class _HoundsTorture
 		Methods.HEALTH_LOSE(18);
 		Methods.ATKPTS_LOSE(10);
 		
-		Print.PLAYER_INFO();
+//		Print.PLAYER_INFO();
 
 		Print.IMAGE(Images.houndShotArm);
 		Print.STATUS("HOUND: \"Where is it?\"");
@@ -255,7 +255,7 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(9);
 		Methods.ATKPTS_LOSE(5);
-		Print.PLAYER_INFO();
+//		Print.PLAYER_INFO();
 		Print.STATUS("You struggle weakly. You're bleeding out.");
 		Print.STATUS("HOUND: \"Tell me now or the next one won't be as clean.\"");
 //		Print.SITUATION("Choose action:");
@@ -291,7 +291,7 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(15);
 		Methods.ATKPTS_LOSE(10);
-		Print.PLAYER_INFO();
+//		Print.PLAYER_INFO();
 		Print.STATUS("He places the finger in your shirt pocket.");
 		Print.STATUS("You black out.\n\n\n  [PRESS ENTER TO CONTINUE]");
 		Data.ANSWER=Print.scan.nextLine();		
@@ -311,7 +311,7 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);
-		Print.PLAYER_INFO();
+//		Print.PLAYER_INFO();
 		Print.STATUS("You black out.\n\n\n  [PRESS ENTER TO CONTINUE]");
 		Data.ANSWER=Print.scan.nextLine();
 		Print.LINE();
@@ -323,8 +323,10 @@ public class _HoundsTorture
 
 	private static void theShackledHostage()
 	{
-		Print.STATUS("You wake up as HOUND pulls an empty syringe away from your arm.\n"
+		Print.STATUS("You wake up as HOUND pours a bucket of cold water over your head.\n"
 				+ "  You look around and see that you are no longer alone.");
+		
+		
 		Print.STATUS("The shackled HOSTAGE kneels at gunpoint before HOUND.\n"
 				+ "  HOSTAGE is beaten up worse than you. His mouth is duct taped.\n"
 				+ "  HOUND turns to you.");
@@ -475,7 +477,13 @@ public class _HoundsTorture
 		else
 		{
 			//you get caught
-			Print.STATUS("You get caught!");
+			Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n He towers over you threateningly.");
+			Print.STATUS("HOUND walks toward you slowly.");
+			Print.STATUS("HOUND: \"Wrong choice...\"\n\n\n  [PRESS ENTER TO CONTINUE]");
+			Data.ANSWER=Print.scan.nextLine();
+			
+			System.out.println(Data.fightLine);
+			fightHound();
 		}
 		
 		
@@ -493,17 +501,17 @@ public class _HoundsTorture
 		case 0: 
 			Print.STATUS("You feel a sharp pain on your arm.");
 			Methods.GET_ADRENALINE(false);
-			Print.PLAYER_INFO();
+//			Print.PLAYER_INFO();
 			Print.STATUS("Your heart beats faster. The humming continues."); break;
 		case 1:
 			Print.STATUS("You feel the injection again.");
 			Methods.GET_ADRENALINE(false);
-			Print.PLAYER_INFO();
+//			Print.PLAYER_INFO();
 			Print.STATUS("You become light headed. You can feel the room melting around you. "); break;
 		case 2:
 			Print.STATUS("The pain feels distant. Your heart feels like it's in your brain.");
 			Methods.GET_ADRENALINE(false);
-			Print.PLAYER_INFO();
+//			Print.PLAYER_INFO();
 			Print.STATUS("The humming stops."); break;	
 		}
 		

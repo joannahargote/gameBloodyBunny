@@ -7,6 +7,7 @@ public class Data {
 	
 	public static String line=     "================================================================================";
 	public static String fightLine="===[ F I G H T ]================================================================";
+	public static boolean hpAndAkDisplayed=false; //i use this to make a line after the display of health and atk update
 	
 	
 //	FOR GAMEPLAY:

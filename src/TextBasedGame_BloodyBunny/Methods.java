@@ -11,6 +11,7 @@ public class Methods
 	
 	public static void RUN() 
 	{ 
+		Data.hpAndAkDisplayed=false;
 		Data.playerForfeits=false;
 		Data.running=true;	
 		System.out.println();
@@ -37,6 +38,8 @@ public class Methods
 	
 	public static void HEALTH_LOSE(int pts) 
 	{
+		Data.PLAYER.healthPts-=pts;
+		
 		if(pts>=Data.PLAYER.healthPts) 
 		{
 			System.out.println();
@@ -44,38 +47,51 @@ public class Methods
 		}
 		else 
 		{
-			System.out.println("> You lose "+pts+" Health");
+			System.out.println("> You lose "+pts+" Health --- "+Data.PLAYER.healthPts+" remaining.");
 		}
-		Data.PLAYER.healthPts-=pts;
+		
 		CHECK_PLAYER_ALIVE();
+		
+		Data.hpAndAkDisplayed=true;
 	}
 	
 	public static void HEALTH_GAIN(int pts) 
 	{
-		
-		System.out.println("> You gain "+pts+" Health");
 		Data.PLAYER.healthPts+=pts;
+		
+		System.out.println("> You gain "+pts+" Health --- "+Data.PLAYER.healthPts+ " in total.");
+		
 		if(Data.PLAYER.healthPts>100) 
 		{
 			Data.PLAYER.healthPts=100;
 		}
+		
+		Data.hpAndAkDisplayed=true;
 	}
 	
 	public static void ATKPTS_GAIN(int pts) 
 	{
-		System.out.println("> You gain "+pts+" Strength");
-		
 		Data.PLAYER.maxAttack+=pts;
+		
+		System.out.println("> You gain "+pts+" Strength --- "+Data.PLAYER.maxAttack+" in total.");
+		
 		if(Data.PLAYER.maxAttack>75) 
 		{
 			Data.PLAYER.maxAttack=75;
 		}
+		
+		Data.hpAndAkDisplayed=true;
 	}
 	
 	public static void ATKPTS_LOSE(int pts) 
 	{
-		System.out.println("> You lose "+pts+" Strength");
 		Data.PLAYER.maxAttack-=pts;
+		System.out.println("> You lose "+pts+" Strength --- "+Data.PLAYER.maxAttack+" remaining.");
+		
+//		IF PLAYER GETS ZERO STRENGTH, HE CAN NO LONGER FIGHT.
+//		IF HE STILL ENGAGES IN FIGHTS, HE GETS 35 CHANCE OF MERCY, ELSE SUDDEN DEATH.
+		
+		Data.hpAndAkDisplayed=true;
 	}
 	
 	

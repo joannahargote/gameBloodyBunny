@@ -21,8 +21,19 @@ public class Print
 	
 	public static void STATUS(String string)
 	{
-		Data.running=false;
-		System.out.println("> "+string+"\n");		
+		if(Data.hpAndAkDisplayed)
+		{
+//			PUT A LINE BEFORE PRINTING
+			Data.running=false;
+			System.out.println("\n> "+string+"\n");
+		}
+		else
+		{
+			Data.running=false;
+			System.out.println("> "+string+"\n");
+		}
+		
+				
 	}
 	
 	public static void SITUATION(String string) 
