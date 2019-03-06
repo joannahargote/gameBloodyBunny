@@ -160,6 +160,7 @@ public class _HoundsTorture
 
 	private static void boxCutterWarning() 
 	{
+		Print.IMAGE(Images.boxCutter);
 		Print.STATUS("HOUND holds down your hand and positions a box cutter over your index finger.");
 		Print.STATUS("HOUND looks at you and awaits your response.");
 //		Print.SITUATION("Choose action:");
