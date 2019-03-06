@@ -12,7 +12,7 @@ public class Methods
 	public static void RUN() 
 	{ 
 		Data.hpAndAkDisplayed=false;
-		Data.playerForfeits=false;
+//		Data.playerForfeits=false;
 		Data.running=true;	
 		System.out.println();
 		Print.LINE();
@@ -40,12 +40,13 @@ public class Methods
 	{
 		Data.PLAYER.healthPts-=pts;
 		
-		if(pts>=Data.PLAYER.healthPts) 
+		if(Data.PLAYER.healthPts<=0)
 		{
-			System.out.println();
+//			System.out.println();
 			Print.STATUS("You lose your remaining Health Points");
+//			Print.STATUS("Y O U    D I E D .");
 		}
-		else 
+		else
 		{
 			System.out.println("> You lose "+pts+" Health --- "+Data.PLAYER.healthPts+" remaining.");
 		}
@@ -53,6 +54,8 @@ public class Methods
 		CHECK_PLAYER_ALIVE();
 		
 		Data.hpAndAkDisplayed=true;
+
+
 	}
 	
 	public static void HEALTH_GAIN(int pts) 

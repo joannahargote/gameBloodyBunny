@@ -83,7 +83,7 @@ public class _HoundsTorture
 
 	private static void fightHound()
 	{
-
+		Data.playerForfeits=false;  
 		
 		while(Data.PLAYER.healthPts>0 && Data.OPPONENT.alive && !Data.playerForfeits)
 		{
@@ -111,8 +111,9 @@ public class _HoundsTorture
 						Methods.PLAYER_INJURY("right leg");
 					}
 					
-					Methods.HEALTH_LOSE((Data.PLAYER.healthPts/3)*2);
-					Methods.ATKPTS_LOSE((Data.PLAYER.maxAttack/3)*2);
+					
+					Methods.HEALTH_LOSE((int) (Data.PLAYER.healthPts * 0.75));
+					Methods.ATKPTS_LOSE((int) (Data.PLAYER.maxAttack * 0.50));
 					
 					Print.STATUS("Time passed in a painful blur.\n\n\n  [PRESS ENTER TO CONTINUE]");
 					Data.ANSWER=Print.scan.nextLine();
@@ -196,22 +197,7 @@ public class _HoundsTorture
 				Print.STATUS("You kick HOUND and he falls backwards.");
 				Print.STATUS("He quickly retrieves his gun and stands, blocking your way to the door.");
 				
-
-				while(Data.PLAYER.healthPts>0 && Data.OPPONENT.alive && !Data.playerForfeits)
-				{
-					Methods.FIGHT();
-				}
-				
-				if(Data.playerForfeits)
-				{
-					//he gave up
-				}
-				
-				if(!Data.OPPONENT.alive) 
-				{
-					//you wander around, get the gun, and find the hostage
-					//you can also just leave.
-				}
+				fightHound();
 			}
 		}	
 	}

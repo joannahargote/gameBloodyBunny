@@ -31,9 +31,7 @@ public class Print
 		{
 			Data.running=false;
 			System.out.println("> "+string+"\n");
-		}
-		
-				
+		}	
 	}
 	
 	public static void SITUATION(String string) 
