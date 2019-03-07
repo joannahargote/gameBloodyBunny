@@ -1,7 +1,8 @@
 package TextBasedGame_BloodyBunny;
 
 
-public class Data {
+public class Data 
+{
 
 //	#	CHARACTER AND GAME DATA ARE STORED HERE
 	
@@ -23,19 +24,14 @@ public class Data {
 	public static boolean OK_leftHand=true;
 	public static boolean OK_rightLeg=true;//injured legs can't run or kick
 	public static boolean OK_leftLeg=true;
+	public static boolean canFireGun_right=true; //depends if he has his index fingers (thanks to hound)
+	public static boolean canFireGun_left=true;
+	
 	
 	
 	public static int healthPillValue=25;
 	public static int adrenalineShotValue=10;
-	
-//	IN-GAME METHODS
-	
-	
-	
-	
-	
-	
-	
+		
 	
 //	FOR CHARACTERS
 
@@ -47,6 +43,7 @@ public class Data {
 		public String role; //friend, foe, or neutral 
 		public boolean masked; //do they wear a mask
 		public String weapon; //knife, gun, none, stick, etc.
+		public String weaponType;//used to determine attack move
 		public int maxAttack; //depends on weapon and injury
 		public int healthPts; //injury has an impact too
 		public int healthPill; //adds to health
@@ -75,15 +72,17 @@ public class Data {
 		
 		PLAYER.healthPts=49;
 		PLAYER.weapon="None";
+		PLAYER.weaponType="none";
 		PLAYER.maxAttack=27;
 //		PLAYER.healthPill=1;
 //		PLAYER.adrenalineShot=2;
 		
 		
 		HOUND.name="HOUND";
-		HOUND.healthPts=80;
+		HOUND.healthPts=90;
 		HOUND.weapon="GUN";
-		HOUND.maxAttack=50;
+		HOUND.weaponType="firearm";
+		HOUND.maxAttack=70;
 		HOUND.alive=true;
 	}		
 			

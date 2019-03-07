@@ -10,7 +10,8 @@ public class _HoundsTorture
 	public static void StartGame() 
 	{
 		Data.INITIALIZE_CHARACTERS();
-		Methods.SET_OPPONENT(Images.hound, Data.HOUND.name, Data.HOUND.weapon, 
+		Data2.INITIALIZE_WEAPONS();
+		Methods.SET_OPPONENT(Images.hound, Data.HOUND.name, Data.HOUND.weapon, Data.HOUND.weaponType, 
 				             Data.HOUND.healthPts, Data.HOUND.maxAttack);
 		wakeUp();
 	}
@@ -128,7 +129,11 @@ public class _HoundsTorture
 			else
 			{
 				Print.STATUS("HOUND catches you before you reach the door.\n  He beats you up until you lost consciousness.");
-				Methods.HEALTH_LOSE(6);
+				
+				if(Data.PLAYER.healthPts>6) {
+					Methods.HEALTH_LOSE(6);
+				}
+				
 				Print.STATUS("[PRESS ENTER TO CONTINUE]");
 				Data.ANSWER=Print.scan.nextLine();	
 			
@@ -215,7 +220,7 @@ public class _HoundsTorture
 		
 		Print.STATUS("HOUND holds down your hand firmly over the arm rest of your chair.");
 		Print.STATUS("HOUND: \"We both know what The Group does to theives. But... they didn't\n"
-			    	+ "          specifically order me to chop it off in one clean strike.\n"
+			    	+ "          specifically order me to chop your hand off in one clean strike.\n"
 			    	+ "          So why don't you just tell me what you know?\"");
 		Print.IMAGE(Images.boxCutter);
 		Print.STATUS("HOUND positions a box cutter over your index finger. ");
@@ -229,12 +234,12 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				sliceLeftFinger();
+				sliceRightFinger();
 			}
 			else if(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
-				shotRightFingerOff();
+				shotLeftFingerOff(false);
 			}
 		}	
 	}
@@ -242,11 +247,14 @@ public class _HoundsTorture
 
 
 
-	private static void sliceLeftFinger() 
+	private static void sliceRightFinger() 
 	{
 		Print.STATUS("HOUND slices your index finger off at the joint!");
-		Methods.PLAYER_INJURY("left hand");
-		Print.IMAGE(Images.sliceLeftFinger1);
+		Methods.PLAYER_INJURY("right hand");
+		
+//		CANT SHOOT WITHOUT INDEX FINGER
+		Data.canFireGun_right=false;
+		Print.IMAGE(Images.sliceRightFinger1);
 		
 		Methods.HEALTH_LOSE(9);
 		Methods.ATKPTS_LOSE(5);
@@ -261,14 +269,14 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				sliceLeftFinger2();
+				sliceRightFinger2();
 				
 			}
 			else if
 			(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
-				shotRightFingerOff();
+				shotLeftFingerOff(true);
 			}
 		}
 	}
@@ -276,11 +284,22 @@ public class _HoundsTorture
 
 
 
-	private static void shotRightFingerOff() 
+	private static void shotLeftFingerOff(boolean rightFingerSliced) 
 	{
 		Print.STATUS("HOUND shoots a finger off your other hand!");
-		Methods.PLAYER_INJURY("right hand");
-		Print.IMAGE(Images.shotRightFinger);
+		Methods.PLAYER_INJURY("left hand");
+		
+//		INJURED INDEX FINGER
+		Data.canFireGun_left=false;
+		
+		if(rightFingerSliced)
+		{
+			Print.IMAGE(Images.indexShotandSliced);
+		}
+		else
+		{
+			Print.IMAGE(Images.shotLeftFinger);
+		}
 		
 		Methods.HEALTH_LOSE(15);
 		Methods.ATKPTS_LOSE(10);
@@ -295,12 +314,12 @@ public class _HoundsTorture
 
 
 
-	private static void sliceLeftFinger2() 
+	private static void sliceRightFinger2() 
 	{
 		Print.STATUS("HOUND quietly proceeds to slice at the next finger.\n"
 				+ "  He severs the joint with his hand in a quick twist before proceeding.");
-		Methods.PLAYER_INJURY("left hand");
-		Print.IMAGE(Images.sliceLeftFinger2);
+		Methods.PLAYER_INJURY("right hand");
+		Print.IMAGE(Images.sliceRightFinger2);
 		
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);
@@ -461,7 +480,7 @@ public class _HoundsTorture
 				  + "          cleanse it, so to speak, and you can be a part of it.\n"
 				  + "          Do you accept?\"");
 			
-		Print.CHOICES("SAY: \"Yes.\"", "SAY: \"I would rather die!\"");
+		Print.CHOICES("SAY: \"Yes.\"", "SAY: \"No.\"");
 		
 		while(!Data.running) 
 		{
@@ -470,7 +489,7 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				Print.STATUS("You are now BLOODY BUNNY");
+				theGroupsOffer();
 				
 			}
 			else if
@@ -483,6 +502,87 @@ public class _HoundsTorture
 			}
 		}
 
+	}
+
+
+
+
+	private static void theGroupsOffer()
+	{
+		Print.STATUS("HOUND: \"Good choice.\"");
+		
+//		HOUND GIVES US A WEAPON THAT DEPENDS ON OUR ABILITY TO "HOLD" THEM AT THE MOMENT
+		if(!Data.canFireGun_left && !Data.canFireGun_right)
+		{
+			Print.STATUS("HOUND hands you a DAGGER.");
+			Print.STATUS("HOUND: \"From The Group, as a sign of trust. My apologies for the fingers.\"");
+			
+//			EQUIP WEAPON + GET ADD ATK PTS
+			Data.PLAYER.weapon=Data2.dagger.name;
+			Data.PLAYER.weaponType=Data2.dagger.type;
+			Data.PLAYER.maxAttack+=Data2.dagger.addAtk;
+		}
+		else 
+		{
+//			MEANS YOU HAVE ONE GOOD HAND TO HOLD A GUN
+			Print.STATUS("HOUND hands you his GUN.");
+			Print.STATUS("HOUND: \"From The Group, as a sign of trust. My apologies for the fingers.\"");
+			
+//			EQUIP WEAPON + GET ADD ATK PTS
+			Data.PLAYER.weapon=Data2.gun.name;
+			Data.PLAYER.weaponType=Data2.gun.type;
+			Data.PLAYER.maxAttack+=Data2.gun.addAtk;
+			
+//			HOUND LOSES THE GUN, GETS A DAGGER AS MAIN WEAPON
+			Data.OPPONENT.weapon=Data2.dagger.name;
+			Data.OPPONENT.weaponType=Data2.dagger.type;
+//			ADJUST HOUND'S STATS
+			Data.OPPONENT.maxAttack-=Data2.gun.addAtk;
+			Data.OPPONENT.maxAttack+=Data2.dagger.addAtk;
+		}
+		
+		Print.STATUS("HOUND offers to shake your hand.");
+		String atkReaction;
+		
+		if(Data.PLAYER.weapon.equals("GUN"))
+		{
+			Print.CHOICES("SHAKE HIS HAND", "SHOOT HOUND");
+			atkReaction="HOUND pauses as the looks down at the bleeding hole in his abdomen.\n"
+					+ "  He pulls out a DAGGER.";
+		}
+		else
+		{
+			Print.CHOICES("SHAKE HIS HAND", "STAB HOUND");
+			atkReaction="HOUND pauses as you pull the blade out of his abdomen.\n"
+					+ "  He pulls out his GUN.";
+		}
+		
+		while(!Data.running) 
+		{
+			Print.PLAYER();		
+			
+			if(Data.ANSWER.equals("1"))
+			{
+				Methods.RUN();
+				Print.STATUS("You get the mask!");
+				
+			}
+			else if
+			(Data.ANSWER.contentEquals("2")) 
+			{
+				Methods.RUN();
+				
+//				HOUND GETS DAMAGE AND RETALIATES!
+				int houndInjury=Data.OPPONENT.healthPts/4;
+				Data.OPPONENT.healthPts-=houndInjury;
+				Print.STATUS("You "+Methods.ATTACK_TYPE(Data.PLAYER.weaponType, "PLAYER")+" HOUND dealing "+houndInjury+" damage!");
+				Print.STATUS(atkReaction);
+//				Print.STATUS("HOUND pulls you out of your chair and lifts you up by the neck!");
+				fightHound();
+				
+			}
+		}
+		
 	}
 
 

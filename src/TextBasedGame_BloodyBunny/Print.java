@@ -19,6 +19,8 @@ public class Print
 		System.out.println(Data.line);		
 	}
 	
+	
+	
 	public static void STATUS(String string)
 	{
 		if(Data.hpAndAkDisplayed)
@@ -34,11 +36,15 @@ public class Print
 		}	
 	}
 	
+	
+	
 	public static void SITUATION(String string) 
 	{
 //		System.out.println("\n\t"+string+"\n");	
 		System.out.println("  ----- "+string+"\n");	
 	}
+	
+	
 	
 	public static void CHOICES(String string, String string2) 
 	{
@@ -47,13 +53,19 @@ public class Print
 		System.out.println("\t[2] "+string2+"\n");
 	}
 	
+	
+	
 	public static Scanner scan = new Scanner(System.in);
+	
+	
 	
 	public static void PLAYER() {
 //		System.out.print("\tPLAYER: ");	
 		System.out.print("  ----- PLAYER: ");	
 		Data.ANSWER=scan.nextLine();
 	}
+	
+	
 	
 	public static void CHAR_INFO(String name, int healthPoints, int maxAttack, String weapon)
 	{
@@ -62,6 +74,8 @@ public class Print
 		System.out.println("  "+name+"'s Strength: \t"+maxAttack+"");
 		System.out.println("  "+name+"'s Weapon: \t"+weapon+"\n");
 	}
+	
+	
 	
 	public static void PLAYER_INFO()
 	{
@@ -76,6 +90,8 @@ public class Print
 		
 	}
 	
+	
+	
 	public static void FIGHT_CHOICES() 
 	{
 //		SHOW OPPONENT IMAGE HERE
@@ -86,14 +102,28 @@ public class Print
 		System.out.println("\t[4] RUN AWAY  \n");				
 	}
 
+	
+	
 	public static void FIGHT_ALL_INFO() 
 	{		
+//		for display adjustment
+		String space="";
+		int x = 12-Data.PLAYER.weapon.length();
+		
+		for(int y=0; y<x; y++) 
+		{
+		space+=" ";	
+		}
+//		end of space adjustment
+		
 		System.out.println("\n\tPLAYER's Health:    "+Data.PLAYER.healthPts+"\t\t   "+Data.OPPONENT.name+"'s Health:    "+Data.OPPONENT.healthPts);
 		System.out.println("\tPLAYER's Strength:  "+Data.PLAYER.maxAttack+"\t\t   "+Data.OPPONENT.name+"'s Strength:  "+Data.OPPONENT.maxAttack);
-		System.out.println("\tPLAYER's Weapon:    "+Data.PLAYER.weapon+"\t   "+Data.OPPONENT.name+"'s Weapon:    "+Data.OPPONENT.weapon);
+		System.out.println("\tPLAYER's Weapon:    "+Data.PLAYER.weapon+ space +"   "+Data.OPPONENT.name+"'s Weapon:    "+Data.OPPONENT.weapon);
 		System.out.println("\tPLAYER's Pills:     "+Data.PLAYER.healthPill);
 		System.out.println("\tPLAYER's Shots:     "+Data.PLAYER.adrenalineShot+"\n");
 	}
+	
+	
 	
 //	DISPLAYS ASCII IMAGES
 	public static void IMAGE(String img[])
@@ -107,19 +137,7 @@ public class Print
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void PLAYER_DEATH(String string) 
 	{
 		STATUS(string);

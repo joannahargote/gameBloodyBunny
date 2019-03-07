@@ -19,6 +19,31 @@ public class Methods
 		
 	}
 	
+	public static void CHANCE(int chanceInAHundred) 
+	{
+		
+		int x=rand.nextInt(100);
+		
+		if(x<=chanceInAHundred)
+		{
+			Data.fortuneSmiles=true;
+		}
+		else
+		{
+			Data.fortuneSmiles=false;
+		}
+	}
+
+	public static void GET_HEALTHPILL(boolean voluntary) 
+	{
+		HEALTH_GAIN(Data.healthPillValue);
+		
+		if(voluntary)
+		{
+			Data.PLAYER.healthPill--;
+		}
+	}
+
 	public static void GET_ADRENALINE(boolean voluntary) 
 	{
 //		adrenaline OD can kill
@@ -121,6 +146,32 @@ public class Methods
 		}
 	}
 	
+	public static void PLAYER_INJURY(String part)
+	{
+		Print.STATUS("Your "+part+" is injured and in need of medical attention.");
+		switch (part)
+		{
+		case "right arm":
+			Data.OK_rightArm=false; 
+			break;
+		case "left arm":
+			Data.OK_leftArm=false; 
+			break;
+		case "right hand":
+			Data.OK_rightHand=false; 
+			break;
+		case "left hand":
+			Data.OK_leftHand=false; 
+			break;
+		case "right leg":
+			Data.OK_rightLeg=false; 
+			break;
+		case "left leg":
+			Data.OK_leftLeg=false; 
+			break;	
+		}
+	}
+
 	public static boolean CHECK_OPPONENT_ALIVE() 
 	{
 		
@@ -174,9 +225,19 @@ public class Methods
 					System.out.println("\n"+Data.fightLine+"\n");
 					
 					int plAtk=rand.nextInt(Data.PLAYER.maxAttack);
-					Print.STATUS("You "+ATTACK_TYPE(Data.PLAYER.weapon, "PLAYER")+
-							     " "+Data.OPPONENT.name+" dealing "+plAtk+" damage!");
+					int atkRate=(Data.PLAYER.maxAttack/5)*2;
 					
+					if((plAtk>atkRate)&& !Data.PLAYER.weapon.equals("None"))
+					{
+//						if attack is "strong"
+						Print.STATUS("You "+ATTACK_TYPE(Data.PLAYER.weaponType, "PLAYER")+
+							     " "+Data.OPPONENT.name+" dealing "+plAtk+" damage!");
+					}else 
+					{
+						Print.STATUS("You "+ATTACK_TYPE("None", "PLAYER")+
+							     " "+Data.OPPONENT.name+" dealing "+plAtk+" damage!");
+					}
+	
 //					DAMAGE TO ENEMY:
 					CHAR_HEALTH_LOSE(plAtk);
 					
@@ -259,15 +320,97 @@ public class Methods
 	}
 
 	
-	public static void GET_HEALTHPILL(boolean voluntary) 
-	{
-		HEALTH_GAIN(Data.healthPillValue);
-		
-		if(voluntary)
+	//	SETS FIGHT MOVE OF CHARACTER DEPENDING ON WEAPON
+		public static String ATTACK_TYPE(String weaponType, String name) 
 		{
-			Data.PLAYER.healthPill--;
+			
+			String attack = "";
+			
+			switch (weaponType)
+			{
+			
+			case "None":
+				int chance=rand.nextInt(10);
+				if(chance<=5) {
+					if(name.contentEquals("PLAYER"))
+					{
+						attack="punch";
+					}
+					else 
+					{
+						attack="punches";
+					}
+				}
+				else
+				{
+					if(name.contentEquals("PLAYER")) 
+					{
+						attack="kick";
+					}
+					else
+					{
+						attack="kicks";
+					}
+				}
+				break;
+			
+	//		with weapon:
+			case "firearm": 
+				if(name.contentEquals("PLAYER")) 
+				{ 
+					attack="shoot"; 
+				}
+				else 
+				{ 
+					attack="shoots"; 
+				} 
+				break;
+				
+			case "blade":
+				CHANCE(50);
+				if(Data.fortuneSmiles) 
+				{
+					if(name.contentEquals("PLAYER")) 
+					{ 
+						attack="slash"; 
+					}
+					else 
+					{ 
+						attack="slashes"; 
+					} 
+				}
+				else
+				{
+					if(name.contentEquals("PLAYER")) 
+					{ 
+						attack="stab"; 
+					}
+					else 
+					{ 
+						attack="stabs"; 
+					} 
+				}
+				break;
+			}
+					
+			
+			return attack;		
 		}
+
+		
+		
+	public static void SET_OPPONENT(String img[], String name, String weapon, String weaponType, int health, int maxAtk) 
+	{
+		Data.OPPONENT.image=img.clone();
+		Data.OPPONENT.name=name;
+		Data.OPPONENT.weapon=weapon;
+		Data.OPPONENT.weaponType=weaponType;
+		Data.OPPONENT.healthPts=health;
+		Data.OPPONENT.maxAttack=maxAtk;
+		Data.OPPONENT.alive=true;
 	}
+	
+	
 
 	private static void OPPONENT_ATTACKS() 
 	{
@@ -276,7 +419,7 @@ public class Methods
 		
 		if(opAtk>atkRate)
 		{
-			Print.STATUS(Data.OPPONENT.name+" "+ATTACK_TYPE(Data.OPPONENT.weapon, Data.OPPONENT.name)+
+			Print.STATUS(Data.OPPONENT.name+" "+ATTACK_TYPE(Data.OPPONENT.weaponType, Data.OPPONENT.name)+
 				     " you and deals "+opAtk+" damage!");
 		}
 		else 
@@ -288,106 +431,16 @@ public class Methods
 		HEALTH_LOSE(opAtk);
 	}
 
-//	SETS FIGHT MOVE OF CHARACTER DEPENDING ON WEAPON
-	public static String ATTACK_TYPE(String weapon, String name) 
-	{
-		
-		String attack = "";
-		
-		switch (weapon)
-		{
-		
-		case "None":
-			int chance=rand.nextInt(10);
-			if(chance<=5) {
-				if(name.contentEquals("PLAYER"))
-				{
-					attack="punch";
-				}
-				else 
-				{
-					attack="punches";
-				}
-			}
-			else
-			{
-				if(name.contentEquals("PLAYER")) 
-				{
-					attack="kick";
-				}
-				else
-				{
-					attack="kicks";
-				}
-			}
-			break;
-		
-//		with weapon:
-		case "GUN": 
-			if(name.contentEquals("PLAYER")) 
-			{ 
-				attack="shoot"; 
-			}
-			else 
-			{ 
-				attack="shoots"; 
-				} 
-			break;
-				
-		}
-		
-		return attack;		
-	}
-		
-	public static void SET_OPPONENT(String img[], String name, String weapon, int health, int maxAtk) 
-	{
-		Data.OPPONENT.image=img.clone();
-		Data.OPPONENT.name=name;
-		Data.OPPONENT.weapon=weapon;
-		Data.OPPONENT.healthPts=health;
-		Data.OPPONENT.maxAttack=maxAtk;
-		Data.OPPONENT.alive=true;
-	}
-
-	public static void PLAYER_INJURY(String part)
-	{
-		Print.STATUS("Your "+part+" is injured and in need of medical attention.");
-		switch (part)
-		{
-		case "right arm":
-			Data.OK_rightArm=false; 
-			break;
-		case "left arm":
-			Data.OK_leftArm=false; 
-			break;
-		case "right hand":
-			Data.OK_rightHand=false; 
-			break;
-		case "left hand":
-			Data.OK_leftHand=false; 
-			break;
-		case "right leg":
-			Data.OK_rightLeg=false; 
-			break;
-		case "left leg":
-			Data.OK_leftLeg=false; 
-			break;	
-		}
-	}
-
-	public static void CHANCE(int chanceInAHundred) 
-	{
-		
-		int x=rand.nextInt(100);
-		
-		if(x<=chanceInAHundred)
-		{
-			Data.fortuneSmiles=true;
-		}
-		else
-		{
-			Data.fortuneSmiles=false;
-		}
-	}
+//	public static void CHANGE_WEAPON(String name, String newWeapon)
+//	{
+//		switch(name)
+//		{
+//		case "PLAYER":
+//			play.
+//		case "HOUND":
+//			
+//		}
+//		
+//	}
 	
 }

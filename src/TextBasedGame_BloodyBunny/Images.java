@@ -26,20 +26,20 @@ public class Images {
 				"                                                                "
 		};
 	
-	public static String shotRightFinger[]=
+	public static String indexShotandSliced[]=
 		{
 				" ______________________________________________________________ ",
 				"|                                                              |",
 				"|              xXx                           xXx               |",
-				"|          xXx XXX xXx                       XXX xXx           |",
-				"|      xXx XXX XXX XXX                       XXX XXX xXx       |",
-				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
-				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
-				"|      XXX XXX XXX XXX                    .  #XX XXX XXX       |",
-				"|      XXX XXX XXX XXX   xx         xx   x## #XX XXX XXX       |",
-				"|      XXXXXXXXXXXXXXX  XXX         XX#  #####XXXXXXXXXX       |",
-				"|      XXXXXXXXXXXXXXX  xXX         XX#  #X###XXXXXXXXXX       |",
-				"|      XXXXXXXXXXXXXXX xXXX         XXXx #XX#XXXXXXXXXXX       |",
+				"|          xXx XXX                           XXX xXx           |",
+				"|      xXx XXX XXX                           XXX XXX xXx       |",
+				"|      XXX XXX XXX                           XXX XXX XXX       |",
+				"|      XXX XXX XXX                           XXX XXX XXX       |",
+				"|      XXX XXX XX# _.                    ___ XXX XXX XXX       |",
+				"|      XXX XXX XX# ##X   xx         xx   ### XXX XXX XXX       |",
+				"|      XXXXXXXXXX#####  #XX         XX#  ##XXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXX###X#  #XX         XXx  #XXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXX#XX# xXXX         XXXx XXXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
@@ -48,7 +48,7 @@ public class Images {
 				"                                                                "
 		};
 	
-	public static String sliceLeftFinger1[]=
+	public static String shotLeftFinger[]=
 		{
 				" ______________________________________________________________ ",
 				"|                                                              |",
@@ -57,10 +57,32 @@ public class Images {
 				"|      xXx XXX XXX                       XXX XXX XXX xXx       |",
 				"|      XXX XXX XXX                       XXX XXX XXX XXX       |",
 				"|      XXX XXX XXX                       XXX XXX XXX XXX       |",
-				"|      XXX XXX XXX ___                   XXX XXX XXX XXX       |",
-				"|      XXX XXX XXX ###   xx         xx   XXX XXX XXX XXX       |",
-				"|      XXXXXXXXXXXXX##  #XX         XXX  XXXXXXXXXXXXXXX       |",
-				"|      XXXXXXXXXXXXXX#  xXX         XXx  XXXXXXXXXXXXXXX       |",
+				"|      XXX XXX XX# _.                    XXX XXX XXX XXX       |",
+				"|      XXX XXX XX# ##X   xx         xx   XXX XXX XXX XXX       |",
+				"|      XXXXXXXXXX#####  #XX         XXX  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXX###X#  #XX         XXx  XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXX#XX# xXXX         XXXx XXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
+				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
+				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
+				"                                                                "
+		};
+	
+	public static String sliceRightFinger1[]=
+		{
+				" ______________________________________________________________ ",
+				"|                                                              |",
+				"|              xXx                           xXx               |",
+				"|          xXx XXX xXx                       XXX xXx           |",
+				"|      xXx XXX XXX XXX                       XXX XXX xXx       |",
+				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                       XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX                   ___ XXX XXX XXX       |",
+				"|      XXX XXX XXX XXX   xx         xx   ### XXX XXX XXX       |",
+				"|      XXXXXXXXXXXXXXX  XXX         XX#  ##XXXXXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX  xXX         XXx  #XXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXX xXXX         XXXx XXXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX       |",
@@ -70,22 +92,22 @@ public class Images {
 				"                                                                "
 		};
 	
-	public static String sliceLeftFinger2[]=
+	public static String sliceRightFinger2[]=
 		{
 				" ______________________________________________________________ ",
 				"|                                                              |",
-				"|                                            xXx               |",
-				"|          xXx                           xXx XXX xXx           |",
-				"|      xXx XXX                           XXX XXX XXX xXx       |",
-				"|      XXX XXX  _                        XXX XXX XXX XXX       |",
-				"|      XXX XXX _H_                       XXX XXX XXX XXX       |",
-				"|      XXX XXX ### ___                   XXX XXX XXX XXX       |",
-				"|      XXX XXX ### ###   xx         xx   XXX XXX XXX XXX       |",
-				"|      XXXXXXXXXX#####  #XX         XXX  XXXXXXXXXXXXXXX       |",
-				"|      XXXXXXXXXX##XX#  xXX         XXx  XXXXXXXXXXXXXXX       |",
-				"|      XXXXXXXXXXX#XXX xXXX         XXXx XXXXXXXXXXXXXXX       |",
-				"|      XXXXXXXXXXX##XXxXXX           XXXxXXXXXXXXXXXXXXX       |",
-				"|      XXXXXXXXXXXXX#XXXX             XXXXXXXXXXXXXXXXXX       |",
+				"|              xXx                                             |",
+				"|          xXx XXX xXx                           xXx           |",
+				"|      xXx XXX XXX XXX                           XXX xXx       |",
+				"|      XXX XXX XXX XXX                        _  XXX XXX       |",
+				"|      XXX XXX XXX XXX                       _H_ XXX XXX       |",
+				"|      XXX XXX XXX XXX                   ___ ### XXX XXX       |",
+				"|      XXX XXX XXX XXX   xx         xx   ### ### XXX XXX       |",
+				"|      XXXXXXXXXXXXXXX  XXX         XX#  #####XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX  xXX         XXx  #XX##XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXX xXXX         XXXx XXXX#XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXxXXX           XXXxXXX##XXXXXXXXXX       |",
+				"|      XXXXXXXXXXXXXXXXXX             XXXXX#XXXXXXXXXXXX       |",
 				"|      XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX       |",
 				"|       xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx        |",
 				"|________XXXXXXXXXXXX_____________________XXXXXXXXXXXX_________|",
