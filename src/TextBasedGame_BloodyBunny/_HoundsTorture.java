@@ -340,6 +340,7 @@ public class _HoundsTorture
 		Print.STATUS("You wake up as HOUND pours a bucket of cold water over your head.\n"
 				+ "  You look around and see that you are no longer alone.");
 		
+		Print.IMAGE(Images.hostage1);
 		
 		Print.STATUS("The shackled HOSTAGE kneels at gunpoint before HOUND.\n"
 				+ "  HOSTAGE is beaten up worse than you. His mouth is duct taped.\n"
