@@ -259,7 +259,7 @@ public class Methods
 	}
 
 	
-	private static void GET_HEALTHPILL(boolean voluntary) 
+	public static void GET_HEALTHPILL(boolean voluntary) 
 	{
 		HEALTH_GAIN(Data.healthPillValue);
 		
@@ -351,7 +351,7 @@ public class Methods
 
 	public static void PLAYER_INJURY(String part)
 	{
-		Print.STATUS("Your "+part+" is injured and in need of medical assistance.");
+		Print.STATUS("Your "+part+" is injured and in need of medical attention.");
 		switch (part)
 		{
 		case "right arm":
