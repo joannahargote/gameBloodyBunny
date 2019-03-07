@@ -44,8 +44,8 @@ public class Methods
 		if(Data.PLAYER.healthPts<=0)
 		{
 //			System.out.println();
-			Print.STATUS("You lose your remaining Health Points");
-//			Print.STATUS("Y O U    D I E D .");
+//			Print.STATUS("You lose your remaining Health Points");
+			Print.STATUS("Y O U    D I E D .");
 		}
 		else
 		{

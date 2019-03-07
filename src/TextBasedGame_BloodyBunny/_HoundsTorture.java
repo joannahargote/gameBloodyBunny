@@ -333,9 +333,25 @@ public class _HoundsTorture
 			(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
+				killHostage();
 				
 			}
 		}
+	}
+
+
+
+
+	private static void killHostage() 
+	{
+		Print.STATUS("HOUND shoots HOSTAGE in the head.\n"
+				+ "  You watch as blood pools under his lifeless body.");
+		
+//		he's supposed to recruit you now and you are ordered to dispose of the body
+//		you get the mask
+		
+//		Print.STATUS("You hear HOUND say: \");
+		
 	}
 
 
