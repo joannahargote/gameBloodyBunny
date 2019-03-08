@@ -132,6 +132,10 @@ public class _HoundsTorture
 					{
 						theShackledHostage(true);
 					}
+					else if(Data.PLAYER.healthPts<=19) 
+					{
+					 	boxCutterWarning(true);
+					}
 					else
 					{
 						openEyes();
@@ -175,8 +179,7 @@ public class _HoundsTorture
 				if(Data.ANSWER.equals("1")) 
 				{
 					Methods.RUN();
-					boxCutterWarning();
-					
+					boxCutterWarning(false);
 				}
 				else if(Data.ANSWER.contentEquals("2")) 
 				{
@@ -263,8 +266,15 @@ public class _HoundsTorture
 		
 	}
 
-	private static void boxCutterWarning() 
+	private static void boxCutterWarning(boolean playedDeadTooWeak) 
 	{
+		if(playedDeadTooWeak)
+		{
+			Print.STATUS("You are seated on a chair, unrestrained.");
+			Print.PLAYER_INFO();
+			Print.STATUS("You are in a small room. One door, no windows.\n"
+					+ "  You see the HOUND pocketing a syringe.");
+		}
 		
 		Print.STATUS("HOUND holds down your hand firmly over the arm rest of your chair.");
 		Print.STATUS("HOUND: \"We both know what The Group does to theives. But... they didn't\n"
@@ -317,7 +327,16 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-				sliceRightFinger2();
+				if(Data.PLAYER.healthPts<=7)
+				{
+					Print.STATUS("HOUND punches you in the guts.");
+					Print.STATUS("You black out.");
+					theShackledHostage(false);
+				}
+				else
+				{
+					sliceRightFinger2();
+				}
 				
 			}
 			else if
