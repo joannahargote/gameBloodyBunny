@@ -79,6 +79,108 @@ public class _HoundsTorture
 
 
 
+	private static void playDead(int i)
+		{
+					
+			switch(i)
+			{
+	//		HOUND tries to wake you up by administering shots
+			case 0: 
+				Print.STATUS("You feel a sharp pain on your arm.");
+				Methods.GET_ADRENALINE(false);
+				Print.STATUS("Your heart beats faster. The humming continues."); break;
+			case 1:
+				Print.STATUS("You feel the injection again.");
+				Methods.GET_ADRENALINE(false);
+				Print.STATUS("You become light headed. You can feel the room melting around you. "); break;
+			case 2:
+				Print.STATUS("The pain feels distant. Your heart feels like it's in your brain.");
+				Methods.GET_ADRENALINE(false);
+				Print.STATUS("The humming stops."); break;	
+			}
+			
+	
+			
+			Print.IMAGE(Images.playerStart);
+			
+			if(i==2) 
+			{
+				Print.STATUS("Someone whispers: \"Shame if you die now, after everything...\"\n\n\tWhat do you do?");
+				Print.CHOICES("OPEN YOUR EYES", "PLAY DEAD");
+			}
+			else 
+			{
+				Print.SITUATION("Choose action:");
+				Print.CHOICES("OPEN YOUR EYES", "WAIT");
+			}
+			
+			while(!Data.running) 
+			{
+				Print.PLAYER();		
+				
+				if(Data.ANSWER.equals("1"))
+				{
+					Methods.RUN();
+					openEyes();
+	//				paths to be taken depend on players's health 
+	//				if he's too weak to survive the torture we jump to hostage scene
+					
+				}
+				else if(Data.ANSWER.contentEquals("2")) 
+				{  
+					Methods.RUN();
+					i++;
+					playDead(i);
+					
+				}
+			}	
+		}
+
+
+
+
+	private static void shotRightArm()
+		{
+			
+			Print.STATUS("HOUND shoots your arm!\n");
+			
+			Methods.PLAYER_INJURY("right arm");
+			
+			Methods.HEALTH_LOSE(18);
+			Methods.ATKPTS_LOSE(10);
+			
+	//		Print.PLAYER_INFO();
+	
+			Print.IMAGE(Images.houndShotArm);
+			Print.STATUS("HOUND: \"Where is it?\"");
+	//		Print.SITUATION("Choose action:");
+			Print.CHOICES("SAY: \"I don't know!\"", "RETALIATE");
+			
+			while(!Data.running)
+			{
+				Print.PLAYER();		
+				
+				if(Data.ANSWER.equals("1")) 
+				{
+					Methods.RUN();
+					boxCutterWarning();
+					
+				}
+				else if(Data.ANSWER.contentEquals("2")) 
+				{
+					Methods.RUN();
+					
+					Print.STATUS("You kick HOUND and he falls backwards.");
+					Print.STATUS("He quickly retrieves his gun and stands, blocking your way to the door.");
+					
+					fightHound();
+				}
+			}	
+		}
+
+
+
+
 	private static void fightHound()
 	{
 		Data.playerForfeits=false;  
@@ -149,71 +251,6 @@ public class _HoundsTorture
 		}
 		
 	}
-
-	private static void fatalHeadShot(String descrip, int luck) 
-	{
-		Print.STATUS(descrip);
-		Print.STATUS("Within a second everything went dark and quiet.\n\n [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
-		
-		//YOU CAN DIE, OR THE MINER GETS YOU.
-		Methods.CHANCE(luck);
-		
-		if(Data.fortuneSmiles) 
-		{
-			Print.STATUS("You somehow survive. You wake up in a shack. \n "
-					+ "the old miner knows you and says that YOUR FRIEND werent as lucky.");
-		}
-		else 
-		{
-			Methods.HEALTH_LOSE(Data.PLAYER.healthPts);
-		}
-	}
-
-
-
-
-	private static void shotRightArm()
-	{
-		
-		Print.STATUS("HOUND shoots your arm!\n");
-		
-		Methods.PLAYER_INJURY("right arm");
-		
-		Methods.HEALTH_LOSE(18);
-		Methods.ATKPTS_LOSE(10);
-		
-//		Print.PLAYER_INFO();
-
-		Print.IMAGE(Images.houndShotArm);
-		Print.STATUS("HOUND: \"Where is it?\"");
-//		Print.SITUATION("Choose action:");
-		Print.CHOICES("SAY: \"I don't know!\"", "RETALIATE");
-		
-		while(!Data.running)
-		{
-			Print.PLAYER();		
-			
-			if(Data.ANSWER.equals("1")) 
-			{
-				Methods.RUN();
-				boxCutterWarning();
-				
-			}
-			else if(Data.ANSWER.contentEquals("2")) 
-			{
-				Methods.RUN();
-				
-				Print.STATUS("You kick HOUND and he falls backwards.");
-				Print.STATUS("He quickly retrieves his gun and stands, blocking your way to the door.");
-				
-				fightHound();
-			}
-		}	
-	}
-
-
-
 
 	private static void boxCutterWarning() 
 	{
@@ -362,6 +399,35 @@ public class _HoundsTorture
 			{
 				Methods.RUN();
 				killHostage();
+				
+			}
+		}
+	}
+
+
+
+
+	private static void shotHostageKnee()
+	{
+		Print.STATUS("HOUND shoots HOSTAGE in the knee!");
+		Print.STATUS("HOSTAGE lets out a muffled scream.");
+		Print.STATUS("HOUND: \"Give me a good reason to spare him!\"");
+		Print.CHOICES("SAY: \"I did't do anything wrong!\"", "SAY: \"I can help you.\"");
+		
+		while(!Data.running) 
+		{
+			Print.PLAYER();		
+			
+			if(Data.ANSWER.equals("1"))
+			{
+				Methods.RUN();
+				beatHostageDown();
+				
+			}
+			else if
+			(Data.ANSWER.contentEquals("2")) 
+			{
+				Methods.RUN();
 				
 			}
 		}
@@ -589,29 +655,23 @@ public class _HoundsTorture
 
 
 
-	private static void shotHostageKnee()
+	private static void fatalHeadShot(String descrip, int luck) 
 	{
-		Print.STATUS("HOUND shoots HOSTAGE in the knee!");
-		Print.STATUS("HOSTAGE lets out a muffled scream.");
-		Print.STATUS("HOUND: \"Give me a good reason to spare him!\"");
-		Print.CHOICES("SAY: \"I did't do anything wrong!\"", "SAY: \"I can help you.\"");
+		Print.STATUS(descrip);
+		Print.STATUS("Within a second everything went dark and quiet.\n\n [PRESS ENTER TO CONTINUE]");
+		Data.ANSWER=Print.scan.nextLine();
 		
-		while(!Data.running) 
+		//YOU CAN DIE, OR THE MINER GETS YOU.
+		Methods.CHANCE(luck);
+		
+		if(Data.fortuneSmiles) 
 		{
-			Print.PLAYER();		
-			
-			if(Data.ANSWER.equals("1"))
-			{
-				Methods.RUN();
-				beatHostageDown();
-				
-			}
-			else if
-			(Data.ANSWER.contentEquals("2")) 
-			{
-				Methods.RUN();
-				
-			}
+			Print.STATUS("You somehow survive. You wake up in a shack. \n "
+					+ "the old miner knows you and says that YOUR FRIEND werent as lucky.");
+		}
+		else 
+		{
+			Methods.HEALTH_LOSE(Data.PLAYER.healthPts);
 		}
 	}
 
@@ -719,66 +779,6 @@ public class _HoundsTorture
 		}
 		
 		
-	}
-
-
-
-
-	private static void playDead(int i)
-	{
-				
-		switch(i)
-		{
-//		HOUND tries to wake you up by administering shots
-		case 0: 
-			Print.STATUS("You feel a sharp pain on your arm.");
-			Methods.GET_ADRENALINE(false);
-			Print.STATUS("Your heart beats faster. The humming continues."); break;
-		case 1:
-			Print.STATUS("You feel the injection again.");
-			Methods.GET_ADRENALINE(false);
-			Print.STATUS("You become light headed. You can feel the room melting around you. "); break;
-		case 2:
-			Print.STATUS("The pain feels distant. Your heart feels like it's in your brain.");
-			Methods.GET_ADRENALINE(false);
-			Print.STATUS("The humming stops."); break;	
-		}
-		
-
-		
-		Print.IMAGE(Images.playerStart);
-		
-		if(i==2) 
-		{
-			Print.STATUS("Someone whispers: \"Shame if you die now, after everything...\"\n\n\tWhat do you do?");
-			Print.CHOICES("OPEN YOUR EYES", "PLAY DEAD");
-		}
-		else 
-		{
-			Print.SITUATION("Choose action:");
-			Print.CHOICES("OPEN YOUR EYES", "WAIT");
-		}
-		
-		while(!Data.running) 
-		{
-			Print.PLAYER();		
-			
-			if(Data.ANSWER.equals("1"))
-			{
-				Methods.RUN();
-				openEyes();
-//				paths to be taken depend on players's health 
-//				if he's too weak to survive the torture we jump to hostage scene
-				
-			}
-			else if(Data.ANSWER.contentEquals("2")) 
-			{  
-				Methods.RUN();
-				i++;
-				playDead(i);
-				
-			}
-		}	
 	}
 	
 	
