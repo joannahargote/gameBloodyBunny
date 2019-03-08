@@ -331,6 +331,7 @@ public class _HoundsTorture
 				{
 					Print.STATUS("HOUND punches you in the guts.");
 					Print.STATUS("You black out.");
+					Print.ENTER_TO_CONTINUE();
 					theShackledHostage(false);
 				}
 				else
@@ -559,6 +560,47 @@ public class _HoundsTorture
 
 
 
+	private static void escapeAttempt()
+		{
+			Print.STATUS("You get on your feet as quickly as you can.");
+			Print.ENTER_TO_CONTINUE();
+			
+			Print.STATUS("You start walking towards the door.");
+			Print.ENTER_TO_CONTINUE();
+			
+			Print.STATUS("You turn the door knob. It is unlocked!");
+			Print.ENTER_TO_CONTINUE();
+			
+			Print.STATUS("You quietly open the door.");
+			Print.ENTER_TO_CONTINUE();
+			
+			
+	//		rely on luck if you get caught while escaping
+			Methods.CHANCE(25);
+			
+			if(Data.fortuneSmiles)
+			{
+				//you escape
+				Print.STATUS("You escape!");
+			}
+			else
+			{
+				//you get caught
+				Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n  He towers over you threateningly.");
+				Print.STATUS("HOUND walks toward you slowly.");
+				Print.STATUS("HOUND: \"Wrong choice...\"");
+				Print.ENTER_TO_CONTINUE();
+				
+				System.out.println(Data.fightLine);
+				fightHound();
+			}
+			
+			
+		}
+
+
+
+
 	private static void thePills(boolean acceptPills)
 	{
 		if(acceptPills)
@@ -629,10 +671,20 @@ public class _HoundsTorture
 			Print.STATUS("HOSTAGE suddenly starts screaming something incomprehensible. \n"
 					+ "  He meets your eyes and shakes his head frantically.");
 			
-			Print.STATUS("HOUND fires his GUN a few inches away from where HOSTAGE's head was, \n"
-					+ "  immediately silencing him. He lowers his gun and looks back at you\n"
-					+ "  expectantly.");
+			Print.STATUS("HOUND growls and turns away to take HOSTAGE by the hair and drag him \n"
+					+ "  towards the door. \n");
+			Print.STATUS("HOSTAGE struggles free and crawls towards you. He puts something in your hand.");
+			Print.ENTER_TO_CONTINUE();
 			
+			houndAsksAboutRing();
+			
+			Print.STATUS("HOUND proceeds to drag the struggling HOSTAGE out.");
+			Print.ENTER_TO_CONTINUE();
+			
+			goldenRing(true);
+			
+			Print.STATUS("HOUND opens the door slowly with his GUN at hand. \n"
+					+ "  HE looks around and lowers it after seeing you.");
 			Print.STATUS("HOUND: \"Do you accept our offer?\"");
 		}
 		
@@ -658,6 +710,30 @@ public class _HoundsTorture
 			}
 		}
 
+	}
+
+
+
+
+	private static void houndAsksAboutRing()
+	{
+		Print.STATUS("HOUND kicks HOSTAGE away from you.");
+		Print.STATUS("HOUND: \"Did he give you anything?\"");
+		Print.CHOICES("SAY: \"Yes.\"", "SAY: \"No.\"");
+		
+		Print.PLAYER();		
+		Print.SPACE(1);
+		if(Data.ANSWER.equals("2"))
+		{
+			Print.STATUS("HOUND: \"Good.\"");
+			
+		}
+		else 
+		{
+			Print.STATUS("HOUND takes whatever is in your hand and immediately pockets it.\n"
+					+ "  HOUND: \"Stay here.\"");
+			//add ring to hound inventory
+		}	
 	}
 
 
@@ -781,8 +857,8 @@ public class _HoundsTorture
 			if(Data.ANSWER.equals("1"))
 			{
 				Methods.RUN();
-//				pickUpRing();
-				
+				goldenRing(false);
+				//another method here				
 			}
 			else if
 			(Data.ANSWER.contentEquals("2")) 
@@ -798,42 +874,34 @@ public class _HoundsTorture
 
 
 
-	private static void escapeAttempt()
+	private static void goldenRing(boolean givenToPlayer) 
 	{
-		Print.STATUS("You get on your feet as quickly as you can.");
-		Print.ENTER_TO_CONTINUE();
 		
-		Print.STATUS("You start walking towards the door.");
-		Print.ENTER_TO_CONTINUE();
-		
-		Print.STATUS("You turn the door knob. It is unlocked!");
-		Print.ENTER_TO_CONTINUE();
-		
-		Print.STATUS("You quietly open the door.");
-		Print.ENTER_TO_CONTINUE();
-		
-		
-//		rely on luck if you get caught while escaping
-		Methods.CHANCE(25);
-		
-		if(Data.fortuneSmiles)
+		if(givenToPlayer)
 		{
-			//you escape
-			Print.STATUS("You escape!");
+			Print.STATUS("You open your hand after the door closed.");
+			Print.STATUS("On your palm is a single golden RING.");
 		}
 		else
 		{
-			//you get caught
-			Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n  He towers over you threateningly.");
-			Print.STATUS("HOUND walks toward you slowly.");
-			Print.STATUS("HOUND: \"Wrong choice...\"");
-			Print.ENTER_TO_CONTINUE();
-			
-			System.out.println(Data.fightLine);
-			fightHound();
+			Print.STATUS("You slowly get up and walk towards the pool of blood.");
+			Print.STATUS("You pick up the object and see that it is a golden RING.");
 		}
 		
+		Print.CHOICES("KEEP RING", "DISCARD RING");
 		
+		Print.PLAYER();		
+		
+		if(Data.ANSWER.equals("1"))
+		{
+			Print.STATUS("You pocket the RING.");
+			//add ring to player inventory
+		}
+		else 
+		{
+			Print.STATUS("You drop the ring.");
+		}
+
 	}
 	
 	

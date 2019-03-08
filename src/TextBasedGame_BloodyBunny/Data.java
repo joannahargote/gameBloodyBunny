@@ -49,6 +49,7 @@ public class Data
 		public int healthPill; //adds to health
 		public int adrenalineShot; //adds to health limited
 		public boolean alive; //everyone except the player can be revived if the player figures it out		
+		public String[] inventory;
 	}
 	
 	
@@ -74,6 +75,7 @@ public class Data
 		PLAYER.weapon="None";
 		PLAYER.weaponType="none";
 		PLAYER.maxAttack=27;
+		PLAYER.inventory=new String[5];
 //		PLAYER.healthPill=1;
 //		PLAYER.adrenalineShot=2;
 		
@@ -84,6 +86,7 @@ public class Data
 		HOUND.weaponType="firearm";
 		HOUND.maxAttack=70;
 		HOUND.alive=true;
+		HOUND.inventory=new String[5];
 		
 		
 		HOSTAGE.alive=true;

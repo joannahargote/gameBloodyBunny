@@ -184,7 +184,18 @@ public class Print
 	{
 		System.out.println("\n  [PRESS ENTER TO CONTINUE]");
 		Data.ANSWER=scan.nextLine();
+		LINE();
+		System.out.println();
 	}
 	
 	
+	
+	public static void SPACE(int n) 
+	{
+		while(n>0) 
+		{
+			System.out.println();
+			n--;
+		}
+	}
 }
