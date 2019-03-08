@@ -180,7 +180,11 @@ public class Print
 	
 	
 	
-	
+	public static void ENTER_TO_CONTINUE()
+	{
+		System.out.println("\n  [PRESS ENTER TO CONTINUE]");
+		Data.ANSWER=scan.nextLine();
+	}
 	
 	
 }

@@ -4,7 +4,11 @@ package TextBasedGame_BloodyBunny;
 public class _HoundsTorture 
 {
 	
-//	#	THIS IS WHERE THE ENTIRE GAME IS PROGRAMMED
+//	#	THIS IS WHERE THE PLAYER STARTS THE GAME.
+//	#	THIS SCENE HAS 4 OUTCOMES (AS OF MATCH 8 2019)
+	
+	
+	static boolean hostageListening=true;
 	
 //	THIS IS WERE THE PLAYER STARTS OFF
 	public static void StartGame() 
@@ -215,8 +219,8 @@ public class _HoundsTorture
 					Methods.HEALTH_LOSE((int) (Data.PLAYER.healthPts * 0.75));
 					Methods.ATKPTS_LOSE((int) (Data.PLAYER.maxAttack * 0.50));
 					
-					Print.STATUS("Time passed in a painful blur.\n\n  [PRESS ENTER TO CONTINUE]");
-					Data.ANSWER=Print.scan.nextLine();
+					Print.STATUS("Time passed in a painful blur.");
+					Print.ENTER_TO_CONTINUE();
 					
 					//JUMP TO THE HOSTAGE SCENE- too weak to endure torture
 					Print.LINE();
@@ -236,8 +240,7 @@ public class _HoundsTorture
 					Methods.HEALTH_LOSE(6);
 				}
 				
-				Print.STATUS("[PRESS ENTER TO CONTINUE]");
-				Data.ANSWER=Print.scan.nextLine();	
+				Print.ENTER_TO_CONTINUE();
 			
 				Print.LINE();
 				theShackledHostage();
@@ -342,8 +345,8 @@ public class _HoundsTorture
 		Methods.ATKPTS_LOSE(10);
 //		Print.PLAYER_INFO();
 		Print.STATUS("He places the finger in your shirt pocket.");
-		Print.STATUS("You black out.\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();		
+		Print.STATUS("You black out.");
+		Print.ENTER_TO_CONTINUE();
 		Print.LINE();
 		theShackledHostage();	
 	}
@@ -360,8 +363,8 @@ public class _HoundsTorture
 		
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);
-		Print.STATUS("You black out.\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("You black out.");
+		Print.ENTER_TO_CONTINUE();
 		Print.LINE();
 		theShackledHostage();	
 	}
@@ -428,7 +431,7 @@ public class _HoundsTorture
 			(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
-				
+				doYouKnow();
 			}
 		}
 	}
@@ -442,6 +445,8 @@ public class _HoundsTorture
 				+ "  in defeat. He waits, still and silent.");
 		Print.STATUS("HOUND shoots HOSTAGE in the head.\n"
 				+ "  You watch as blood pools under his lifeless body.");
+		hostageListening=false;
+		Data.HOSTAGE.alive=false;
 
 //		i can put a chance here. 75 percent, he dies. else, HOUND shoots his leg repeatedly and breaks it.
 //		if hostage lives, there's a 60% chance he stays in prison to be saved, or he becomes the HERALD with a limp. 
@@ -482,6 +487,41 @@ public class _HoundsTorture
 
 
 
+	private static void beatHostageDown()
+	{
+		Print.STATUS("HOUND kicks HOSTAGE down until he lies still in a pool of blood.\n"
+				+ "  He straightens his tie, looks down at HOSTAGE, then walks towards you.");
+		hostageListening=false;
+		Print.IMAGE(Images.gunBetweenEyes);
+		Print.STATUS("HOUND points his GUN between your eyes.");
+		Print.PLAYER_INFO();
+		Print.STATUS("HOUND: \"You know something? People like us... we always do something wrong.\n"
+				+ "          But me... heh, i can ALWAYS shoot to kill. This is your last chance.\"");
+		Print.CHOICES("ATTACK HOUND", "DO NOTHING");
+		
+		while(!Data.running) 
+		{
+			Print.PLAYER();		
+			
+			if(Data.ANSWER.equals("1"))
+			{
+				Methods.RUN();
+				fightHound();
+				
+			}
+			else if
+			(Data.ANSWER.contentEquals("2")) 
+			{
+				Methods.RUN();
+				theCall();
+			}
+		}	
+		
+	}
+
+
+
+
 	private static void thePills(boolean acceptPills)
 	{
 		if(acceptPills)
@@ -490,8 +530,8 @@ public class _HoundsTorture
 					+ "  The pain from your injuries is slightly muted.");
 			Methods.HEALTH_GAIN(Data.healthPillValue*2);
 			
-			Print.STATUS("HOUND: \"Now that you're not dying I want you to listen.\"\n\n"
-					+ " [PRESS ENTER TO CONTINUE]");
+			Print.STATUS("HOUND: \"Now that you're not dying I want you to listen.\"");
+			Print.ENTER_TO_CONTINUE();
 		}
 		else
 		{
@@ -500,11 +540,10 @@ public class _HoundsTorture
 			Print.STATUS("HOUND eats one and retuns the other to the silver case.");
 			Data.HOUND.healthPts+=25;
 			Print.STATUS("HOUND: \"Now I am going to tell you something, and I would appreciate it\n"
-					+ "          greatly if you behave yourself and listen.\"\n\n"
-					+ " [PRESS ENTER TO CONTINUE]");
+					+ "          greatly if you behave yourself and listen.\"");
+			Print.ENTER_TO_CONTINUE();
 		}
 		
-		Data.ANSWER=Print.scan.nextLine();
 		doYouKnow();
 	}
 
@@ -525,20 +564,19 @@ public class _HoundsTorture
 				Print.STATUS("HOUND: \"I know that now. You may not trust me after what happened, but \n"
 						+ "          you have to understand the severity of what you have committed. \n"
 						+ "          I know who you are, and you have been manipulated to do something\n"
-						+ "          terrible at our expense.\" \n\n"
-						+ " [PRESS ENTER TO CONTINUE]");
+						+ "          terrible at our expense.\" ");
+				Print.ENTER_TO_CONTINUE();
 			}
 			else
 //			(Data.ANSWER.contentEquals("2")) 
 			{
 				Methods.RUN();
 				Print.STATUS("HOUND: \"You're thinking that this might as well be a cruel game, but I\n"
-						+ "          know who you are... and what they did to you.\"\n\n"
-						+ " [PRESS ENTER TO CONTINUE]");
+						+ "          know who you are... and what they did to you.\"");
+				Print.ENTER_TO_CONTINUE();
 			}
 //		}
 		
-		Data.ANSWER=Print.scan.nextLine();
 		
 		Print.STATUS("HOUND: \"There is a war coming. A terrible war. The Monarchs want rivers\n"
 				  + "          of blood in the streets, and only one thing can stop it: The Group.\n"
@@ -546,7 +584,21 @@ public class _HoundsTorture
 				  + "          you redemption. The Group will save this world from the Monarchs, \n"
 				  + "          cleanse it, so to speak, and you can be a part of it.\n"
 				  + "          Do you accept?\"");
+		
+//		JUST TO MESS WITH THE CHOICE
+		if(hostageListening && Data.HOSTAGE.alive) 
+		{
+			Print.ENTER_TO_CONTINUE();
+			Print.STATUS("HOSTAGE suddenly starts screaming something incomprehensible. \n"
+					+ "  He meets your eyes and shakes his head frantically.");
 			
+			Print.STATUS("HOUND fires his GUN a few inches away from where HOSTAGE's head was, \n"
+					+ "  immediately silencing him. He lowers his gun and looks back at you\n"
+					+ "  expectantly.");
+			
+			Print.STATUS("HOUND: \"Do you accept our offer?\"");
+		}
+		
 		Print.CHOICES("SAY: \"Yes.\"", "SAY: \"No.\"");
 		
 		while(!Data.running) 
@@ -615,7 +667,7 @@ public class _HoundsTorture
 		{
 			Print.CHOICES("SHAKE HIS HAND", "SHOOT HOUND");
 			atkReaction="HOUND pauses as the looks down at the bleeding hole in his abdomen.\n"
-					+ "  He pulls out a DAGGER.";
+					+ "  He pulls out a DAGGER from its scabbard hidden underneath his suit.";
 		}
 		else
 		{
@@ -658,8 +710,8 @@ public class _HoundsTorture
 	private static void fatalHeadShot(String descrip, int luck) 
 	{
 		Print.STATUS(descrip);
-		Print.STATUS("Within a second everything went dark and quiet.\n\n [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("Within a second everything went dark and quiet.");
+		Print.ENTER_TO_CONTINUE();
 		
 		//YOU CAN DIE, OR THE MINER GETS YOU.
 		Methods.CHANCE(luck);
@@ -673,40 +725,6 @@ public class _HoundsTorture
 		{
 			Methods.HEALTH_LOSE(Data.PLAYER.healthPts);
 		}
-	}
-
-
-
-
-	private static void beatHostageDown()
-	{
-		Print.STATUS("HOUND kicks HOSTAGE down until he lies still in a pool of blood.\n"
-				+ "  He straightens his tie, looks down at HOSTAGE, then walks towards you.");
-		Print.IMAGE(Images.gunBetweenEyes);
-		Print.STATUS("HOUND points his GUN between your eyes.");
-		Print.PLAYER_INFO();
-		Print.STATUS("HOUND: \"You know something? People like us... we always do something wrong.\n"
-				+ "          But me... heh, i can ALWAYS shoot to kill. This is your last chance.\"");
-		Print.CHOICES("ATTACK HOUND", "DO NOTHING");
-		
-		while(!Data.running) 
-		{
-			Print.PLAYER();		
-			
-			if(Data.ANSWER.equals("1"))
-			{
-				Methods.RUN();
-				fightHound();
-				
-			}
-			else if
-			(Data.ANSWER.contentEquals("2")) 
-			{
-				Methods.RUN();
-				theCall();
-			}
-		}	
-		
 	}
 
 
@@ -745,17 +763,17 @@ public class _HoundsTorture
 
 	private static void escapeAttempt()
 	{
-		Print.STATUS("You get on your feet as quickly as you can.\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("You get on your feet as quickly as you can.");
+		Print.ENTER_TO_CONTINUE();
 		
-		Print.STATUS("You start walking towards the door.\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("You start walking towards the door.");
+		Print.ENTER_TO_CONTINUE();
 		
-		Print.STATUS("You turn the door knob. It is unlocked!\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("You turn the door knob. It is unlocked!");
+		Print.ENTER_TO_CONTINUE();
 		
-		Print.STATUS("You quietly open the door.\n\n  [PRESS ENTER TO CONTINUE]");
-		Data.ANSWER=Print.scan.nextLine();
+		Print.STATUS("You quietly open the door.");
+		Print.ENTER_TO_CONTINUE();
 		
 		
 //		rely on luck if you get caught while escaping
@@ -771,8 +789,8 @@ public class _HoundsTorture
 			//you get caught
 			Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n  He towers over you threateningly.");
 			Print.STATUS("HOUND walks toward you slowly.");
-			Print.STATUS("HOUND: \"Wrong choice...\"\n\n  [PRESS ENTER TO CONTINUE]");
-			Data.ANSWER=Print.scan.nextLine();
+			Print.STATUS("HOUND: \"Wrong choice...\"");
+			Print.ENTER_TO_CONTINUE();
 			
 			System.out.println(Data.fightLine);
 			fightHound();

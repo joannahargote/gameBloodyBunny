@@ -84,6 +84,9 @@ public class Data
 		HOUND.weaponType="firearm";
 		HOUND.maxAttack=70;
 		HOUND.alive=true;
+		
+		
+		HOSTAGE.alive=true;
 	}		
 			
 			
