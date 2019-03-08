@@ -70,7 +70,7 @@ public class Data
 //		this initializes all the characters in the game
 		
 		
-		PLAYER.healthPts=49;
+		PLAYER.healthPts=39;//DO NOT CHANGE. 39 is the initial HP
 		PLAYER.weapon="None";
 		PLAYER.weaponType="none";
 		PLAYER.maxAttack=27;

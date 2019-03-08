@@ -101,6 +101,8 @@ public class _HoundsTorture
 				Print.STATUS("The pain feels distant. Your heart feels like it's in your brain.");
 				Methods.GET_ADRENALINE(false);
 				Print.STATUS("The humming stops."); break;	
+			default:
+				Methods.GET_ADRENALINE(false); break;
 			}
 			
 	
@@ -109,12 +111,11 @@ public class _HoundsTorture
 			
 			if(i==2) 
 			{
-				Print.STATUS("Someone whispers: \"Shame if you die now, after everything...\"\n\n\tWhat do you do?");
+				Print.STATUS("Someone whispers: \"Shame if you die now, after everything...\"");
 				Print.CHOICES("OPEN YOUR EYES", "PLAY DEAD");
 			}
 			else 
 			{
-				Print.SITUATION("Choose action:");
 				Print.CHOICES("OPEN YOUR EYES", "WAIT");
 			}
 			
@@ -124,10 +125,17 @@ public class _HoundsTorture
 				
 				if(Data.ANSWER.equals("1"))
 				{
-					Methods.RUN();
-					openEyes();
+					Methods.RUN();	
 	//				paths to be taken depend on players's health 
 	//				if he's too weak to survive the torture we jump to hostage scene
+					if(Data.PLAYER.healthPts<=16) 
+					{
+						theShackledHostage(true);
+					}
+					else
+					{
+						openEyes();
+					}
 					
 				}
 				else if(Data.ANSWER.contentEquals("2")) 
@@ -224,7 +232,7 @@ public class _HoundsTorture
 					
 					//JUMP TO THE HOSTAGE SCENE- too weak to endure torture
 					Print.LINE();
-					theShackledHostage();
+					theShackledHostage(false);
 					
 				}
 				else
@@ -243,7 +251,7 @@ public class _HoundsTorture
 				Print.ENTER_TO_CONTINUE();
 			
 				Print.LINE();
-				theShackledHostage();
+				theShackledHostage(false);
 			}
 		}
 		
@@ -348,7 +356,7 @@ public class _HoundsTorture
 		Print.STATUS("You black out.");
 		Print.ENTER_TO_CONTINUE();
 		Print.LINE();
-		theShackledHostage();	
+		theShackledHostage(false);	
 	}
 
 
@@ -366,19 +374,29 @@ public class _HoundsTorture
 		Print.STATUS("You black out.");
 		Print.ENTER_TO_CONTINUE();
 		Print.LINE();
-		theShackledHostage();	
+		theShackledHostage(false);	
 	}
 
 
 
 
-	private static void theShackledHostage()
+	private static void theShackledHostage(boolean playedDeadTooWeak)
 	{
 //		HOUND GETS A BREAK AND PROBABLY TAKES A PILL
-		Data.HOUND.healthPts+=25;
-		
-		Print.STATUS("You wake up as HOUND pours a bucket of cold water over your head.\n"
-				+ "  You look around and see that you are no longer alone.");
+		if(playedDeadTooWeak)
+		{
+			Print.STATUS("You are seated on a chair, unrestrained.");
+			Print.PLAYER_INFO();
+			Print.STATUS("You are in a small room. One door, no windows.\n"
+					+ "  You are not alone.");
+		}
+		else
+		{
+			Data.HOUND.healthPts+=25;
+			
+			Print.STATUS("You wake up as HOUND pours a bucket of cold water over your head.\n"
+					+ "  You look around and see that you are no longer alone.");
+		}
 		
 		Print.IMAGE(Images.hostage1);
 		
