@@ -16,6 +16,8 @@ public class _HoundsTorture
 	static boolean hostageListening=true;
 	static boolean passedHostageIntro=false; //if he forfeits during 	
 	
+	public static boolean hostageInRoom=false;
+	
 //	THIS IS WERE THE PLAYER STARTS OFF
 	public static void StartGame() 
 	{
@@ -268,6 +270,7 @@ public class _HoundsTorture
 		{
 			//you wander around, get the gun, and find the hostage. 
 			//you can also just leave-- i'll call this place THE STOREROOM
+			_StoreRoom.main("killed hound in fight");
 		}
 		
 	}
@@ -405,7 +408,7 @@ public class _HoundsTorture
 
 	private static void theShackledHostage(boolean playedDeadTooWeak)
 	{
-
+		hostageInRoom=true;
 		passedHostageIntro=true;
 		
 //		HOUND GETS A BREAK AND PROBABLY TAKES A PILL
@@ -687,6 +690,7 @@ public class _HoundsTorture
 			Print.STATUS("HOUND proceeds to drag the struggling HOSTAGE out.");
 			Print.ENTER_TO_CONTINUE(true);
 			
+			hostageInRoom=false;
 			goldenRing(true);
 			
 			Print.STATUS("HOUND opens the door slowly with his GUN at hand. \n"
