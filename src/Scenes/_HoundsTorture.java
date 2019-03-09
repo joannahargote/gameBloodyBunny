@@ -9,12 +9,15 @@ import Classes.Print;
 public class _HoundsTorture 
 {
 	
-//	#	THIS IS WHERE THE PLAYER STARTS THE GAME.
-//	#	THIS SCENE HAS 4 OUTCOMES (AS OF MATCH 8 2019)
-	
-	
+
+	//	#	THIS IS WHERE THE PLAYER STARTS THE GAME.
+	//	#	THIS SCENE HAS 4 OUTCOMES (AS OF MATCH 8 2019)
+		
+
 	static boolean hostageListening=true;
 	static boolean passedHostageIntro=false; //if he forfeits during 	
+	static boolean fromTheCallScene=false;
+	static boolean houndTookRing=false; //JUST A PATCH UNTIL INVENTORY IS MADE
 	
 	public static boolean hostageInRoom=false;
 	
@@ -492,7 +495,7 @@ public class _HoundsTorture
 				+ "  in defeat. He waits, still and silent.");
 		Print.STATUS("HOUND shoots HOSTAGE in the head.\n"
 				+ "  You watch as blood pools under his lifeless body.");
-		hostageListening=false;
+		
 		Data.HOSTAGE.alive=false;
 		Print.ENTER_TO_CONTINUE(false);
 
@@ -638,9 +641,15 @@ public class _HoundsTorture
 
 	private static void doYouKnow()
 	{
+		if(fromTheCallScene)
+		{
+			Print.STATUS("HOUND opens the door slowly with his GUN at hand. \n"
+					+ "  HE looks around and lowers it after seeing you.");
+		}
+		
 //		HOUND SWEET TALKS YOU INTO JOINING THE GROUP
 		Print.STATUS("HOUND: \"Do you know who you are?\"");
-		Print.CHOICES("SAY: \"No.\"", "SAY: \"Yes, but this isn't real!\"");
+		Print.CHOICES("SAY: \"No.\"", "SAY: \"None of this is real.\"");
 //		
 //		while(!Data.running) 
 //		{
@@ -674,7 +683,7 @@ public class _HoundsTorture
 				  + "          Do you accept?\"");
 		
 //		JUST TO MESS WITH THE CHOICE
-		if(hostageListening && Data.HOSTAGE.alive) 
+		if( hostageListening && Data.HOSTAGE.alive) 
 		{
 			Print.ENTER_TO_CONTINUE(false);
 			Print.STATUS("HOSTAGE suddenly starts screaming something incomprehensible. \n"
@@ -691,7 +700,11 @@ public class _HoundsTorture
 			Print.ENTER_TO_CONTINUE(true);
 			
 			hostageInRoom=false;
-			goldenRing(true);
+			
+			if(!houndTookRing)
+			{
+				goldenRing(true);
+			}
 			
 			Print.STATUS("HOUND opens the door slowly with his GUN at hand. \n"
 					+ "  HE looks around and lowers it after seeing you.");
@@ -742,6 +755,7 @@ public class _HoundsTorture
 		{
 			Print.STATUS("HOUND takes whatever is in your hand and immediately pockets it.\n"
 					+ "  HOUND: \"Stay here.\"");
+			houndTookRing=true;
 			//add ring to hound inventory
 		}	
 	}
@@ -855,8 +869,10 @@ public class _HoundsTorture
 
 	private static void theCall() 
 	{
+		fromTheCallScene=true;
 		Print.STATUS("HOUND stops and whispers: \"Yes, sir.\"");
 		Print.STATUS("You watch HOUND drag HOSTAGE's body out the door.");
+		hostageInRoom=false;
 		Print.STATUS("You are now alone. You see something in the pool of blood.");
 		Print.CHOICES("SEE WHAT IT IS", "ESCAPE");
 		
@@ -868,7 +884,7 @@ public class _HoundsTorture
 			{
 				Methods.RUN();
 				goldenRing(false);
-				//another method here				
+				doYouKnow();		
 			}
 			else if
 			(Data.ANSWER.contentEquals("2")) 
