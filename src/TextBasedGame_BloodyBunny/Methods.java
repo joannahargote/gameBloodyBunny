@@ -217,6 +217,7 @@ public class Methods
 			Print.FIGHT_ALL_INFO();
 			Print.FIGHT_CHOICES();
 			Print.PLAYER();
+			Print.SPACE(1);
 						
 //				PLAYER CHOSE ATTACK
 				if(Data.ANSWER.equals("1")) 

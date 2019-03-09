@@ -180,12 +180,16 @@ public class Print
 	
 	
 	
-	public static void ENTER_TO_CONTINUE()
+	public static void ENTER_TO_CONTINUE(boolean newScene)
 	{
 		System.out.println("\n  [PRESS ENTER TO CONTINUE]");
 		Data.ANSWER=scan.nextLine();
-		LINE();
-		System.out.println();
+		
+		if(!newScene)
+		{
+			LINE();
+			System.out.println();
+		}
 	}
 	
 	

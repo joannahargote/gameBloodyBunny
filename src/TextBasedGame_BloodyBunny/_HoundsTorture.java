@@ -9,7 +9,7 @@ public class _HoundsTorture
 	
 	
 	static boolean hostageListening=true;
-	static boolean inEscapeAttempt=false; //if he forfeits during 	
+	static boolean passedHostageIntro=false; //if he forfeits during 	
 	
 //	THIS IS WERE THE PLAYER STARTS OFF
 	public static void StartGame() 
@@ -209,12 +209,13 @@ public class _HoundsTorture
 		if(Data.playerForfeits)
 		{
 			Print.LINE();
+			Print.SPACE(1);
 			
-			if(Data.PLAYER.healthPts>10 || inEscapeAttempt) 
+			if(Data.PLAYER.healthPts>10 || passedHostageIntro) 
 			{
 				Methods.CHANCE(40);
 				
-				if(Data.fortuneSmiles && !inEscapeAttempt) //added so you don't loop back to HOSTAGE scene again -- immediate head shot
+				if(Data.fortuneSmiles && !passedHostageIntro) //added so you don't loop back to HOSTAGE scene again -- immediate head shot
 				{
 					Print.STATUS("HOUND shoots your knee as you run to the door!");
 					Methods.CHANCE(50);
@@ -231,10 +232,9 @@ public class _HoundsTorture
 					Methods.ATKPTS_LOSE((int) (Data.PLAYER.maxAttack * 0.50));
 					
 					Print.STATUS("Time passed in a painful blur.");
-					Print.ENTER_TO_CONTINUE();
+					Print.ENTER_TO_CONTINUE(true);
 					
 					//JUMP TO THE HOSTAGE SCENE- too weak to endure torture
-					Print.LINE();
 					theShackledHostage(false);
 					
 				}
@@ -251,7 +251,7 @@ public class _HoundsTorture
 					Methods.HEALTH_LOSE(6);
 				}
 				
-				Print.ENTER_TO_CONTINUE();
+				Print.ENTER_TO_CONTINUE(true);
 			
 				Print.LINE();
 				theShackledHostage(false);
@@ -261,7 +261,7 @@ public class _HoundsTorture
 		if(!Data.OPPONENT.alive) 
 		{
 			//you wander around, get the gun, and find the hostage. 
-			//you can also just leave-- ill call this place THE SHACK
+			//you can also just leave-- i'll call this place THE SHACK
 		}
 		
 	}
@@ -329,7 +329,7 @@ public class _HoundsTorture
 				Methods.RUN();
 				Print.STATUS("HOUND punches you in the guts.");
 				Print.STATUS("You black out.");
-				Print.ENTER_TO_CONTINUE();
+				Print.ENTER_TO_CONTINUE(true);
 				theShackledHostage(false);
 			}
 			else if(Data.ANSWER.equals("1"))
@@ -371,7 +371,7 @@ public class _HoundsTorture
 //		Print.PLAYER_INFO();
 		Print.STATUS("He places the finger in your shirt pocket.");
 		Print.STATUS("You black out.");
-		Print.ENTER_TO_CONTINUE();
+		Print.ENTER_TO_CONTINUE(true);
 		Print.LINE();
 		theShackledHostage(false);	
 	}
@@ -389,7 +389,7 @@ public class _HoundsTorture
 		Methods.HEALTH_LOSE(7);
 		Methods.ATKPTS_LOSE(5);
 		Print.STATUS("You black out.");
-		Print.ENTER_TO_CONTINUE();
+		Print.ENTER_TO_CONTINUE(true);
 		Print.LINE();
 		theShackledHostage(false);	
 	}
@@ -399,6 +399,9 @@ public class _HoundsTorture
 
 	private static void theShackledHostage(boolean playedDeadTooWeak)
 	{
+
+		passedHostageIntro=true;
+		
 //		HOUND GETS A BREAK AND PROBABLY TAKES A PILL
 		if(playedDeadTooWeak)
 		{
@@ -482,6 +485,7 @@ public class _HoundsTorture
 				+ "  You watch as blood pools under his lifeless body.");
 		hostageListening=false;
 		Data.HOSTAGE.alive=false;
+		Print.ENTER_TO_CONTINUE(false);
 
 //		i can put a chance here. 75 percent, he dies. else, HOUND shoots his leg repeatedly and breaks it.
 //		if hostage lives, there's a 60% chance he stays in prison to be saved, or he becomes the HERALD with a limp. 
@@ -559,20 +563,17 @@ public class _HoundsTorture
 
 	private static void escapeAttempt()
 		{
-			inEscapeAttempt=true;
-			
 			Print.STATUS("You get on your feet as quickly as you can.");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(false);
 			
 			Print.STATUS("You start walking towards the door.");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(false);
 			
 			Print.STATUS("You turn the door knob. It is unlocked!");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(false);
 			
 			Print.STATUS("You quietly open the door.");
-			Print.ENTER_TO_CONTINUE();
-			
+			Print.ENTER_TO_CONTINUE(false);
 			
 	//		rely on luck if you get caught while escaping
 			Methods.CHANCE(25);
@@ -588,7 +589,7 @@ public class _HoundsTorture
 				Print.STATUS("HOUND stands in your way with his suit blood-splattered.\n  He towers over you threateningly.");
 				Print.STATUS("HOUND walks toward you slowly.");
 				Print.STATUS("HOUND: \"Wrong choice...\"");
-				Print.ENTER_TO_CONTINUE();
+				Print.ENTER_TO_CONTINUE(true);
 				
 				System.out.println(Data.fightLine);
 				fightHound();
@@ -609,7 +610,7 @@ public class _HoundsTorture
 			Methods.HEALTH_GAIN(Data.healthPillValue*2);
 			
 			Print.STATUS("HOUND: \"Now that you're not dying I want you to listen.\"");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(true);
 		}
 		else
 		{
@@ -619,7 +620,7 @@ public class _HoundsTorture
 			Data.HOUND.healthPts+=25;
 			Print.STATUS("HOUND: \"Now I am going to tell you something, and I would appreciate it\n"
 					+ "          greatly if you behave yourself and listen.\"");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(true);
 		}
 		
 		doYouKnow();
@@ -643,7 +644,7 @@ public class _HoundsTorture
 						+ "          you have to understand the severity of what you have committed. \n"
 						+ "          I know who you are, and you have been manipulated to do something\n"
 						+ "          terrible at our expense.\" ");
-				Print.ENTER_TO_CONTINUE();
+				Print.ENTER_TO_CONTINUE(false);
 			}
 			else
 //			(Data.ANSWER.contentEquals("2")) 
@@ -651,7 +652,7 @@ public class _HoundsTorture
 				Methods.RUN();
 				Print.STATUS("HOUND: \"You're thinking that this might as well be a cruel game, but I\n"
 						+ "          know who you are... and what they did to you.\"");
-				Print.ENTER_TO_CONTINUE();
+				Print.ENTER_TO_CONTINUE(false);
 			}
 //		}
 		
@@ -666,19 +667,19 @@ public class _HoundsTorture
 //		JUST TO MESS WITH THE CHOICE
 		if(hostageListening && Data.HOSTAGE.alive) 
 		{
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(false);
 			Print.STATUS("HOSTAGE suddenly starts screaming something incomprehensible. \n"
 					+ "  He meets your eyes and shakes his head frantically.");
 			
 			Print.STATUS("HOUND growls and turns away to take HOSTAGE by the hair and drag him \n"
 					+ "  towards the door. \n");
 			Print.STATUS("HOSTAGE struggles free and crawls towards you. He puts something in your hand.");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(true);
 			
 			houndAsksAboutRing();
 			
 			Print.STATUS("HOUND proceeds to drag the struggling HOSTAGE out.");
-			Print.ENTER_TO_CONTINUE();
+			Print.ENTER_TO_CONTINUE(true);
 			
 			goldenRing(true);
 			
@@ -823,7 +824,7 @@ public class _HoundsTorture
 	{
 		Print.STATUS(descrip);
 		Print.STATUS("Within a second everything went dark and quiet.");
-		Print.ENTER_TO_CONTINUE();
+		Print.ENTER_TO_CONTINUE(false);
 		
 		//YOU CAN DIE, OR THE MINER GETS YOU.
 		Methods.CHANCE(luck);
@@ -890,7 +891,7 @@ public class _HoundsTorture
 		Print.CHOICES("KEEP RING", "DISCARD RING");
 		
 		Print.PLAYER();		
-		
+		Print.SPACE(1);
 		if(Data.ANSWER.equals("1"))
 		{
 			Print.STATUS("You pocket the RING.");
