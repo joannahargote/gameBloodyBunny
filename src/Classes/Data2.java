@@ -1,4 +1,4 @@
-package ProgTools;
+package Classes;
 
 import Scenes._HoundsTorture;
 

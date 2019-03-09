@@ -1,4 +1,4 @@
-package ProgTools;
+package Classes;
 
 import java.util.Scanner;
 

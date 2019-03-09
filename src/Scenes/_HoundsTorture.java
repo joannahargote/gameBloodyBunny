@@ -1,10 +1,10 @@
 package Scenes;
 
-import ProgTools.Data;
-import ProgTools.Data2;
-import ProgTools.Images;
-import ProgTools.Methods;
-import ProgTools.Print;
+import Classes.Data;
+import Classes.Data2;
+import Classes.Images;
+import Classes.Methods;
+import Classes.Print;
 
 public class _HoundsTorture 
 {

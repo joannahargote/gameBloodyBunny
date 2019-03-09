@@ -1,4 +1,4 @@
-package ProgTools;
+package Classes;
 
 public class Images {
 	
