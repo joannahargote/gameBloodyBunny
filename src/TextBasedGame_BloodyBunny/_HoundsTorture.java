@@ -324,21 +324,18 @@ public class _HoundsTorture
 		{
 			Print.PLAYER();		
 			
-			if(Data.ANSWER.equals("1"))
+			if(Data.PLAYER.healthPts<=7)
 			{
 				Methods.RUN();
-				if(Data.PLAYER.healthPts<=7)
-				{
-					Print.STATUS("HOUND punches you in the guts.");
-					Print.STATUS("You black out.");
-					Print.ENTER_TO_CONTINUE();
-					theShackledHostage(false);
-				}
-				else
-				{
-					sliceRightFinger2();
-				}
-				
+				Print.STATUS("HOUND punches you in the guts.");
+				Print.STATUS("You black out.");
+				Print.ENTER_TO_CONTINUE();
+				theShackledHostage(false);
+			}
+			else if(Data.ANSWER.equals("1"))
+			{
+				Methods.RUN();
+				sliceRightFinger2();	
 			}
 			else if
 			(Data.ANSWER.contentEquals("2")) 
