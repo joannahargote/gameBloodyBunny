@@ -9,6 +9,7 @@ public class _HoundsTorture
 	
 	
 	static boolean hostageListening=true;
+	static boolean inEscapeAttempt=false; //if he forfeits during 	
 	
 //	THIS IS WERE THE PLAYER STARTS OFF
 	public static void StartGame() 
@@ -209,11 +210,11 @@ public class _HoundsTorture
 		{
 			Print.LINE();
 			
-			if(Data.PLAYER.healthPts>10) 
+			if(Data.PLAYER.healthPts>10 || inEscapeAttempt) 
 			{
 				Methods.CHANCE(40);
 				
-				if(Data.fortuneSmiles) 
+				if(Data.fortuneSmiles && !inEscapeAttempt) //added so you don't loop back to HOSTAGE scene again -- immediate head shot
 				{
 					Print.STATUS("HOUND shoots your knee as you run to the door!");
 					Methods.CHANCE(50);
@@ -225,7 +226,6 @@ public class _HoundsTorture
 					{
 						Methods.PLAYER_INJURY("right leg");
 					}
-					
 					
 					Methods.HEALTH_LOSE((int) (Data.PLAYER.healthPts * 0.75));
 					Methods.ATKPTS_LOSE((int) (Data.PLAYER.maxAttack * 0.50));
@@ -240,7 +240,7 @@ public class _HoundsTorture
 				}
 				else
 				{
-					fatalHeadShot("HOUND shoots you in the back of the head as you run to the door!", 35);
+					fatalHeadShot("HOUND shoots you in the back of the head as you run to the door!", 20);
 				}
 			}
 			else
@@ -261,7 +261,7 @@ public class _HoundsTorture
 		if(!Data.OPPONENT.alive) 
 		{
 			//you wander around, get the gun, and find the hostage. 
-			//you can also just leave.
+			//you can also just leave-- ill call this place THE SHACK
 		}
 		
 	}
@@ -559,6 +559,8 @@ public class _HoundsTorture
 
 	private static void escapeAttempt()
 		{
+			inEscapeAttempt=true;
+			
 			Print.STATUS("You get on your feet as quickly as you can.");
 			Print.ENTER_TO_CONTINUE();
 			
