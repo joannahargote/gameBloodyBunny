@@ -1,4 +1,4 @@
-package TextBasedGame_BloodyBunny;
+package ProgTools;
 
 import java.util.Random;
 

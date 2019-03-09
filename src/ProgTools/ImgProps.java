@@ -1,4 +1,4 @@
-package TextBasedGame_BloodyBunny;
+package ProgTools;
 
 public class ImgProps {
 

@@ -1,5 +1,10 @@
-package TextBasedGame_BloodyBunny;
+package Scenes;
 
+import ProgTools.Data;
+import ProgTools.Data2;
+import ProgTools.Images;
+import ProgTools.Methods;
+import ProgTools.Print;
 
 public class _HoundsTorture 
 {
@@ -247,7 +252,8 @@ public class _HoundsTorture
 			{
 				Print.STATUS("HOUND catches you before you reach the door.\n  He beats you up until you lost consciousness.");
 				
-				if(Data.PLAYER.healthPts>6) {
+				if(Data.PLAYER.healthPts>6) 
+				{
 					Methods.HEALTH_LOSE(6);
 				}
 				
@@ -261,7 +267,7 @@ public class _HoundsTorture
 		if(!Data.OPPONENT.alive) 
 		{
 			//you wander around, get the gun, and find the hostage. 
-			//you can also just leave-- i'll call this place THE SHACK
+			//you can also just leave-- i'll call this place THE STOREROOM
 		}
 		
 	}
