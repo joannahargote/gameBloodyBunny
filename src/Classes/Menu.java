@@ -1,6 +1,7 @@
 package Classes;
 
 import Scenes._HoundsTorture;
+import Visuals.Images;
 
 public class Menu 
 {

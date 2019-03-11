@@ -2,9 +2,9 @@ package Scenes;
 
 import Classes.Data;
 import Classes.Data2;
-import Classes.Images;
 import Classes.Methods;
 import Classes.Print;
+import Visuals.Images;
 
 public class _HoundsTorture 
 {

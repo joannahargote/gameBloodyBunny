@@ -2,6 +2,8 @@ package Classes;
 
 import java.util.Scanner;
 
+import Visuals.Images;
+
 
 public class Print 
 {

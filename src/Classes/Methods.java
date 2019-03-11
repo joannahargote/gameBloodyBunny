@@ -2,6 +2,8 @@ package Classes;
 
 import java.util.Random;
 
+import Visuals.Images;
+
 public class Methods 
 {
 	

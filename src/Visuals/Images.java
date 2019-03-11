@@ -1,4 +1,4 @@
-package Classes;
+package Visuals;
 
 public class Images {
 	
