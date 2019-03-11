@@ -273,7 +273,7 @@ public class _HoundsTorture
 		{
 			//you wander around, get the gun, and find the hostage. 
 			//you can also just leave-- i'll call this place THE STOREROOM
-			_StoreRoom.main("killed hound in fight");
+//			_StoreRoom.main("killed hound in fight");
 		}
 		
 	}
