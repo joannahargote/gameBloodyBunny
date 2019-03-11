@@ -204,4 +204,30 @@ public class Print
 			n--;
 		}
 	}
+	
+	
+	
+	public static void MOVE(String descrip, boolean north, boolean south, boolean east, boolean west )
+	{
+		STATUS(descrip);
+		SITUATION("Where do you want to go?");
+		
+		if(north)
+		{
+			System.out.println("[N] North");
+		}
+		if(south)
+		{
+			System.out.println("[S] South");
+		}
+		if(north)
+		{
+			System.out.println("[E] East");
+		}
+		if(north)
+		{
+			System.out.println("[W] West");
+		}
+		
+	}
 }
