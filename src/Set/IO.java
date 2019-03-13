@@ -11,7 +11,8 @@ public class IO
 	public static String pCHOICE;
 	public static Scanner scan= new Scanner(System.in);
 	
-	static int lineCount=0; //counts are set in narration and emptyLine
+	//counts are set in narration and emptyLine
+	static int lineCount=26; //DO NOT CHANGE VALUE. ALWAYS 26. ALWAYS. IT MESSES UP THE FIRST SCENE IF CHANGED.
 	
 	
 	
@@ -80,26 +81,34 @@ public class IO
 		}
 		
 		
-			
-			
 		//calculate the space to be taken by the choice display in PART 2
 		//empty, narration, empty, cCnt, empty, narration = 5 + cCnt = gap
 		
 		int temp=5+cCnt;
 		lineCount+=temp;
+		int textGap=(40-lineCount)/2; //empty lines between last narration() and choices()
+		int imgGap=((textGap-graphics.length)/4)*-1; //empty lines above and below the graphics when graphics is inserted
 		
-		emptyLine(43-lineCount);
-//		while(lineCount<=42) //print the empty lines
-//		{
-//			emptyLine(1);
-//		}
+//		narration("TG: "+textGap+"\tIG: "+imgGap);
 		
+		//display graphics:
 		
+		emptyLine(imgGap); //spaces above
+		
+		for(int x=0; x<graphics.length; x++)
+		{
+			narration("    "+graphics[x]); //4 spaces
+		}
+		
+		emptyLine(imgGap); //spaces below
+		
+//		emptyLine(41-lineCount); gives gap -> ORIGINAL GAP
+
 		//----------------------------------------------------------------------------------
 		//PART 2: printing the choice display
 		
 		emptyLine(1);
-		narration("\t What would you do?");
+		narration("\t What will you do?");
 		emptyLine(1);
 	
 		
@@ -136,6 +145,20 @@ public class IO
 		lineCount=0;
 	}
 	
+	
+	
+	
+	//method called outside, variable called in choices()
+	static String graphics[];
+	public static void graphics(String img[]) //sets ASCII graphics from Graphics.java for use in this class
+	{
+		graphics = new String[img.length];
+		
+		for(int x=0; x<img.length; x++) //copies elements to local variable graphics[]
+		{
+			graphics[x]=img[x];
+		}
+	}
 
 	
 	
