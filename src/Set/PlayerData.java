@@ -16,7 +16,13 @@ public class PlayerData
 	
 	public static boolean 
 		masked,
-		armed
+		armed,
+		
+		//for injuries-> important if using a weapon
+		handLeft,
+		handRight,
+		armLeft,
+		armRight
 		;
 	
 	
@@ -31,6 +37,10 @@ public class PlayerData
 		strength=27;
 		pills=0;
 		shots=0;
+		handLeft=true;
+		handRight=true;
+		armLeft=true;
+		armRight=true;
 	}
 
 }
