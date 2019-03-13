@@ -13,6 +13,8 @@ public class Hound_And_Hostage
 	fightAct1="",
 	fightAct2="";
 	
+	static boolean cutRightF=false;
+	
 	private static void choicesLeadTo(String s1, String s2)
 	{
 		//set path according to choice
@@ -259,6 +261,7 @@ public class Hound_And_Hostage
 			choicesLeadTo("cutRightF2", "shotLeftF");
 		}
 		
+		cutRightF=true;
 	}
 
 
@@ -269,7 +272,7 @@ public class Hound_And_Hostage
 		IO.graphics(Graphics.cutRightF2);
 		IO.narration("Hound quietly proceeds to slice your middle finger.");
 		IO.emptyLine(1);
-		IO.narration("He severs the bone by forcefully twisting it off before throwing your finger");;
+		IO.narration("He severs the bone by forcefully twisting it off before throwing your finger");
 		IO.narration("to the back of the room.");
 		IO.emptyLine(1);
 		Methods.injury("right hand");
@@ -284,8 +287,24 @@ public class Hound_And_Hostage
 
 	private static void shotLeftF() 
 	{
-		// TODO Auto-generated method stub
+		if(cutRightF)
+		{
+			IO.graphics(Graphics.cutAndShot);
+		}
+		else
+		{
+			IO.graphics(Graphics.shotLeftF);
+		}
 		
+		IO.narration("Hound quickly shoots a finger off your other hand!");
+		Methods.injury("left hand");
+		Methods.change_HP_Atk(-15, -10);
+		IO.narration("You watch in shock as he picks up your finger and places it in your ");
+		IO.narration("shirt pocket.");
+		
+		IO.pressEnter("You blacked out.", true);
+		
+		theHostage();
 	}
 
 
