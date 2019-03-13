@@ -39,11 +39,13 @@ public class IO
 	
 	
 	
+	public static boolean methodPrinted; // prevents double spacing between two methods that print from Methods.java
 	
 	public static void narration(String line) 
 	{
 		System.out.println(" "+line);
 		lineCount++;
+		methodPrinted=false;
 	}
 	
 	
