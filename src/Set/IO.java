@@ -12,8 +12,7 @@ public class IO
 	public static Scanner scan= new Scanner(System.in);
 	
 	//counts are set in narration and emptyLine
-	static int lineCount=26; //DO NOT CHANGE VALUE. ALWAYS 26. ALWAYS. IT MESSES UP THE FIRST SCENE IF CHANGED.
-	
+	static int lineCount;//value set in drawLine()	
 	
 	
 	
@@ -21,6 +20,7 @@ public class IO
 	{
 		narration("______________________________________________________________________________");
 		emptyLine(1);
+		lineCount=1;
 	}
 	
 	
@@ -30,6 +30,7 @@ public class IO
 	{
 		if(showInstruction)
 		{
+			emptyLine(1);
 			narration("[PRESS ENTER TO CONTINUE]");
 		}
 		
@@ -80,34 +81,34 @@ public class IO
 			}
 		}
 		
+		int choiceSpc=cCnt+4; //choiceSpace -> lines occupied by choices at the bottom
+		int emptySpc=43-(lineCount+choiceSpc);
 		
-		//calculate the space to be taken by the choice display in PART 2
-		//empty, narration, empty, cCnt, empty, narration = 5 + cCnt = gap
+		//----------------------------------------------------------------------------------
+		//PART 2: printing and positioning the image
 		
-		int temp=5+cCnt;
-		lineCount+=temp;
-		int textGap=(40-lineCount)/2; //empty lines between last narration() and choices()
-		int imgGap=((textGap-graphics.length)/4)*-1; //empty lines above and below the graphics when graphics is inserted
+		int remSpc=emptySpc-graphics.length; //remaining space with no text
+		int gap=remSpc/2; //spaces above and below image
 		
-//		narration("TG: "+textGap+"\tIG: "+imgGap);
-		
-		//display graphics:
-		
-		emptyLine(imgGap); //spaces above
+		emptyLine(gap);
 		
 		for(int x=0; x<graphics.length; x++)
 		{
-			narration("    "+graphics[x]); //4 spaces
+			narration("    "+graphics[x]); //printing the image.
 		}
 		
-		emptyLine(imgGap); //spaces below
+		if(remSpc%2==1)
+		{
+			emptyLine(gap+1);
+		}
+		else
+		{
+			emptyLine(gap);
+		}
 		
-//		emptyLine(41-lineCount); gives gap -> ORIGINAL GAP
-
 		//----------------------------------------------------------------------------------
-		//PART 2: printing the choice display
+		//PART 3: printing the choice display
 		
-		emptyLine(1);
 		narration("\t What will you do?");
 		emptyLine(1);
 	
@@ -142,7 +143,7 @@ public class IO
 		
 		//print bottom line
 		drawLine();
-		lineCount=0;
+		graphics(Graphics.emptyFrame); //clear out array for image
 	}
 	
 	
@@ -158,6 +159,17 @@ public class IO
 		{
 			graphics[x]=img[x];
 		}
+	}
+
+
+
+	static String startMenu[]=new String[1];
+	public static void dead()
+	{
+		emptyLine(40);
+		narration("YOU DIED.");
+		pressEnter(true);
+		StartMenu.main(startMenu);
 	}
 
 	
