@@ -60,7 +60,8 @@ public class Hound_And_Hostage
 		PlayerData.initialize();
 		
 		
-		
+
+		IO.drawLine();
 		wakeUp();
 	}
 
@@ -69,149 +70,83 @@ public class Hound_And_Hostage
 	
 	private static void wakeUp() 
 	{
-		IO.drawLine();
-		IO.narration("You suddenly gain consciousness and pain floods in. You feel sick, your ");
+		IO.graphics(Graphics.wakeUp);
+		IO.narration("You suddenly gain consciousness and pain floods in. Your neck feels sore");
+		IO.narration("from hanging forward as you are in a sitting position.  You feel sick, your ");
 		IO.narration("head is throbbing, and deep breaths seem agonizingly impossible at the");
 		IO.narration("moment.");
 		IO.emptyLine(1);
 		IO.narration("You open your eyes slightly and see the shadow of a person moving around");
-		IO.narration("near you. The person is humming.");
-		
-		IO.choices("Open your eyes", "Pretend to be unconscious", "", "", "");
+		IO.narration("near you. The person is humming. You close your eyes again.");
+		IO.choices("Let them know you're awake", "Pretend to be unconscious", "", "", "");
 		choicesLeadTo("openEyes", "playDead");
-		
 	}
 
 
 
 
-	private static void theGoldenRing() 
+	private static void openEyes() 
 	{
-		// TODO Auto-generated method stub
-		
+		IO.graphics(Graphics.openEyes);
+		IO.narration("You are seated on a chair, unrestrained, in a small empty room. There is");
+		IO.narration("only one door which is currently closed. The walls are stained with");
+		IO.narration("splashes of something that has long dried out. No window is in sight.");
+		IO.emptyLine(1);
+		IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
+		IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
+		IO.narration("letter \"H\" is pinned to his collar.");
+		IO.emptyLine(1);
+		IO.narration("You will call him \"Hound\".");
+		IO.emptyLine(1);
+		IO.narration("You move to get up but immediately freeze as Hound pulls out a gun and");
+		IO.narration("points it at you. \"One wrong move and you die,\" he growls. \"Where is it?\"");
+		IO.choices("Say \"What are you talking about?\"", "Attack Hound", "", "", "");
+		choicesLeadTo("shotRightArm", "fightHound");
 	}
 
 
 
-
-	private static void theCall() 
+	static int pdCnt=0; //playDeadCount -> path to adrenaline overdose
+	private static void playDead()
 	{
-		// TODO Auto-generated method stub
-		
+		switch(pdCnt)
+		{
+		case 0:
+			IO.narration("You feel a sharp pain on your arm. You peek for a second and see that a blue");
+			IO.narration("liquid is being injected into your veins.");
+			IO.emptyLine(1);
+			Methods.getInjection(false);
+			IO.narration("Your heart beats faster. The person continues their melodic humming.");
+			break;
+		case 1:
+			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
+			IO.narration("feel lightheaded and giddy, and it feels as though the room is shifting ");
+			IO.narration("and melting under your feet.");
+			IO.emptyLine(1);
+			Methods.getInjection(false);
+			IO.narration("The melody begins to echo in your head as colors collide in the darkness ");
+			IO.narration("behind your eyelids. Your throat goes dry.");
+			break;
+		case 2:
+			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
+			IO.narration("float like a half-hearted helium balloon.");
+		}
 	}
 
 
 
 
-	private static void fatalHeadShot() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void houndAsksAboutRing() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void theGroupsOffer() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void doYouKnow()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void thePills() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void escapeAttempt() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void beatHostage() 
+	private static void shotRightArm() 
 	{
 	// TODO Auto-generated method stub
 	
-}
-
-
-
-
-	private static void killHostage() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void shotHostageKnee()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void theHostage()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void shotLeftF() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	private static void cutLeftF() 
-	{
-	// TODO Auto-generated method stub
 	
-}
+	}
 
 
 
 
-	private static void cutRightF()
+	private static void fightHound() 
 	{
 		// TODO Auto-generated method stub
 		
@@ -229,7 +164,7 @@ public class Hound_And_Hostage
 
 
 
-	private static void fightHound() 
+	private static void theGoldenRing() 
 	{
 		// TODO Auto-generated method stub
 		
@@ -238,27 +173,127 @@ public class Hound_And_Hostage
 
 
 
-	private static void shotRightArm() 
+	private static void cutRightF()
 	{
-	// TODO Auto-generated method stub
-	
-
+		// TODO Auto-generated method stub
+		
 	}
 
 
 
 
-	private static void playDead()
-	{
-	
+	private static void cutLeftF() 
+		{
+		// TODO Auto-generated method stub
+		
 	}
 
 
 
 
-	private static void openEyes() 
+	private static void shotLeftF() 
 	{
-	IO.narration("open eyes");
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void theHostage()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void shotHostageKnee()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void killHostage() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void beatHostage() 
+		{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void escapeAttempt() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void thePills() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void doYouKnow()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void theGroupsOffer() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void houndAsksAboutRing() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void fatalHeadShot() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void theCall() 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
