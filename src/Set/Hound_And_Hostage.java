@@ -7,8 +7,11 @@ public class Hound_And_Hostage
 //	THIS IS A TORTURE SCENE AND THIS DEFINES WHO THE PLAYER GETS TO BE IN THE ENTIRE GAME
 	
 	
-	static String choice, fightAct1="", fightAct2="";
-	
+	static String 
+	choice,
+	switchPath, //for conditional path redirection
+	fightAct1="",
+	fightAct2="";
 	
 	private static void choicesLeadTo(String s1, String s2)
 	{
@@ -32,7 +35,7 @@ public class Hound_And_Hostage
 		case "fightHound": fightHound(); break;
 		case "boxCutter": boxCutter(); break;
 		case "cutRightF": cutRightF(); break;
-		case "cutLeftF": cutLeftF(); break;
+		case "cutRightF2": cutRightF2(); break;
 		case "shotLeftF": shotLeftF(); break;
 		case "theHostage": theHostage(); break;
 		case "shotHostageKnee": shotHostageKnee(); break;
@@ -93,7 +96,7 @@ public class Hound_And_Hostage
 		IO.emptyLine(1);
 		IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
 		IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
-		IO.narration("letter \"H\" is pinned to his collar.");
+		IO.narration("letter \"H\" is pinned to his shirt collar.");
 		IO.emptyLine(1);
 		IO.narration("You will call him \"Hound\".");
 		IO.emptyLine(1);
@@ -109,8 +112,6 @@ public class Hound_And_Hostage
 	static int pdCnt=0; //playDeadCount -> path to adrenaline overdose
 	private static void playDead()
 	{
-		String firstPath=null; // redirects the path for [1] to ensure that player doesn't die in torture 
-		
 		switch(pdCnt)
 		{
 		case 0:
@@ -118,7 +119,7 @@ public class Hound_And_Hostage
 			IO.narration("liquid is being injected into your veins.");
 			Methods.getInjection(false);
 			IO.narration("Your heart beats faster. The person continues their melodic humming.");
-			firstPath="openEyes";
+			switchPath="openEyes";
 			break;
 		case 1:
 			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
@@ -127,7 +128,7 @@ public class Hound_And_Hostage
 			Methods.getInjection(false);
 			IO.narration("The melody begins to echo in your head as colors collide in the darkness ");
 			IO.narration("behind your eyelids. Your throat goes dry.");
-			firstPath="boxCutter";
+			switchPath="boxCutter";
 			break;
 		case 2:
 			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
@@ -138,13 +139,13 @@ public class Hound_And_Hostage
 			IO.emptyLine(1);
 			IO.narration("Someone says, \"Shame if you die this way... after everything.\" You hear the crisp");
 			IO.narration("sound of every step as they walk towards you slowly.");
-			firstPath="theHostage";
+			switchPath="theHostage";
 			break;
 		}
 		
 		pdCnt++; //playDead count
 		IO.choices("Let them know you're awake", "Pretend to be unconscious", "", "", "");
-		choicesLeadTo(firstPath, "playDead");
+		choicesLeadTo(switchPath, "playDead");
 	}
 
 
@@ -152,6 +153,7 @@ public class Hound_And_Hostage
 
 	private static void shotRightArm() 
 	{
+		IO.graphics(Graphics.shotRightArm);
 		IO.narration("Hound shoots you in the arm!");
 		Methods.injury("right arm");
 		Methods.change_HP_Atk(-18, -10);
@@ -215,16 +217,18 @@ public class Hound_And_Hostage
 			IO.emptyLine(1);
 			IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
 			IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
-			IO.narration("letter \"H\" is pinned to his collar.");
+			IO.narration("letter \"H\" is pinned to his shirt collar.");
 			IO.emptyLine(1);
 			IO.narration("You will call him \"Hound\".");
 			IO.emptyLine(1);
 		}
 		
-		IO.narration("You move to get up but immediately freeze as Hound punches you in the guts");
-		IO.narration("and grabs your hand with a vise-like grip. \"We all know what they do to");
-		IO.narration("thieves, but my masters... they did not order me to chop off a hand in one");
-		IO.narration("clean strike. So,\" he says cooly, \"Why don't you just tell me what you know?\"" );
+		IO.narration("You move to get up but immediately sink back as Hound punches you in the guts");
+		IO.narration("and grabs your hand with a vise-like grip. ");
+		IO.emptyLine(1);
+		IO.narration("\"We all know what they do to thieves, but The Group... they did not order me to");
+		IO.narration("chop off a hand in one clean strike. So,\" he says cooly, \"Why don't you just " );
+		IO.narration("tell me what you know?\"");
 		IO.emptyLine(1);
 		IO.narration("He positions a box cutter at the joint of your index finger. He looks at");
 		IO.narration("you and awaits your response.");
@@ -235,28 +239,44 @@ public class Hound_And_Hostage
 
 
 
-	private static void theGoldenRing() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
 	private static void cutRightF()
 	{
-		// TODO Auto-generated method stub
+		IO.graphics(Graphics.cutRightF);
+		IO.narration("Hound slices your index finger off at the joint!");
+		Methods.injury("right hand");
+		Methods.change_HP_Atk(-9, -5);
+		IO.narration("You are bleeding out. You struggle weakly as Hound discards your severed ");
+		IO.narration("finger and playfully wipes the blade on the next one, calmly saying:");
+		IO.narration("\"Tell me now or the next one will not be as clean.\"");
+		IO.choices("Say \"I told you I dont know! I can't remember anything!\"", "Stay quiet", "", "", "");
+		
+		if(PlayerData.HP<=7)
+		{
+			choicesLeadTo("theHostage", "theHostage");
+		}
+		else
+		{
+			choicesLeadTo("cutRightF2", "shotLeftF");
+		}
 		
 	}
 
 
 
 
-	private static void cutLeftF() 
+	private static void cutRightF2() 
 	{
-		// TODO Auto-generated method stub
+		IO.graphics(Graphics.cutRightF2);
+		IO.narration("Hound quietly proceeds to slice your middle finger.");
+		IO.emptyLine(1);
+		IO.narration("He severs the bone by forcefully twisting it off before throwing your finger");;
+		IO.narration("to the back of the room.");
+		IO.emptyLine(1);
+		Methods.injury("right hand");
+		Methods.change_HP_Atk(-7, -5);
+		IO.pressEnter("You blacked out.", true);
 		
+		theHostage();
 	}
 
 
@@ -290,6 +310,15 @@ public class Hound_And_Hostage
 
 
 	private static void killHostage() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void theGoldenRing() 
 	{
 		// TODO Auto-generated method stub
 		

@@ -55,11 +55,9 @@ public class StartMenu
 				+"|______________________________________________________________________________|" + "\n"
 				);
 		
-		IO.pressEnter(false);
-		if(!IO.pCHOICE.equals("0"))
-		{
-			IO.pCHOICE="0";
-		}
+		IO.pCHOICE=IO.scan.nextLine();
+		IO.pCHOICE="0";
+		
 		startMenu();
 	}
 	

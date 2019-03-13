@@ -50,11 +50,11 @@ public class Methods {
 		{
 			if(chgHP<0)
 			{
-				IO.narration("You lose "+(chgHP*-1)+" HP. You have "+PlayerData.HP+" HP remaining.");
+				IO.narration("- You lose "+(chgHP*-1)+" HP. You have "+PlayerData.HP+" HP remaining.");
 			}
 			else
 			{
-				IO.narration("You gain "+chgHP+" HP. You have a total of "+PlayerData.HP+" HP.");
+				IO.narration("- You gain "+chgHP+" HP. You have a total of "+PlayerData.HP+" HP.");
 			}
 		}
 		
@@ -62,11 +62,11 @@ public class Methods {
 		{
 			if(chgStr<0)
 			{
-				IO.narration("You lose "+(chgStr*-1)+" Strength. You have "+PlayerData.strength+" Strength remaining.");
+				IO.narration("- You lose "+(chgStr*-1)+" Strength. You have "+PlayerData.strength+" Strength remaining.");
 			}
 			else
 			{
-				IO.narration("You gain "+chgStr+" Stregth. You have a total of "+PlayerData.strength+" Strength.");
+				IO.narration("- You gain "+chgStr+" Stregth. You have a total of "+PlayerData.strength+" Strength.");
 			}
 		}
 		
@@ -85,7 +85,7 @@ public class Methods {
 			IO.emptyLine(1);
 		}
 		
-		IO.narration("Your "+part+ "is unjured and in need of medical attention.");
+		IO.narration("Your "+part+ " is injured and in need of medical attention.");
 		
 		switch(part)
 		{

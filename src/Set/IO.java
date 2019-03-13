@@ -26,15 +26,56 @@ public class IO
 	
 	
 	
-	public static void pressEnter(boolean showInstruction)
+	public static void pressEnter(String narration, boolean showInstruction)
 	{
+		//PART 1: set the gap to print the choice display in bottom of page
+		
+		int btmTextCnt=5; //bottom text count -> narration, emptySpaces[2], [Press en..], (added 1 for space adjustment)
+		int emptySpc=43-(lineCount+btmTextCnt);
+		
+		//----------------------------------------------------------------------------------
+		//PART 2: printing and positioning the image
+		
+		int remSpc=emptySpc-graphics.length; //remaining space with no text
+		int gap=remSpc/2; //spaces above and below image
+		
+		emptyLine(gap);
+		
+		for(int x=0; x<graphics.length; x++)
+		{
+			narration("    "+graphics[x]); //printing the image.
+		}
+		
+		if(remSpc%2==1)
+		{
+			emptyLine(gap+1);
+		}
+		else
+		{
+			emptyLine(gap);
+		}
+		
+		//----------------------------------------------------------------------------------
+		//PART 3: printing the choice display
+		
+		narration(narration);
+		emptyLine(2);
+	
 		if(showInstruction)
 		{
-			emptyLine(1);
 			narration("[PRESS ENTER TO CONTINUE]");
 		}
 		
 		pCHOICE=scan.nextLine();
+		
+		if(!IO.pCHOICE.equals("0"))
+		{
+			IO.pCHOICE="0";
+		}
+		
+		//print bottom line
+		drawLine();
+		graphics(Graphics.emptyFrame); //clear out array for image		
 	}
 	
 	
@@ -169,8 +210,7 @@ public class IO
 	public static void dead()
 	{
 		emptyLine(40);
-		narration("YOU DIED.");
-		pressEnter(true);
+		pressEnter("YOU DIED.",true);
 		StartMenu.main(startMenu);
 	}
 
