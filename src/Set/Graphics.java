@@ -107,7 +107,7 @@ public class Graphics
 	
 	
 	public static String boxCutter[]=
-	{
+		{
 		"   __-------------------------------------.______________       ",
 		"  /    __/                                 \\ \\  \\  \\  \\  \\      ",
 		" |    (=========[||||||||]==================' \\  \\  \\  \\  \\     ",
@@ -115,9 +115,103 @@ public class Graphics
 		" |    |   _        _       ___________________:-------------'   ",
 		"  \\_ /---' '------' '-----'                                     ",
 		"                                                                "
-	};
+		};
 	
 	
+	
+	
+	public static String cutRightF[]=
+		{
+				" ____________________________________________________________________ ",
+				"|                                                                    |",
+				"|                 xXx                           xXx                  |",
+				"|             xXx XXX xXx                       XXX xXx              |",
+				"|         xXx XXX XXX XXX                       XXX XXX xXx          |",
+				"|         XXX XXX XXX XXX                       XXX XXX XXX          |",
+				"|         XXX XXX XXX XXX                       XXX XXX XXX          |",
+				"|         XXX XXX XXX XXX                   ___ XXX XXX XXX          |",
+				"|         XXX XXX XXX XXX   xx         xx   ### XXX XXX XXX          |",
+				"|         XXXXXXXXXXXXXXX  XXX         XX#  ##XXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXX  xXX         XXx  #XXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXX xXXX         XXXx XXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX          |",
+				"|          xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx           |",
+				"|___________XXXXXXXXXXXX_____________________XXXXXXXXXXXX____________|",	
+		};
+	
+	
+	
+	
+	public static String cutRightF2[]=
+		{
+				" ____________________________________________________________________ ",
+				"|                                                                    |",
+				"|                 xXx                                                |",
+				"|             xXx XXX xXx                           xXx              |",
+				"|         xXx XXX XXX XXX                           XXX xXx          |",
+				"|         XXX XXX XXX XXX                        _  XXX XXX          |",
+				"|         XXX XXX XXX XXX                       _H_ XXX XXX          |",
+				"|         XXX XXX XXX XXX                   ___ ### XXX XXX          |",
+				"|         XXX XXX XXX XXX   xx         xx   ### ### XXX XXX          |",
+				"|         XXXXXXXXXXXXXXX  XXX         XX#  #####XXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXX  xXX         XXx  #XX##XXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXX xXXX         XXXx XXXX#XXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXxXXX           XXXxXXX##XXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXXX             XXXXX#XXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX          |",
+				"|          xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx           |",
+				"|___________XXXXXXXXXXXX_____________________XXXXXXXXXXXX____________|",
+		};
+	
+	
+	
+	
+	public static String shotLeftF[]=
+		{
+				" ____________________________________________________________________ ",
+				"|                                                                    |",
+				"|                 xXx                           xXx                  |",
+				"|             xXx XXX                       xXx XXX xXx              |",
+				"|         xXx XXX XXX                       XXX XXX XXX xXx          |",
+				"|         XXX XXX XXX                       XXX XXX XXX XXX          |",
+				"|         XXX XXX XXX                       XXX XXX XXX XXX          |",
+				"|         XXX XXX XX# _.                    XXX XXX XXX XXX          |",
+				"|         XXX XXX XX# ##X   xx         xx   XXX XXX XXX XXX          |",
+				"|         XXXXXXXXXX#####  #XX         XXX  XXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXX###X#  #XX         XXx  XXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXX#XX# xXXX         XXXx XXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX          |",
+				"|          xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx           |",
+				"|___________XXXXXXXXXXXX_____________________XXXXXXXXXXXX____________|",
+		};
+	
+	
+	
+	
+	public static String cutAndShot[]=
+		{
+				" ____________________________________________________________________ ",
+				"|                                                                    |",
+				"|                 xXx                           xXx                  |",
+				"|             xXx XXX                           XXX xXx              |",
+				"|         xXx XXX XXX                           XXX XXX xXx          |",
+				"|         XXX XXX XXX                           XXX XXX XXX          |",
+				"|         XXX XXX XXX                           XXX XXX XXX          |",
+				"|         XXX XXX XX# _.                    ___ XXX XXX XXX          |",
+				"|         XXX XXX XX# ##X   xx         xx   ### XXX XXX XXX          |",
+				"|         XXXXXXXXXX#####  #XX         XX#  ##XXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXX###X#  #XX         XXx  #XXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXX#XX# xXXX         XXXx XXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXxXXX           XXXxXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXXX             XXXXXXXXXXXXXXXXXX          |",
+				"|         XXXXXXXXXXXXXXXXX               XXXXXXXXXXXXXXXXX          |",
+				"|          xXXXXXXXXXXXXXX                 XXXXXXXXXXXXXXx           |",
+				"|___________XXXXXXXXXXXX_____________________XXXXXXXXXXXX____________|",
+		};
 	
 //	END -> Hound_And_Hostage
 	
