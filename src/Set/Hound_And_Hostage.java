@@ -11,9 +11,14 @@ public class Hound_And_Hostage
 	choice,
 	switchPath, //for conditional path redirection
 	fightAct1="",
-	fightAct2="";
+	fightAct2=""
+	;
 	
-	static boolean cutRightF=false;
+	static boolean 
+	cutRightF=false,
+	hostageInRoom=false,
+	pastHostageIntro=false;
+	;
 	
 	private static void choicesLeadTo(String s1, String s2)
 	{
@@ -91,19 +96,11 @@ public class Hound_And_Hostage
 
 	private static void openEyes() 
 	{
+		houndsIntro();
+		
 		IO.graphics(Graphics.openEyes);
-		IO.narration("You are seated on a chair, unrestrained, in a small empty room. There is");
-		IO.narration("only one door which is currently closed. The walls are stained with");
-		IO.narration("splashes of something that has long dried out. No window is in sight.");
-		IO.emptyLine(1);
-		IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
-		IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
-		IO.narration("letter \"H\" is pinned to his shirt collar.");
-		IO.emptyLine(1);
-		IO.narration("You will call him \"Hound\".");
-		IO.emptyLine(1);
-		IO.narration("You move to get up but immediately freeze as Hound pulls out a gun and");
-		IO.narration("points it at you. \"One wrong move and you die,\" he growls. \"Where is it?\"");
+		IO.narration("You move to get up but Hound pulls out a gun and points it ");
+		IO.narration("at you. \"One wrong move and you die,\" he growls. \"Where is it?\"");
 		IO.choices("Say \"What are you talking about?\"", "Attack Hound", "", "", "");
 		fightAct1="You tackle Hound to the ground.";
 		choicesLeadTo("shotRightArm", "fightHound");
@@ -114,16 +111,17 @@ public class Hound_And_Hostage
 	static int pdCnt=0; //playDeadCount -> path to adrenaline overdose
 	private static void playDead()
 	{
+		pdCnt++; //playDead count
 		switch(pdCnt)
 		{
-		case 0:
+		case 1:
 			IO.narration("You feel a sharp pain on your arm. You peek for a second and see that a blue");
 			IO.narration("liquid is being injected into your veins.");
 			Methods.getInjection(false);
 			IO.narration("Your heart beats faster. The person continues their melodic humming.");
 			switchPath="openEyes";
 			break;
-		case 1:
+		case 2:
 			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
 			IO.narration("feel lightheaded and giddy, and it feels as though the room is shifting ");
 			IO.narration("and melting under your feet.");
@@ -132,7 +130,7 @@ public class Hound_And_Hostage
 			IO.narration("behind your eyelids. Your throat goes dry.");
 			switchPath="boxCutter";
 			break;
-		case 2:
+		case 3:
 			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
 			IO.narration("float like a half-hearted helium balloon.");
 			Methods.getInjection(false);
@@ -145,7 +143,6 @@ public class Hound_And_Hostage
 			break;
 		}
 		
-		pdCnt++; //playDead count
 		IO.choices("Let them know you're awake", "Pretend to be unconscious", "", "", "");
 		choicesLeadTo(switchPath, "playDead");
 	}
@@ -211,18 +208,10 @@ public class Hound_And_Hostage
 	private static void boxCutter() 
 	{
 		IO.graphics(Graphics.boxCutter);
+		
 		if(pdCnt==2) //if player jumped from playDead()
 		{
-			IO.narration("You are seated on a chair, unrestrained, in a small empty room. There is");
-			IO.narration("only one door which is currently closed. The walls are stained with");
-			IO.narration("splashes of something that has long dried out. No window is in sight.");
-			IO.emptyLine(1);
-			IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
-			IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
-			IO.narration("letter \"H\" is pinned to his shirt collar.");
-			IO.emptyLine(1);
-			IO.narration("You will call him \"Hound\".");
-			IO.emptyLine(1);
+			houndsIntro();
 		}
 		
 		IO.narration("You move to get up but immediately sink back as Hound punches you in the guts");
@@ -243,12 +232,15 @@ public class Hound_And_Hostage
 
 	private static void cutRightF()
 	{
+		cutRightF=true;
+		
 		IO.graphics(Graphics.cutRightF);
 		IO.narration("Hound slices your index finger off at the joint!");
 		Methods.injury("right hand");
 		Methods.change_HP_Atk(-9, -5);
 		IO.narration("You are bleeding out. You struggle weakly as Hound discards your severed ");
 		IO.narration("finger and playfully wipes the blade on the next one, calmly saying:");
+		IO.emptyLine(1);
 		IO.narration("\"Tell me now or the next one will not be as clean.\"");
 		IO.choices("Say \"I told you I dont know! I can't remember anything!\"", "Stay quiet", "", "", "");
 		
@@ -260,8 +252,6 @@ public class Hound_And_Hostage
 		{
 			choicesLeadTo("cutRightF2", "shotLeftF");
 		}
-		
-		cutRightF=true;
 	}
 
 
@@ -298,7 +288,7 @@ public class Hound_And_Hostage
 		
 		IO.narration("Hound quickly shoots a finger off your other hand!");
 		Methods.injury("left hand");
-		Methods.change_HP_Atk(-15, -10);
+		Methods.change_HP_Atk(-8, -10);//originally -15, -10
 		IO.narration("You watch in shock as he picks up your finger and places it in your ");
 		IO.narration("shirt pocket.");
 		
@@ -312,8 +302,13 @@ public class Hound_And_Hostage
 
 	private static void theHostage()
 	{
-
-		IO.narration("theHostage");
+		hostageInRoom=true;
+		pastHostageIntro=true;
+		
+		if(pdCnt==3)
+		{
+			houndsIntro();
+		}
 	}
 
 
@@ -413,6 +408,23 @@ public class Hound_And_Hostage
 	{
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+
+	private static void houndsIntro() 
+	{
+		IO.narration("You are seated on a chair, unrestrained, in a small empty room. There is");
+		IO.narration("only one door which is currently closed. The walls are stained with");
+		IO.narration("splashes of something that has long dried out. No window is in sight.");
+		IO.emptyLine(1);
+		IO.narration("A tall man in a dark suit holds a syringe away from your arm and looks at");
+		IO.narration("you. He caps the needle and places the syringe in his pocket. A small ");
+		IO.narration("letter \"H\" is pinned to his shirt collar.");
+		IO.emptyLine(1);
+		IO.narration("You will call him \"Hound\".");
+		IO.emptyLine(1);
 	}
 	
 	
