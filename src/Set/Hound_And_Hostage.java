@@ -117,7 +117,7 @@ public class Hound_And_Hostage
 		case 1:
 			IO.narration("You feel a sharp pain on your arm. You peek for a second and see that a blue");
 			IO.narration("liquid is being injected into your veins.");
-			Methods.getInjection(false);
+			PlyMethods.getInjection(false);
 			IO.narration("Your heart beats faster. The person continues their melodic humming.");
 			switchPath="openEyes";
 			break;
@@ -125,7 +125,7 @@ public class Hound_And_Hostage
 			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
 			IO.narration("feel lightheaded and giddy, and it feels as though the room is shifting ");
 			IO.narration("and melting under your feet.");
-			Methods.getInjection(false);
+			PlyMethods.getInjection(false);
 			IO.narration("The melody begins to echo in your head as colors collide in the darkness ");
 			IO.narration("behind your eyelids. Your throat goes dry.");
 			switchPath="boxCutter";
@@ -133,7 +133,7 @@ public class Hound_And_Hostage
 		case 3:
 			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
 			IO.narration("float like a half-hearted helium balloon.");
-			Methods.getInjection(false);
+			PlyMethods.getInjection(false);
 			IO.narration("The humming stops, leaving you in silence. You can feel your heart beating inside");
 			IO.narration("your head.");
 			IO.emptyLine(1);
@@ -154,15 +154,14 @@ public class Hound_And_Hostage
 	{
 		IO.graphics(Graphics.shotRightArm);
 		IO.narration("Hound shoots you in the arm!");
-		Methods.injury("right arm");
-		Methods.change_HP_Atk(-18, -10);
+		PlyMethods.injury("right arm");
+		PlyMethods.change_HP_Atk(-18, -10);
 		IO.narration("Hound ignores your scream and says, \"Where is it?\"");
 		IO.choices("Say \"I dont't know!\"", "Retaliate", "", "", "");
 		
 		fightAct1="You kick Hound and he falls backwards.";
 		fightAct2="He quickly retrieves the gun and stands, blocking your way to the door.";
 		choicesLeadTo("boxCutter", "fightHound");
-			
 	}
 
 
@@ -236,15 +235,15 @@ public class Hound_And_Hostage
 		
 		IO.graphics(Graphics.cutRightF);
 		IO.narration("Hound slices your index finger off at the joint!");
-		Methods.injury("right hand");
-		Methods.change_HP_Atk(-9, -5);
+		PlyMethods.injury("right hand");
+		PlyMethods.change_HP_Atk(-9, -5);
 		IO.narration("You are bleeding out. You struggle weakly as Hound discards your severed ");
 		IO.narration("finger and playfully wipes the blade on the next one, calmly saying:");
 		IO.emptyLine(1);
 		IO.narration("\"Tell me now or the next one will not be as clean.\"");
 		IO.choices("Say \"I told you I dont know! I can't remember anything!\"", "Stay quiet", "", "", "");
 		
-		if(PlayerData.HP<=7)
+		if(PlayerData.hp<=7)
 		{
 			choicesLeadTo("theHostage", "theHostage");
 		}
@@ -265,8 +264,8 @@ public class Hound_And_Hostage
 		IO.narration("He severs the bone by forcefully twisting it off before throwing your finger");
 		IO.narration("to the back of the room.");
 		IO.emptyLine(1);
-		Methods.injury("right hand");
-		Methods.change_HP_Atk(-7, -5);
+		PlyMethods.injury("right hand");
+		PlyMethods.change_HP_Atk(-7, -5);
 		IO.pressEnter("You blacked out.", true);
 		
 		theHostage();
@@ -287,8 +286,8 @@ public class Hound_And_Hostage
 		}
 		
 		IO.narration("Hound quickly shoots a finger off your other hand!");
-		Methods.injury("left hand");
-		Methods.change_HP_Atk(-8, -10);//originally -15, -10
+		PlyMethods.injury("left hand");
+		PlyMethods.change_HP_Atk(-8, -10);//originally -15, -10
 		IO.narration("You watch in shock as he picks up your finger and places it in your ");
 		IO.narration("shirt pocket.");
 		
@@ -309,6 +308,23 @@ public class Hound_And_Hostage
 		{
 			houndsIntro();
 		}
+		else
+		{
+			//hound takes a break and helps himself with a pill
+			npcData.hound.getPill();
+			
+			IO.narration("You wake up as a bucket of cold water is poured over your head. After");
+			IO.narration("looking around you see that you are no longer alone with your tormentor.");
+			IO.emptyLine(1);
+		}
+		
+		IO.narration("A bleeding man kneels at gunpoint before Hound. He is beaten up worse than you and");
+		IO.narration("his mouth is duct taped. For a second he glances at you and meets your");
+		IO.narration("eyes. Hound sees this and turns back to you.");
+		IO.emptyLine(1);
+		IO.narration("\"Tell me or he dies!\"");
+		IO.choices("Say \"Don't kill him!\"", "Say \"I don't know him\"", "" , "", "");
+		choicesLeadTo("shotHostageKnee", "killHostage");
 	}
 
 
@@ -316,8 +332,12 @@ public class Hound_And_Hostage
 
 	private static void shotHostageKnee()
 	{
-		// TODO Auto-generated method stub
-		
+		IO.narration("Hound shoots the hostage in the knee!");
+		IO.emptyLine(1);
+		IO.narration("As the hostage lets out a muffled scream, Hound says, \"Give me a good reason to");
+		IO.narration("spare him!\"");
+		IO.choices("Say \"I didn't do anything wrong!\"", "Say \"I can help you.\"", "", "", "");
+		choicesLeadTo("beatHostage", "doYouKnow");		
 	}
 
 
@@ -352,8 +372,7 @@ public class Hound_And_Hostage
 
 	private static void escapeAttempt() 
 	{
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 
