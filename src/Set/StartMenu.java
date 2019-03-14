@@ -58,6 +58,7 @@ public class StartMenu
 		IO.pCHOICE=IO.scan.nextLine();
 		IO.pCHOICE="0";
 		
+		
 		startMenu();
 	}
 	

@@ -80,22 +80,22 @@ public class IO
 	
 	
 	
-	public static void pressEnterMini(boolean showInstruction)
-	{
-		if(showInstruction)
-		{
-			emptyLine(1);
-			narration("[PRESS ENTER TO CONTINUE]");
-			emptyLine(1);
-		}
-		
-		pCHOICE=scan.nextLine();
-		
-		if(!IO.pCHOICE.equals("0"))
-		{
-			IO.pCHOICE="0";
-		}
-	}
+//	public static void pressEnterMini(boolean showInstruction)
+//	{
+//		if(showInstruction)
+//		{
+//			emptyLine(1);
+//			narration("[PRESS ENTER TO CONTINUE]");
+//			emptyLine(1);
+//		}
+//		
+//		pCHOICE=scan.nextLine();
+//		
+//		if(!IO.pCHOICE.equals("0"))
+//		{
+//			IO.pCHOICE="0";
+//		}
+//	}
 	
 	
 	
