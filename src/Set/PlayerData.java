@@ -3,7 +3,7 @@ package Set;
 public class PlayerData
 {
 	public static int 
-		HP,
+		hp,
 		strength,
 		pills,
 		shots
@@ -31,7 +31,7 @@ public class PlayerData
 	public static void initialize()
 	{
 		//DO NOT TOUCH
-		HP=39;
+		hp=39;
 		weapon="None";
 		weaponType="None";
 		strength=27;

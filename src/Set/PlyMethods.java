@@ -1,18 +1,30 @@
 package Set;
 
-public class Methods {
+public class PlyMethods {
 
 	
 	
-	public static void getInjection(boolean voluntary) //called shots in game. Like a drug, it gives you strength but drains life points
+	public static void getInjection(boolean ownSupply) //called shots in game. Like a drug, it gives you strength but drains life points
 	{
-		if(voluntary) // you administered the shot yourself
+		if(ownSupply) // the shot is form your inventory
 		{
 			PlayerData.shots--; //supply gets depleted
 		}
 		
-		change_HP_Atk(-10, 10);
-		
+		change_HP_Atk(-genData.shotVal, genData.shotVal);
+	}
+	
+	
+	
+	
+	public static void getPill(boolean ownSupply) //called shots in game. Like a drug, it gives you strength but drains life points
+	{
+		if(ownSupply) // the pill is yours
+		{
+			PlayerData.pills--; //supply gets depleted
+		}
+
+		change_HP_Atk(genData.pillVal, genData.pillVal/3);
 	}
 	
 	
@@ -25,14 +37,14 @@ public class Methods {
 			IO.emptyLine(1);
 		}
 		
-		PlayerData.HP+=chgHP;
+		PlayerData.hp+=chgHP;
 		PlayerData.strength+=chgStr;
 		
-		if(PlayerData.HP>100)
+		if(PlayerData.hp>100)
 		{
-			PlayerData.HP=100;
+			PlayerData.hp=100;
 		}
-		else if(PlayerData.HP<1)
+		else if(PlayerData.hp<1)
 		{
 			IO.dead();
 		}
@@ -50,11 +62,11 @@ public class Methods {
 		{
 			if(chgHP<0)
 			{
-				IO.narration("- You lose "+(chgHP*-1)+" HP. You have "+PlayerData.HP+" HP remaining.");
+				IO.narration("- You lose "+(chgHP*-1)+" HP. You have "+PlayerData.hp+" HP remaining.");
 			}
 			else
 			{
-				IO.narration("- You gain "+chgHP+" HP. You have a total of "+PlayerData.HP+" HP.");
+				IO.narration("- You gain "+chgHP+" HP. You have a total of "+PlayerData.hp+" HP.");
 			}
 		}
 		
