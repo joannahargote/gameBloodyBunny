@@ -6,81 +6,96 @@ public class npcData
 	
 	static class npc
 	{
-		static String 
+		String 
 		name,
 		status,
 		weapon,
 		weaponType
 		;
 		
-		static boolean
+		boolean
 		alive
 		;
 		
 		
-		static int
+		int
 		hp,
 		strength,
 		pills,
 		shots
 		;
+
 		
-		void setString(String name, String status, String weapon, String weaponType)
+		//this is called a "constructior" 
+		npc(String name, String status, String weapon, String weaponType, 
+				int hp, int strength, int pills, int shots)
 		{
-			npc.name=name;
-			npc.status=status;
-			npc.weapon=weapon;
-			npc.weaponType=weaponType;
+			this.name=name;
+			this.status=status;
+			this.weapon=weapon;
+			this.weaponType=weaponType;
+			this.hp=hp;
+			this.strength=strength;
+			this.pills=pills;
+			this.shots=shots;
 		}
 		
-		void setInt(int hp, int strength, int pills, int shots)
-		{
-			npc.hp=hp;
-			npc.strength=strength;
-			npc.pills=pills;
-			npc.shots=shots;
-		}
 		
 		
 //		move the ff to mpcMethods if needed-----------------------------------------------
 		
-		public void getPill()
+		
+		
+		void kill() 
+		{
+			this.alive=false;
+		}
+		
+		
+		
+		void getPill()
 		{	
-			IO.narration(npc.name+" took a pill.");
-			npc.pills--;
-			npc.hp+=genData.pillVal;
-			npc.strength+=genData.pillVal/3;
-			checkNPC();
-		}
-		
-		public void getInjection() 
-		{
-			IO.narration(npc.name+" injected himself.");
-			npc.shots--;
-			npc.hp-=genData.shotVal;
-			npc.strength+=genData.shotVal;
+			IO.narration(this.name+" took a pill.");
+			IO.emptyLine(1);
+			this.pills--;
+			this.hp+=genData.pillVal;
+			this.strength+=genData.pillVal/3;
 			checkNPC();
 		}
 		
 		
-		public void checkNPC() //monitors NPC stats and values
+		
+		void getInjection() 
 		{
-			if(npc.hp<1) //npc dies 
+			IO.narration(this.name+" injected himself.");
+			IO.emptyLine(1);
+			this.shots--;
+			this.hp-=genData.shotVal;
+			this.strength+=genData.shotVal;
+			checkNPC();
+		}
+		
+		
+		
+		void checkNPC() //monitors NPC stats and values
+		{
+			if(this.hp<1) //npc dies 
 			{
-				IO.narration( npc.name+" is dead.");
-				npc.alive=false;
+				IO.emptyLine(1);
+				IO.narration( this.name+" is dead.");
+				this.alive=false;
 			}
 			else //is alive
 			{
-				if(npc.hp>100)
+				if(this.hp>100)
 				{
-					npc.hp=100; //adjust ceiling
+					this.hp=100; //adjust ceiling
 				}
 			}
 			
-			if(npc.strength>100)
+			if(this.strength>100)
 			{
-				npc.strength=100; //can't be too strong 
+				this.strength=100; //can't be too strong 
 			}
 		}
 		
@@ -88,20 +103,19 @@ public class npcData
 	}
 	
 	
-	public 	static npc tempOp; //temporary opponent -> place holder for fights
-	public static npc hound;
-	public static npc hostage;
+	public static  npc tempOp; //temporary opponent -> place holder for fights
+	public static  npc hound;
+	public static  npc hostage;
 	
 	
 	
 	
 	public static void initialize()
 	{
-		hound.setString("Hound", "Foe", "Gun", "Firearm");
-		hound.setInt(90, 70, 5, 5);		
+		hound=new npc("Hound", "Foe", "Gun", "Firearm", 90, 70, 5, 5);
 		
-		hostage.setString("Hostage", "Neutral", "None", "None");
-		hostage.setInt(20, 15, 0, 0);
+		hostage=new npc("Hostage", "Neutral", "None", "None", 20, 15, 0, 0);
+		
 	}
 
 }

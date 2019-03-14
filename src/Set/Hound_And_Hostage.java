@@ -6,6 +6,9 @@ public class Hound_And_Hostage
 //	MOST CHOICES HERE ARE MORALITY-BASED
 //	THIS IS A TORTURE SCENE AND THIS DEFINES WHO THE PLAYER GETS TO BE IN THE ENTIRE GAME
 	
+	static int 
+	pdCnt=0 //playDeadCount -> path to adrenaline overdose
+	;
 	
 	static String 
 	choice,
@@ -17,7 +20,7 @@ public class Hound_And_Hostage
 	static boolean 
 	cutRightF=false,
 	hostageInRoom=false,
-	pastHostageIntro=false;
+	pastHostageIntro=false
 	;
 	
 	private static void choicesLeadTo(String s1, String s2)
@@ -49,7 +52,6 @@ public class Hound_And_Hostage
 		case "killHostage": killHostage(); break;
 		case "beatHostage": beatHostage(); break;
 		case "escapeAttempt": escapeAttempt(); break;
-		case "thePills": thePills(); break;
 		case "doYouKnow": doYouKnow(); break;
 		case "theGroupsOffer": theGroupsOffer(); break;
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
@@ -67,7 +69,7 @@ public class Hound_And_Hostage
 	{
 		//init:
 		PlayerData.initialize();
-		
+		npcData.initialize();
 		
 
 		IO.drawLine();
@@ -108,7 +110,7 @@ public class Hound_And_Hostage
 
 
 
-	static int pdCnt=0; //playDeadCount -> path to adrenaline overdose
+	
 	private static void playDead()
 	{
 		pdCnt++; //playDead count
@@ -318,9 +320,9 @@ public class Hound_And_Hostage
 			IO.emptyLine(1);
 		}
 		
-		IO.narration("A bleeding man kneels at gunpoint before Hound. He is beaten up worse than you and");
-		IO.narration("his mouth is duct taped. For a second he glances at you and meets your");
-		IO.narration("eyes. Hound sees this and turns back to you.");
+		IO.narration("A bleeding man kneels at gunpoint before Hound. He is beaten up worse than you.");
+		IO.narration("His mouth is duct taped. For a second he glances at you and meets your eyes.");
+		IO.narration("Hound sees this and turns back to you.");
 		IO.emptyLine(1);
 		IO.narration("\"Tell me or he dies!\"");
 		IO.choices("Say \"Don't kill him!\"", "Say \"I don't know him\"", "" , "", "");
@@ -345,25 +347,51 @@ public class Hound_And_Hostage
 
 	private static void killHostage() 
 	{
-		// TODO Auto-generated method stub
+		IO.narration("The hostage looks at you for the last time before bowing his head in");
+		IO.narration("defeat. You watch him as he waited, unmoving and quiet.");
+		IO.emptyLine(1);
+		IO.narration("Hound quietly shoots the hostage in the head.");
+		IO.emptyLine(1);
+		IO.narration("You watch as blood pools under his lifeless body.");
+		IO.emptyLine(2);
+
+		npcData.hostage.kill();
 		
-	}
-
-
-
-
-	private static void theGoldenRing() 
-	{
-		// TODO Auto-generated method stub
+		IO.narration("The silence was broken by a single beep. Hound takes out a phone and");
+		IO.narration("answers the call. You hear him say, \"... Dead sir... He doesn't seem");
+		IO.narration("to remember anything... ... Yes, sir.\"");
+		IO.emptyLine(1);
+		IO.narration("With an exasperated sigh, Hound holsters his gun and takes out a small");
+		IO.narration("metal tin. He holds out two of its contents to you: red pills. ");
+		IO.emptyLine(1);
+		IO.narration("\"Take it. Now. It'll make things easier.\"");
+		IO.choices("Take pills", "Do nothing", "", "", "");
 		
+		if(IO.pCHOICE.contentEquals("1"))
+		{
+			thePills(true); //he accepted the pills
+		}
+		else
+		{
+			thePills(false); //he refused
+		}
 	}
 
 
 
 
 	private static void beatHostage() 
-		{
-		// TODO Auto-generated method stub
+	{
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 
@@ -378,7 +406,16 @@ public class Hound_And_Hostage
 
 
 
-	private static void thePills() 
+	private static void theGoldenRing() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	private static void thePills(boolean tookPills) 
 	{
 		// TODO Auto-generated method stub
 		
