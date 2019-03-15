@@ -13,6 +13,7 @@ public class Hound_And_Hostage
 	static String 
 	choice,
 	switchPath, //for conditional path redirection
+	switchChoice, //like the above, but for choices
 	fightAct1="",
 	fightAct2=""
 	;
@@ -20,7 +21,9 @@ public class Hound_And_Hostage
 	static boolean 
 	cutRightF=false,
 	hostageInRoom=false,
-	pastHostageIntro=false
+	pastHostageIntro=false,
+	theGroupCalled=false,
+	houndTookRing=false
 	;
 	
 	private static void choicesLeadTo(String s1, String s2)
@@ -57,7 +60,6 @@ public class Hound_And_Hostage
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
 		case "fatalHeadShot": fatalHeadShot(); break;
 		case "theCall": theCall(); break;
-		case "theGoldenRing": theGoldenRing(); break;
 		default: break;
 		}
 	}
@@ -119,7 +121,7 @@ public class Hound_And_Hostage
 		case 1:
 			IO.narration("You feel a sharp pain on your arm. You peek for a second and see that a blue");
 			IO.narration("liquid is being injected into your veins.");
-			PlyMethods.getInjection(false);
+			Methods.getInjection(false);
 			IO.narration("Your heart beats faster. The person continues their melodic humming.");
 			switchPath="openEyes";
 			break;
@@ -127,7 +129,7 @@ public class Hound_And_Hostage
 			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
 			IO.narration("feel lightheaded and giddy, and it feels as though the room is shifting ");
 			IO.narration("and melting under your feet.");
-			PlyMethods.getInjection(false);
+			Methods.getInjection(false);
 			IO.narration("The melody begins to echo in your head as colors collide in the darkness ");
 			IO.narration("behind your eyelids. Your throat goes dry.");
 			switchPath="boxCutter";
@@ -135,7 +137,7 @@ public class Hound_And_Hostage
 		case 3:
 			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
 			IO.narration("float like a half-hearted helium balloon.");
-			PlyMethods.getInjection(false);
+			Methods.getInjection(false);
 			IO.narration("The humming stops, leaving you in silence. You can feel your heart beating inside");
 			IO.narration("your head.");
 			IO.emptyLine(1);
@@ -156,8 +158,8 @@ public class Hound_And_Hostage
 	{
 		IO.graphics(Graphics.shotRightArm);
 		IO.narration("Hound shoots you in the arm!");
-		PlyMethods.injury("right arm");
-		PlyMethods.change_HP_Atk(-18, -10);
+		Methods.injury("right arm");
+		Methods.change_HP_Atk(-18, -10);
 		IO.narration("Hound ignores your scream and says, \"Where is it?\"");
 		IO.choices("Say \"I dont't know!\"", "Retaliate", "", "", "");
 		
@@ -237,8 +239,8 @@ public class Hound_And_Hostage
 		
 		IO.graphics(Graphics.cutRightF);
 		IO.narration("Hound slices your index finger off at the joint!");
-		PlyMethods.injury("right hand");
-		PlyMethods.change_HP_Atk(-9, -5);
+		Methods.injury("right hand");
+		Methods.change_HP_Atk(-9, -5);
 		IO.narration("You are bleeding out. You struggle weakly as Hound discards your severed ");
 		IO.narration("finger and playfully wipes the blade on the next one, calmly saying:");
 		IO.emptyLine(1);
@@ -266,8 +268,8 @@ public class Hound_And_Hostage
 		IO.narration("He severs the bone by forcefully twisting it off before throwing your finger");
 		IO.narration("to the back of the room.");
 		IO.emptyLine(1);
-		PlyMethods.injury("right hand");
-		PlyMethods.change_HP_Atk(-7, -5);
+		Methods.injury("right hand");
+		Methods.change_HP_Atk(-7, -5);
 		IO.pressEnter("You blacked out.", true);
 		
 		theHostage();
@@ -288,10 +290,10 @@ public class Hound_And_Hostage
 		}
 		
 		IO.narration("Hound quickly shoots a finger off your other hand!");
-		PlyMethods.injury("left hand");
-		PlyMethods.change_HP_Atk(-8, -10);//originally -15, -10
-		IO.narration("You watch in shock as he picks up your finger and places it in your ");
-		IO.narration("shirt pocket.");
+		Methods.injury("left hand");
+		Methods.change_HP_Atk(-8, -10);//originally -15, -10
+		IO.narration("You watch in shock as he picks up your finger and places it in your shirt ");
+		IO.narration("pocket.");
 		
 		IO.pressEnter("You blacked out.", true);
 		
@@ -313,10 +315,10 @@ public class Hound_And_Hostage
 		else
 		{
 			//hound takes a break and helps himself with a pill
-			npcData.hound.getPill();
+			npcData.hound.change_HP_Atk(genData.pillVal, 0);
 			
-			IO.narration("You wake up as a bucket of cold water is poured over your head. After");
-			IO.narration("looking around you see that you are no longer alone with your tormentor.");
+			IO.narration("You wake up as a bucket of cold water is poured over your head. After looking ");
+			IO.narration("around you see that you are no longer alone with your tormentor.");
 			IO.emptyLine(1);
 		}
 		
@@ -336,8 +338,8 @@ public class Hound_And_Hostage
 	{
 		IO.narration("Hound shoots the hostage in the knee!");
 		IO.emptyLine(1);
-		IO.narration("As the hostage lets out a muffled scream, Hound says, \"Give me a good reason to");
-		IO.narration("spare him!\"");
+		IO.narration("As the hostage lets out a muffled scream, Hound says, \"Give me a good reason");
+		IO.narration("to spare him!\"");
 		IO.choices("Say \"I didn't do anything wrong!\"", "Say \"I can help you.\"", "", "", "");
 		choicesLeadTo("beatHostage", "doYouKnow");		
 	}
@@ -347,22 +349,21 @@ public class Hound_And_Hostage
 
 	private static void killHostage() 
 	{
-		IO.narration("The hostage looks at you for the last time before bowing his head in");
-		IO.narration("defeat. You watch him as he waited, unmoving and quiet.");
+		IO.narration("The hostage looks at you for the last time before bowing his head in defeat. ");
+		IO.narration("You watch him as he waited, unmoving and quiet.");
 		IO.emptyLine(1);
-		IO.narration("Hound quietly shoots the hostage in the head.");
-		IO.emptyLine(1);
-		IO.narration("You watch as blood pools under his lifeless body.");
+		IO.narration("Hound quietly shoots the hostage in the head. You watch as blood pools under");
+		IO.narration("his lifeless body.");
 		IO.emptyLine(2);
 
 		npcData.hostage.kill();
 		
-		IO.narration("The silence was broken by a single beep. Hound takes out a phone and");
-		IO.narration("answers the call. You hear him say, \"... Dead sir... He doesn't seem");
-		IO.narration("to remember anything... ... Yes, sir.\"");
+		IO.narration("The silence was broken by a single beep. Hound takes out a phone and answers");
+		IO.narration("the call. You hear him say, \"The first on is dead sir... He doesn't seem to");
+		IO.narration("remember anything... Yes, sir.\"");
 		IO.emptyLine(1);
-		IO.narration("With an exasperated sigh, Hound holsters his gun and takes out a small");
-		IO.narration("metal tin. He holds out two of its contents to you: red pills. ");
+		IO.narration("With an exasperated sigh, Hound holsters his gun and takes out a small metal ");
+		IO.narration("tin. He holds out two of its contents to you: red pills. ");
 		IO.emptyLine(1);
 		IO.narration("\"Take it. Now. It'll make things easier.\"");
 		IO.choices("Take pills", "Do nothing", "", "", "");
@@ -380,9 +381,113 @@ public class Hound_And_Hostage
 
 
 
+	private static void thePills(boolean tookPills) 
+	{
+		if(tookPills) {
+			IO.narration("You take the pills and immediately feel more energized.");
+			IO.emptyLine(1);
+			IO.narration("You feel the pain from your injuries fade slightly.");
+			Methods.change_HP_Atk(genData.pillVal*2, 0);
+			IO.narration("Hound pockets the metal tin and says, \"I want you to pay attention to what I");
+			IO.narration("am about to say.\"");
+		}
+		else
+		{
+			IO.narration("Hound waits a moment longer before swallowing a pill and pocketing the metal");
+			IO.narration("tin mumbling, \"Just being nice.\"");
+			IO.emptyLine(1);
+			npcData.hound.change_HP_Atk(genData.pillVal, 0);
+			IO.narration("Hound suddenlty moves his arm and you flich. He laughs drily and says, \"Relax,");
+			IO.narration("I don't bite.\" He proceeds to pick up a bucket from behind your chair, set it");
+			IO.narration("infront of you, and sit on it. He sighs with a friendly smile, although his");
+			IO.narration("beady eyes remain sharp.");
+			IO.emptyLine(1);
+			IO.narration("\"Now that we're all comfortable... I want to announce that I bring you");
+			IO.narration("good news!\"");	
+		}
+		
+		IO.pressEnter("", true);
+		doYouKnow();	
+	}
+
+
+
+
+	private static void doYouKnow()
+	{
+		// PART 1 ------------------------------------------------------------------------------
+		
+		if(theGroupCalled)
+		{
+			IO.narration("Hound opens the door slowly with his gun at hand. He looks around and lowers it");
+			IO.narration("after seeing you.");
+			IO.emptyLine(1);			
+		}
+		
+		IO.narration("Hound asks,");
+		IO.emptyLine(1);
+		IO.narration("\"What do you know?\"");
+		IO.choices("Say  \"That you're a dangerous assh0le\"", "Say \"I told you, I dont remember ANYTHING\"", "", "", "");
+		
+		
+		// PART 2 ------------------------------------------------------------------------------
+		
+		if(IO.pCHOICE.equals("1"))
+		{
+			IO.narration("Hound sneers and nods, and then says \"Yes... I get that a lot.\"");
+		}
+		else
+		{
+			IO.narration("Hound nods solemnly, then says, \"That puts you in quate a predicament, ");
+			IO.narration("doesn't it? ...We can help you.\"");
+		}
+		
+		IO.narration("He continues, \"You may not trust me after what happened, but you have to");
+		IO.narration("the severity of the crime that you have committed. I know -knew- who you were");
+		IO.narration("and you have been manipulated to do something terrible at our expense.");
+		IO.pressEnter("", true);
+		
+		
+		// PART 3 ------------------------------------------------------------------------------
+		
+		IO.narration("There is a war coming. A terrible war. Rivers of blood in the streets-- and we");
+		IO.narration("know it. The Group can see it coming, which is why it offeers you redemption.");
+		IO.narration("It wants you to play a vital role in saving thousands of lives. Do you accept?");
+		
+		if(hostageInRoom && npcData.hostage.alive)
+		{
+			IO.emptyLine(1);
+			IO.narration("The hostage suddenly starts screaming something incomprehensible. He meets your");
+			IO.narration("eyes and shakes his head frantically.");
+			IO.emptyLine(1);
+			IO.narration("Hound growls and takes the hostage by the hair. He starts dragging him towards");
+			IO.narration("the door. ");
+			IO.narration("Halfway across the room, the hostage struggles free and puts something in your");
+			IO.narration("hand.");
+			
+			houndAsksAboutRing();
+			
+			if(!houndTookRing)
+			{
+				theSilverRing(true);
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
+
+
+
+
 	private static void beatHostage() 
 	{
-		
 		
 		
 		
@@ -406,28 +511,31 @@ public class Hound_And_Hostage
 
 
 
-	private static void theGoldenRing() 
+	private static void theSilverRing(boolean givenToPlayer) 
 	{
-		// TODO Auto-generated method stub
+		if(givenToPlayer)
+		{
+			IO.narration("You open your hand when the door closes.");
+			IO.emptyLine(1);
+			IO.narration("On your palm is a silver ring.");
+		}
+		else
+		{
+			IO.narration("You slowly get up and walk towards the pool of blood.");
+			IO.emptyLine(1);
+			IO.narration("You pick up the object and see that it is a silver ring.");
+		}
 		
-	}
-
-
-
-
-	private static void thePills(boolean tookPills) 
-	{
-		// TODO Auto-generated method stub
+		IO.choices("Keep ring", "Discard ring", "", "", "");
 		
-	}
-
-
-
-
-	private static void doYouKnow()
-	{
-		// TODO Auto-generated method stub
-		
+		if(IO.pCHOICE.contentEquals("1"))
+		{
+			IO.narration("You pocket the ring.");
+		}
+		else
+		{
+			IO.narration("You drop the ring.");
+		}
 	}
 
 
@@ -444,8 +552,20 @@ public class Hound_And_Hostage
 
 	private static void houndAsksAboutRing() 
 	{
-		// TODO Auto-generated method stub
+		IO.emptyLine(1);
+		IO.narration("Hound kicks him away from you.");
+		IO.emptyLine(1);
+		IO.narration("He asks, \"Did he give you anything?\"");
+		IO.choices("Say \"Yes\"", "Say \"No\"", "", "", "");
 		
+		if(IO.pCHOICE.equals("1"))
+		{
+			IO.narration("Hound takes whatever is in your hand and immediately pockets it.");
+			IO.narration("He says, \"Stay here\".");
+			houndTookRing=true;
+		}
+		
+		IO.pressEnter("Hound then proceeds to drag the hostage out.", true);
 	}
 
 
@@ -462,7 +582,7 @@ public class Hound_And_Hostage
 
 	private static void theCall() 
 	{
-		// TODO Auto-generated method stub
+		theGroupCalled=true;
 		
 	}
 
