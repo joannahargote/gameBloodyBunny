@@ -1,6 +1,5 @@
 package Set;
 
-import sun.net.www.content.text.plain;
 
 public class Hound_And_Hostage 
 {
@@ -64,7 +63,13 @@ public class Hound_And_Hostage
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
 		case "headShot": Methods.headShot(hsLW, hsD); break;
 		case "theCall": theCall(); break;
-		default: break;
+		case "welcomeFriend": welcomeFriend(); break;
+		
+		
+		default: 
+			IO.narration("STRING DOES NOT MATCH. ERROR.");
+			IO.pressEnter("", true);
+			break;
 		}
 	}
 	
@@ -362,7 +367,7 @@ public class Hound_And_Hostage
 
 		npcData.hostage.kill();
 		
-		IO.narration("The silence was broken by a single beep. Hound takes out a phone and answers");
+		IO.narration("The silence was broken by a single beep. Hound takes out a mobile phone and answers");
 		IO.narration("the call. You hear him say, \"The first on is dead sir... He doesn't seem to");
 		IO.narration("remember anything... Yes, sir.\"");
 		IO.emptyLine(1);
@@ -586,14 +591,33 @@ public class Hound_And_Hostage
 			IO.narration("He gives you a dagger in its sheath. \"From The Group, as a sign of trust,\" he "); 
 			IO.narration("explains. \"My apologies for the fingers.\"");
 			
+			Methods.changeWeapon("Dagger");
+		}
+		else
+		{
+			IO.narration("He gives you his gun. \"From The Group, as a sign of trust,\" he explains. "); 
+			IO.narration("\"My apologies for the fingers.\"");
 			
-			
-			
-			
+			Methods.changeWeapon("Gun");
+			npcData.hound.changeWeapon("Dagger");
 		}
 		
+		IO.narration("Hound offers to shake your hand.");
 		
+		if(PlayerData.weapon.equals("Gun"))
+		{
+			switchChoice="Shoot Hound";
+			fightAct1="Hound pauses as he looks down at the bleeding hole in his abdomen.";
+			fightAct2="He pulls out a dagger from its sheath hidden within his suit.";
+		}
+		else
+		{
+			switchChoice="Stab Hound";
+			fightAct1="Hound pauses as you pull the blade out of his abdomen.";
+			fightAct2="He pulls out out his gun.";
+		}
 		
+		IO.choices("Shake his hand", switchChoice, "", "", "");
 	}
 
 
@@ -623,7 +647,26 @@ public class Hound_And_Hostage
 	private static void theCall() 
 	{
 		theGroupCalled=true;
+		hostageInRoom=false;
 		
+		IO.narration("The mobile rings again and Hound answers it.");
+		IO.emptyLine(1);
+		IO.narration("He blinks, looks at you, then says, \"Yes, sir\".");
+		
+		
+		
+		
+		
+		
+		
+	}
+
+
+
+
+	private static void welcomeFriend() 
+	{
+		IO.pressEnter("welcomeFriend", true);
 	}
 
 

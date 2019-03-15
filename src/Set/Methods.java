@@ -159,11 +159,32 @@ public class Methods {
 	
 	
 	
-	public static void equip(String wName)
+	public static void changeWeapon(String newWeapon)
 	{
-		//loop through weapons[][]
-		//use weapon[?][0] as marker -> weapon name
-		//convert [?][2] to int to get addAtk
+		for(int x=0; x<genData.weapon.length; x++)
+		{
+			//reset player strength during un-equip
+			if(genData.weapon[x][0].equals(PlayerData.weapon))
+			{
+				PlayerData.strength-=Integer.valueOf(genData.weapon[x][2]);
+			}
+			
+			//equip new weapon
+			if(genData.weapon[x][0].equals(newWeapon)) 
+			{
+				PlayerData.weapon=newWeapon;
+				PlayerData.weaponType=genData.weapon[x][1];
+				PlayerData.strength+=Integer.valueOf(genData.weapon[x][2]);
+			}
+		}
+		
+		if(!PlayerData.weapon.equals("None"))
+		{
+			IO.emptyLine(1);
+			IO.narration("- You are now armed with a "+newWeapon);
+			IO.emptyLine(1);
+			
+			IO.methodPrinted=true;
+		}
 	}
-	
 }

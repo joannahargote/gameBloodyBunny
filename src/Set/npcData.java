@@ -97,7 +97,7 @@ public class npcData
 			{
 				this.strength=100; //can't be too strong 
 			}
-		}
+		 }
 		
 		
 		
@@ -106,6 +106,28 @@ public class npcData
 			 this.hp+=chgHP;
 			 this.strength+=chgStr;
 			 checkNPC();
+		 }
+		 
+		 
+		 
+		 void changeWeapon(String newWeapon)
+		 {
+			 for(int x=0; x<genData.weapon.length; x++)
+				{
+					//reset player strength during un-equip
+					if(genData.weapon[x][0].equals(this.weapon))
+					{
+						this.strength-=Integer.valueOf(genData.weapon[x][2]);
+					}
+					
+					//equip new weapon
+					if(genData.weapon[x][0].equals(newWeapon)) 
+					{
+						this.weapon=newWeapon;
+						this.weaponType=genData.weapon[x][1];
+						this.strength+=Integer.valueOf(genData.weapon[x][2]);
+					}
+				}
 		 }
 		
 	}
