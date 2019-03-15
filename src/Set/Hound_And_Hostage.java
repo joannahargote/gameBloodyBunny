@@ -15,7 +15,9 @@ public class Hound_And_Hostage
 	switchPath, //for conditional path redirection
 	switchChoice, //like the above, but for choices
 	fightAct1="",
-	fightAct2=""
+	fightAct2="",
+	hsLW, //headShotLastWords
+	hsD //headShotDescrip
 	;
 	
 	static boolean 
@@ -58,7 +60,7 @@ public class Hound_And_Hostage
 		case "doYouKnow": doYouKnow(); break;
 		case "theGroupsOffer": theGroupsOffer(); break;
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
-		case "fatalHeadShot": fatalHeadShot(); break;
+		case "headShot": Methods.headShot(hsLW, hsD); break;
 		case "theCall": theCall(); break;
 		default: break;
 		}
@@ -317,8 +319,8 @@ public class Hound_And_Hostage
 			//hound takes a break and helps himself with a pill
 			npcData.hound.change_HP_Atk(genData.pillVal, 0);
 			
-			IO.narration("You wake up as a bucket of cold water is poured over your head. After looking ");
-			IO.narration("around you see that you are no longer alone with your tormentor.");
+			IO.narration("You wake up as a cold water is poured over your head. After looking around");
+			IO.narration("you see that you are no longer alone with your tormentor.");
 			IO.emptyLine(1);
 		}
 		
@@ -427,7 +429,7 @@ public class Hound_And_Hostage
 		IO.narration("Hound asks,");
 		IO.emptyLine(1);
 		IO.narration("\"What do you know?\"");
-		IO.choices("Say  \"That you're a dangerous assh0le\"", "Say \"I told you, I dont remember ANYTHING\"", "", "", "");
+		IO.choices("Say \"That you're a dangerous assh0le\"", "Say \"I told you, I dont remember ANYTHING\"", "", "", "");
 		
 		
 		// PART 2 ------------------------------------------------------------------------------
@@ -442,7 +444,8 @@ public class Hound_And_Hostage
 			IO.narration("doesn't it? ...We can help you.\"");
 		}
 		
-		IO.narration("He continues, \"You may not trust me after what happened, but you have to");
+		IO.emptyLine(1);
+		IO.narration("He continues, \"You may not trust me after what happened, but you have to know");
 		IO.narration("the severity of the crime that you have committed. I know -knew- who you were");
 		IO.narration("and you have been manipulated to do something terrible at our expense.");
 		IO.pressEnter("", true);
@@ -450,9 +453,9 @@ public class Hound_And_Hostage
 		
 		// PART 3 ------------------------------------------------------------------------------
 		
-		IO.narration("There is a war coming. A terrible war. Rivers of blood in the streets-- and we");
-		IO.narration("know it. The Group can see it coming, which is why it offeers you redemption.");
-		IO.narration("It wants you to play a vital role in saving thousands of lives. Do you accept?");
+		IO.narration("\"There is a war coming. A terrible war. Rivers of blood in the streets-- and we");
+		IO.narration("know it. The Group can see it coming, which is why it offers you redemption.");
+		IO.narration("It wants you to play a vital role in saving thousands of lives. Do you accept?\"");
 		
 		if(hostageInRoom && npcData.hostage.alive)
 		{
@@ -462,6 +465,9 @@ public class Hound_And_Hostage
 			IO.emptyLine(1);
 			IO.narration("Hound growls and takes the hostage by the hair. He starts dragging him towards");
 			IO.narration("the door. ");
+			
+			IO.pressEnter("", true);
+			
 			IO.narration("Halfway across the room, the hostage struggles free and puts something in your");
 			IO.narration("hand.");
 			
@@ -470,17 +476,18 @@ public class Hound_And_Hostage
 			if(!houndTookRing)
 			{
 				theSilverRing(true);
-			}
+			}	
 			
-			
+			IO.narration("Hound opens the door slowly with his gun in hand. He looks around and lowers");
+			IO.narration("it after seeing you.");
+			IO.emptyLine(1);
+			IO.narration("\"As i was saying... Do you accept our offer?\"");
 		}
 		
-		
-		
-		
-		
-		
-		
+		IO.choices("Say \"Yes\"", "Say \"No\"", "", "", "");
+		hsLW="Hound quietly says, \"Shame...\"";
+		hsD="Hound shoots you in the dead!";
+		choicesLeadTo("theGroupsOffer", "headShot");
 	}
 
 
@@ -488,15 +495,15 @@ public class Hound_And_Hostage
 
 	private static void beatHostage() 
 	{
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		IO.narration("Hound kicks the hostag down until he lies still in a pool of blood. He straightens");
+		IO.narration("his tie, looks down and waits for the man to breathe, then walks towards you.");
+		IO.emptyLine(1);
+		IO.narration("He puts the tip of his gun between your eyes.");
+		IO.emptyLine(1);
+		IO.narration("\"You know something?\" Hound growls, \"People like us, we never do the right thing");
+		IO.narration("the fitst time. But me... heh, I can ALWAYS shoot to kill. This is your last chance.\"");
+		IO.choices("Attack Hound", "Do nothing", "", "", "");
+		choicesLeadTo("fightHound", "theCall");
 		
 	}
 
@@ -536,6 +543,8 @@ public class Hound_And_Hostage
 		{
 			IO.narration("You drop the ring.");
 		}
+
+		IO.emptyLine(1);
 	}
 
 
@@ -566,15 +575,6 @@ public class Hound_And_Hostage
 		}
 		
 		IO.pressEnter("Hound then proceeds to drag the hostage out.", true);
-	}
-
-
-
-
-	private static void fatalHeadShot() 
-	{
-		// TODO Auto-generated method stub
-		
 	}
 
 

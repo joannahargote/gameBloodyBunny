@@ -1,5 +1,7 @@
 package Set;
 
+import java.util.Random;
+
 public class Methods {
 
 	
@@ -112,5 +114,46 @@ public class Methods {
 		IO.methodPrinted=true;
 	}
 	
+	
+	
+	
+	public static void headShot(String lastWords, String descrip)
+	{
+		IO.narration(lastWords);
+		IO.emptyLine(1);
+		IO.narration(descrip);
+		IO.emptyLine(1);
+		IO.narration("Within that second everyhting went dark and quiet.");
+		
+		//let's see if you survive a headshot
+		if(fortuneSmiles(20))
+		{
+			IO.narration("You somehow survive. JUMP TO NEXT CHAPTER!");
+		}
+		else
+		{
+			change_HP_Atk(PlayerData.hp, 0);
+		}
+	}
+	
+	
+	
+	public static boolean fortuneSmiles(int chance)
+	{
+		Random rand = new Random();
+		int x = rand.nextInt(100);
+		boolean lucky;
+		
+		if(x<=chance)
+		{
+			lucky=true;
+		}
+		else
+		{
+			lucky=false;
+		}
+		
+		return lucky;
+	}
 	
 }

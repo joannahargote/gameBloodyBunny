@@ -14,7 +14,7 @@ public class npcData
 		;
 		
 		boolean
-		alive
+		alive=true
 		;
 		
 		
@@ -99,6 +99,14 @@ public class npcData
 			}
 		}
 		
+		
+		
+		 void change_HP_Atk(int chgHP, int chgStr)
+		 {
+			 this.hp+=chgHP;
+			 this.strength+=chgStr;
+			 checkNPC();
+		 }
 		
 	}
 	
