@@ -26,7 +26,8 @@ public class Hound_And_Hostage
 	hostageInRoom=false,
 	pastHostageIntro=false,
 	theGroupCalled=false,
-	houndTookRing=false
+	houndTookRing=false,
+	ringGiven=false
 	;
 	
 	private static void choicesLeadTo(String s1, String s2)
@@ -62,6 +63,7 @@ public class Hound_And_Hostage
 		case "theGroupsOffer": theGroupsOffer(); break;
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
 		case "headShot": Methods.headShot(hsLW, hsD); break;
+		case "theSilverRing": theSilverRing(ringGiven);
 		case "theCall": theCall(); break;
 		case "welcomeFriend": welcomeFriend(); break;
 		
@@ -481,8 +483,9 @@ public class Hound_And_Hostage
 			houndAsksAboutRing();
 			
 			if(!houndTookRing)
-			{
-				theSilverRing(true);
+			{	
+				ringGiven=true;
+				theSilverRing(ringGiven);
 			}	
 			
 			IO.narration("Hound opens the door slowly with his gun in hand. He looks around and lowers");
@@ -576,6 +579,11 @@ public class Hound_And_Hostage
 		}
 
 		IO.emptyLine(1);
+		
+		if(theGroupCalled)
+		{
+			doYouKnow();
+		}
 	}
 
 
@@ -652,12 +660,12 @@ public class Hound_And_Hostage
 		IO.narration("The mobile rings again and Hound answers it.");
 		IO.emptyLine(1);
 		IO.narration("He blinks, looks at you, then says, \"Yes, sir\".");
-		
-		
-		
-		
-		
-		
+		IO.emptyLine(1);
+		IO.narration("He holsters his gun and grags the hostage out the door.");
+		IO.emptyLine(1);
+		IO.narration("You are now alone. You see something in the pool of blood.");
+		IO.choices("Investigate", "Escape", "", "", "");
+		choicesLeadTo("theSilverRing", "escapeAttempt");
 		
 	}
 
