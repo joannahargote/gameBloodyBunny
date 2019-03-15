@@ -1,5 +1,7 @@
 package Set;
 
+import sun.net.www.content.text.plain;
+
 public class Hound_And_Hostage 
 {
 //	THIS IS THE OPENING SCENE
@@ -504,7 +506,6 @@ public class Hound_And_Hostage
 		IO.narration("the fitst time. But me... heh, I can ALWAYS shoot to kill. This is your last chance.\"");
 		IO.choices("Attack Hound", "Do nothing", "", "", "");
 		choicesLeadTo("fightHound", "theCall");
-		
 	}
 
 
@@ -512,7 +513,32 @@ public class Hound_And_Hostage
 
 	private static void escapeAttempt() 
 	{
-		// TODO Auto-generated method stub		
+		IO.narration("You get to your feet as quickly as you can.");
+		IO.emptyLine(1);
+		IO.narration("You quietly walk to the door.");
+		IO.pressEnter("The door is in front of you.", true);
+		
+		
+		IO.narration("You turn the door knob. It is unlocked!");
+		IO.emptyLine(1);
+		IO.narration("You start to open the door.");
+		IO.pressEnter("You can see a portion of the night sky outside.", true);
+		
+		
+		if(Methods.fortuneSmiles(25))
+		{
+			IO.pressEnter("You escape!", true);
+		}
+		else
+		{
+			IO.narration("Hound stands in your way with his suit blood-splattered. He towers over you");
+			IO.narration("threateningly.");
+			IO.emptyLine(1);
+			IO.narration("Hound smiles at you.");
+			IO.pressEnter("He says, \"Wrong choice...\"", true);
+			
+			fightHound();
+		}
 	}
 
 
@@ -552,7 +578,21 @@ public class Hound_And_Hostage
 
 	private static void theGroupsOffer() 
 	{
-		// TODO Auto-generated method stub
+		IO.narration("Hound nods and says, \"Good choice.\"");
+		IO.emptyLine(1);
+		
+		if(!PlayerData.handLeft && !PlayerData.handRight) //both hands have injured fingers
+		{
+			IO.narration("He gives you a dagger in its sheath. \"From The Group, as a sign of trust,\" he "); 
+			IO.narration("explains. \"My apologies for the fingers.\"");
+			
+			
+			
+			
+			
+		}
+		
+		
 		
 	}
 

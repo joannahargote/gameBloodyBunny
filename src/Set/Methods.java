@@ -156,4 +156,14 @@ public class Methods {
 		return lucky;
 	}
 	
+	
+	
+	
+	public static void equip(String wName)
+	{
+		//loop through weapons[][]
+		//use weapon[?][0] as marker -> weapon name
+		//convert [?][2] to int to get addAtk
+	}
+	
 }
