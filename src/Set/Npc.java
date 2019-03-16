@@ -1,16 +1,24 @@
 package Set;
 
-public class npcData
+
+public class Npc
 {
 //	THIS IS WHERE ALL THE OTHER CHARCTERS ARE CREATED AND MANAGED
 	
 	static class npc
 	{
+		
 		String 
 		name,
 		status,
 		weapon,
-		weaponType
+		weaponType,
+		affiliation
+		;
+		
+		
+		String[]
+		fGraph //fight graphics
 		;
 		
 		boolean
@@ -22,22 +30,25 @@ public class npcData
 		hp,
 		strength,
 		pills,
-		shots
+		injections
 		;
 
 		
 		//this is called a "constructior" 
-		npc(String name, String status, String weapon, String weaponType, 
+		npc(String name, String status, String weapon, String weaponType, String affiliation, 
+				String[] fGraph,
 				int hp, int strength, int pills, int shots)
 		{
 			this.name=name;
 			this.status=status;
 			this.weapon=weapon;
 			this.weaponType=weaponType;
+			this.affiliation=affiliation;
+			this.fGraph=fGraph.clone();
 			this.hp=hp;
 			this.strength=strength;
 			this.pills=pills;
-			this.shots=shots;
+			this.injections=shots;
 		}
 		
 		
@@ -69,7 +80,7 @@ public class npcData
 		{
 			IO.narration(this.name+" injected himself.");
 			IO.emptyLine(1);
-			this.shots--;
+			this.injections--;
 			this.hp-=genData.shotVal;
 			this.strength+=genData.shotVal;
 			checkNPC();
@@ -129,22 +140,42 @@ public class npcData
 					}
 				}
 		 }
-		
+		 
+		 
+		 void makeClone()
+		 {
+			OPPONENT=new npc(this.name, this.status, this.weapon, this.weaponType, this.affiliation,
+					this.fGraph,
+					this.hp, this.strength, this.pills, this.injections);
+		 }
+		 
+		 
+		 
+		 void reflectClone()
+		 {
+			 this.hp=OPPONENT.hp;
+			 this.strength=OPPONENT.strength;
+			 this.pills=OPPONENT.pills;
+			 this.injections=OPPONENT.injections;
+			 this.alive=OPPONENT.alive;
+		 }
 	}
 	
 	
-	public static  npc tempOp; //temporary opponent -> place holder for fights
+	public static  npc OPPONENT; //temporary opponent -> npc place holder for fights 
 	public static  npc hound;
 	public static  npc hostage;
 	
 	
 	
+	static String blank[]= {"NO GRFIGHT", "NO GRFIGHT", "NO GRFIGHT"}; //fgraph place holder
 	
 	public static void initialize()
 	{
-		hound=new npc("Hound", "Foe", "Gun", "Firearm", 90, 70, 5, 5);
+		hound=new npc("Hound", "Foe", "Gun", "Firearm", "The Group", GrFight.hound, 90, 50, 5, 5);
 		
-		hostage=new npc("Hostage", "Neutral", "None", "None", 20, 15, 0, 0);
+		hostage=new npc("Hostage", "Neutral", "None", "None", "Unknown", blank, 20, 15, 0, 0);
+		
 		
 	}
 

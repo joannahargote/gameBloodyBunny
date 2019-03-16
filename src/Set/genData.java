@@ -6,7 +6,14 @@ public class genData
 	
 	public static int
 	pillVal=15, //adds to hp, add 1/3 to strength
-	shotVal=10; // subtracts same value from hp, adds to strength
+	shotVal=10, // subtracts same value from hp, adds to strength
+	pWpAddAtk=0, //player weapon add attack
+	oWpAddAtk=0 //opponent weaon add attack
+	;
+	
+	public static String 
+	fightAct1="",
+	fightAct2=""
 	;
 	
 	
@@ -15,8 +22,8 @@ public class genData
 		{
 				//weapon, type, additionalAtk
 				{"None", "None", "0" },
-				{"Gun", "Firearm", "30"},
-				{"Dagger", "Blade", "20"}
+				{"Gun", "Firearm", "25"},
+				{"Dagger", "Blade", "18"}
 		};
 
 

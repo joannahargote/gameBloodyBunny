@@ -4,13 +4,14 @@ import java.util.Random;
 
 public class Methods {
 
-	
+
+	static Random rand = new Random();
 	
 	public static void getInjection(boolean ownSupply) //called shots in game. Like a drug, it gives you strength but drains life points
 	{
 		if(ownSupply) // the shot is form your inventory
 		{
-			PlayerData.shots--; //supply gets depleted
+			Player.injections--; //supply gets depleted
 		}
 		
 		change_HP_Atk(-genData.shotVal, genData.shotVal);
@@ -23,7 +24,7 @@ public class Methods {
 	{
 		if(ownSupply) // the pill is yours
 		{
-			PlayerData.pills--; //supply gets depleted
+			Player.pills--; //supply gets depleted
 		}
 
 		change_HP_Atk(genData.pillVal, genData.pillVal/3);
@@ -39,36 +40,36 @@ public class Methods {
 			IO.emptyLine(1);
 		}
 		
-		PlayerData.hp+=chgHP;
-		PlayerData.strength+=chgStr;
+		Player.hp+=chgHP;
+		Player.strength+=chgStr;
 		
-		if(PlayerData.hp>100)
+		if(Player.hp>100)
 		{
-			PlayerData.hp=100;
+			Player.hp=100;
 		}
-		else if(PlayerData.hp<1)
+		else if(Player.hp<1)
 		{
 			IO.dead();
 		}
 		
-		if(PlayerData.strength>100)
+		if(Player.strength>100)
 		{
-			PlayerData.strength=100;
+			Player.strength=100;
 		}
-		else if (PlayerData.strength<0)
+		else if (Player.strength<0)
 		{
-			PlayerData.strength=0;
+			Player.strength=0;
 		}
 		
 		if(chgHP!=0)
 		{
 			if(chgHP<0)
 			{
-				IO.narration("- You lose "+(chgHP*-1)+" HP. You have "+PlayerData.hp+" HP remaining.");
+				IO.narration("- You lose "+(chgHP*-1)+" HP. You have "+Player.hp+" HP remaining.");
 			}
 			else
 			{
-				IO.narration("- You gain "+chgHP+" HP. You have a total of "+PlayerData.hp+" HP.");
+				IO.narration("- You gain "+chgHP+" HP. You have a total of "+Player.hp+" HP.");
 			}
 		}
 		
@@ -76,11 +77,11 @@ public class Methods {
 		{
 			if(chgStr<0)
 			{
-				IO.narration("- You lose "+(chgStr*-1)+" Strength. You have "+PlayerData.strength+" Strength remaining.");
+				IO.narration("- You lose "+(chgStr*-1)+" Strength. You have "+Player.strength+" Strength remaining.");
 			}
 			else
 			{
-				IO.narration("- You gain "+chgStr+" Stregth. You have a total of "+PlayerData.strength+" Strength.");
+				IO.narration("- You gain "+chgStr+" Stregth. You have a total of "+Player.strength+" Strength.");
 			}
 		}
 		
@@ -103,10 +104,10 @@ public class Methods {
 		
 		switch(part)
 		{
-		case "left hand": PlayerData.handLeft=false; break;
-		case "right hand":PlayerData.handRight=false; break;
-		case "left arm":PlayerData.armLeft=false; break;
-		case "right arm":PlayerData.armLeft=false; break;
+		case "left hand": Player.handLeft=false; break;
+		case "right hand":Player.handRight=false; break;
+		case "left arm":Player.armLeft=false; break;
+		case "right arm":Player.armLeft=false; break;
 		}
 		
 		IO.emptyLine(1);
@@ -132,7 +133,7 @@ public class Methods {
 		}
 		else
 		{
-			change_HP_Atk(PlayerData.hp, 0);
+			change_HP_Atk(Player.hp, 0);
 		}
 	}
 	
@@ -140,7 +141,6 @@ public class Methods {
 	
 	public static boolean fortuneSmiles(int chance)
 	{
-		Random rand = new Random();
 		int x = rand.nextInt(100);
 		boolean lucky;
 		
@@ -164,21 +164,21 @@ public class Methods {
 		for(int x=0; x<genData.weapon.length; x++)
 		{
 			//reset player strength during un-equip
-			if(genData.weapon[x][0].equals(PlayerData.weapon))
+			if(genData.weapon[x][0].equals(Player.weapon))
 			{
-				PlayerData.strength-=Integer.valueOf(genData.weapon[x][2]);
+				Player.strength-=Integer.valueOf(genData.weapon[x][2]);
 			}
 			
 			//equip new weapon
 			if(genData.weapon[x][0].equals(newWeapon)) 
 			{
-				PlayerData.weapon=newWeapon;
-				PlayerData.weaponType=genData.weapon[x][1];
-				PlayerData.strength+=Integer.valueOf(genData.weapon[x][2]);
+				Player.weapon=newWeapon;
+				Player.weaponType=genData.weapon[x][1];
+				Player.strength+=Integer.valueOf(genData.weapon[x][2]);
 			}
 		}
 		
-		if(!PlayerData.weapon.equals("None"))
+		if(!Player.weapon.equals("None"))
 		{
 			IO.emptyLine(1);
 			IO.narration("- You are now armed with a "+newWeapon);
@@ -186,5 +186,234 @@ public class Methods {
 			
 			IO.methodPrinted=true;
 		}
+	}
+
+
+
+	
+	public static void fight() 
+	{
+		if(Npc.OPPONENT.alive) {
+			
+			IO.narration("- COMBAT ENGAGED -");
+			IO.emptyLine(1);
+			IO.narration(genData.fightAct1);
+			IO.emptyLine(1);
+			IO.narration(genData.fightAct2);
+			
+			stats();
+			
+			IO.choices("Attack", "Take pills", "Administer injection", "Surrender (NO CODE YET)", "Run");
+			
+			switch(IO.pCHOICE) //processing player choice
+			{
+			case "1": //attack
+				
+				int plAtk, opAtk; //player attack, opponent attack
+				String atkMove="";
+				
+				
+				//player---------------------------------------------------------------------
+				
+				plAtk=rand.nextInt(Player.strength);
+				
+				if(genData.pWpAddAtk>0) 
+					//adds a random number between the atkValue of the weapon and 1/3 of it.
+					//value is solved in Methods.stats()
+				{
+					plAtk+=rand.nextInt(genData.pWpAddAtk-genData.pWpAddAtk/3)+(genData.pWpAddAtk/3);
+				}
+				
+				switch(Player.weaponType)
+				{
+				case "None":
+					if(fortuneSmiles(50))
+					{
+						atkMove="punch";
+					}
+					else
+					{
+						atkMove="kick";
+					}
+					break;
+				case "Blade":
+					if(fortuneSmiles(50))
+					{
+						atkMove="stab";
+					}
+					else
+					{
+						atkMove="slash";
+					}
+					break;
+				case "Firearm":
+					atkMove="shot";
+					break;
+				default: 
+					atkMove="UNRECORDED WEAPON TYPE";
+					break;
+				}
+				
+				genData.fightAct1="You "+atkMove+" "+Npc.OPPONENT.name+", dealing "+plAtk+" damage!";
+				
+				Npc.OPPONENT.hp-=plAtk;
+				
+				//Opponent-------------------------------------------------------------------
+				
+				opAtk=rand.nextInt(Npc.OPPONENT.strength);
+						
+				if(genData.oWpAddAtk>0) 
+					//adds a random number between the atkValue of the weapon and 1/3 of it.
+					//value is solved in Methods.stats()
+				{
+					opAtk+=rand.nextInt(genData.oWpAddAtk-genData.oWpAddAtk/3)+(genData.oWpAddAtk/3);
+				}
+
+				
+				switch(Npc.OPPONENT.weaponType)
+				{
+				case "None":
+					if(fortuneSmiles(50))
+					{
+						atkMove="punches";
+					}
+					else
+					{
+						atkMove="kicks";
+					}
+					break;
+				case "Blade":
+					if(fortuneSmiles(50))
+					{
+						atkMove="stabs";
+					}
+					else
+					{
+						atkMove="slashes";
+					}
+					break;
+				case "Firearm":
+					atkMove="shoots";
+					break;
+				default: 
+					atkMove="UNRECORDED WEAPON TYPE";
+					break; 
+				}
+				
+
+				genData.fightAct2="Hound "+atkMove+" you in retaliation, dealing "+opAtk+" damage!";
+				
+				Player.hp-=opAtk;
+				
+				break;
+			case "2": //pill
+				
+				
+				
+				
+				break;
+			case "3": //injection
+				
+				
+				
+				
+				break;
+			case "4": //surrender
+				
+				
+				
+				
+				
+				break;
+			case "5": //run
+				
+				
+				break;
+			
+			
+			
+			
+			}
+			
+			
+			
+			
+		}
+		else //OPPONENT dies
+		{
+			
+		}
+	}
+
+
+
+
+	public static void stats() //shows fight status of player and opponent
+	{
+		String fs[]=new String[24]; //fsg -> fight stats
+		
+		//player-------------------------------------------------------------
+		
+		
+		
+		for(int x=0; x<12; x++)
+		{
+			fs[x]=Player.fGraph[x];
+			
+			switch(x)
+			{
+			case 2: fs[x]+="\t YOU"; break;
+			case 4: fs[x]+="\t HP:       "+Player.hp; break;
+			case 5: fs[x]+="\t ATK:      "+Player.strength;
+			if(!Player.weapon.equals("None"))
+			{
+				for(int y=0; y<genData.weapon.length; y++)
+				{
+					if(Player.weapon.equals(genData.weapon[y][0])) //same weapon name
+					{
+						genData.pWpAddAtk=Integer.valueOf(genData.weapon[y][2]);
+						fs[x]+=" (+"+genData.pWpAddAtk+")";
+					}
+				}
+			}
+			break;
+			case 6: fs[x]+="\t WEAPON:   "+Player.weapon; break;
+			case 8: fs[x]+="\t PILLS:    "+Player.pills; break;
+			case 9: fs[x]+="\t INJ:      "+Player.injections; break;
+			}
+		}
+		
+
+		//opponent-----------------------------------------------------------
+		
+		for(int x=0; x<12; x++)
+		{
+			fs[x+12]=Npc.OPPONENT.fGraph[x];
+			
+			switch(x)
+			{
+			case 2: fs[x+12]+="\t "+Npc.OPPONENT.name; break;
+			case 4: fs[x+12]+="\t HP:       "+Npc.OPPONENT.hp; break;
+			case 5: fs[x+12]+="\t ATK:      "+Npc.OPPONENT.strength; 
+			if(!Npc.OPPONENT.weapon.equals("None"))
+			{
+				for(int y=0; y<genData.weapon.length; y++)
+				{
+					if(Npc.OPPONENT.weapon.equals(genData.weapon[y][0])) //same weapon name
+					{
+						genData.oWpAddAtk=Integer.valueOf(genData.weapon[y][2]);
+						fs[x+12]+=" (+"+genData.oWpAddAtk+")";
+					}
+				}
+			}
+			break;
+			case 6: fs[x+12]+="\t WEAPON:   "+Npc.OPPONENT.weapon; break;
+			case 8: fs[x+12]+="\t STATUS:   "+Npc.OPPONENT.status; break;
+			case 9: fs[x+12]+="\t AFFIL:    "+Npc.OPPONENT.affiliation; break;
+			}
+		}
+		
+		IO.graphics(fs); //send to IO to be set as graphics[] and inserted to choices()
+		
 	}
 }

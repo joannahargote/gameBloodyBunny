@@ -1,17 +1,21 @@
 package Set;
 
-public class PlayerData
+public class Player
 {
 	public static int 
 		hp,
 		strength,
 		pills,
-		shots
+		injections
 		;
 	
 	public static String
 		weapon,
 		weaponType
+		;
+	
+	public static String[]
+		fGraph
 		;
 	
 	public static boolean 
@@ -22,7 +26,8 @@ public class PlayerData
 		handLeft,
 		handRight,
 		armLeft,
-		armRight
+		armRight,
+		forfeitFight
 		;
 	
 	
@@ -34,9 +39,10 @@ public class PlayerData
 		hp=39;
 		weapon="None";
 		weaponType="None";
+		fGraph=GrFight.player.clone();
 		strength=27;
 		pills=0;
-		shots=0;
+		injections=0;
 		handLeft=true;
 		handRight=true;
 		armLeft=true;

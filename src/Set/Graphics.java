@@ -213,7 +213,119 @@ public class Graphics
 				"|___________XXXXXXXXXXXX_____________________XXXXXXXXXXXX____________|",
 		};
 	
-//	END -> Hound_And_Hostage
+	
+	
+	
+	public static String beatHostage[]=
+		{
+				" ____________________________________________________________________  ",
+				"|                                                                    |",
+				"|                                                                    |",
+				"|                                             .xxxxxxx.,,            |",
+				"|                                           XXXXXXXXXXXXXx,          |",
+				"|                                         XXXXXXXXXXXXXXXXxx         |",
+				"|                                        XXXXXXXXXXXXXXXXXXX         |",
+				"|                                       XXXXXXXXXXXXXXXXXXXXX        |",
+				"|                                      /XXXXXXXXXXXXXXXXXXXXX        |",
+				"|         ((,.-------------------''---.vXXXXXXXXXXXXXXXXXXXXX        |",
+				"|          /  __/_/_/__________________]v x xXXXXXXXXXXXXXXXX        |",
+				"|=.__.zZZZZZZZZz -----||_____________]   xXxxXXXXXXXXXXXXXXXX        |",
+				"| |  |ZZZZZZZZZZZXXXX//                 xXXXXXXXXXXXXXXXXXXX         |",
+				"| |  |ZZZZZZZ 0 ZZXX                      XXXXXXXXXXXXXXXXXX         |",
+				"| |  |ZZZZZZZ  XXXX                        XXXXXXXXXXXXXXXXX         |",
+				"| |  |ZZZz___0_XXX                          XXXXXXXXXXXXXXXXX        |",
+				"|_|--'  '------'                             XXXXXXXXXXXXXXXXXX      |",
+				"|                                               xXXXXXXXXXXXXXXXX    |",
+				"|______________________________________________xXXXXXXXXXXXXXXXXXX___|"
+		};
+	
+	
+	
+	
+	public static String theHostage[]=
+		{
+				" ____________________________________________________________________ ",
+				"|     |                              /.__ |/) |                      |",
+				"|    |                                |__|  \\/                       |",
+				"|    |                                '-- _,--\\                      |",
+				"|    |                                   /-   -`-                    |",
+				"|    |                                  |        \\                   |",
+				"|    |                                  [   ,     \\                  |",
+				"|    |                                  \\    \\    -\\                 |",
+				"|    |                                   ]`   \\    ,|                |",
+				"|    |                                   \\     \\,--/\\)               |",
+				"|    |                                    |___,._-/_/.               |",
+				"|    |                                     =======`._//,             |",
+				"|    |                                    /       | ==`\\'            |",
+				"|    |                                   /       ,/  ```             |",
+				"|    |                                  /       /_______ __          |",
+				"|    \\                                 /       /`       |  \\         |",
+				"|      `---.___________________________|________________|___\\________|",
+				"                                                                "
+	
+		};
+	
+	
+	
+	
+	public static String playDead1[]=
+	{
+			"XXXXXXXXXXXXXCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXXXXXCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXXXXCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXCCCCCCCCCCCCCCXXXXXXXXXXXXXX'     'XXXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXCCCCCCCCCCCCCCXXXXXXXXXXXXX         XXXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXCCCCCCCCCCCCCCCCXXXXXXXXXXXXX          XXXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXCCCCCCCCCCCCCCCXXXXXXXXXXXXXX  =       XXXXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXCCCCCCCCCCCCCCXXXXXXXXXXXXXXX           XXXXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXXXXXXXXXXx    x      XXXXXXXXXXXXXXXXXXX",
+			"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXX       XX     XXXXXXXXXXX",
+			"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXX         v     XXXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXX               XXXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXX              xXXXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCCCHXXXXXXXXXXXXXXXXXXXXX               XXXXXXXXXXX"
+	};
+
+
+	public static String playDead2[]=
+	{
+			"XXXXXXXXXXXXXCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXOOOOOOOO######OOOXXX",
+			"XXXXXXXXXXXXCCCCCCCCCXXXXOOOOOOOOOOOOOOOOOOOOOOOOOO############OOOOOX",
+			"XXXXXXXXXXXCCCCCCCCCCCXXXXXXXXXXXXXXX#####OOOOOOOO###########OOOOOOXX",
+			"XXXXXXXXXXCCCCCCCCCCCCXXXXXXXXXXXOOO########OOOOO###########OOOOOOXXX",
+			"XXXXXXXXCOOOOOOOOOOOCCXXXXXXXXXXXXX#'     '##XXXXXXOOO#######OOOOXXXX",
+			"XXXXXXXXCCOOOOOOOOOOOOOOXXXXXXXXXX#         #X############OOOOOOOOXXX",
+			"XXXXXXCCCCCCCCCCCCCCCCXXXXXXXXXXXX#          #XXXXXXX######XXXXXXXXXX",
+			"XXXXXXXCCCCOOOOOOOOOOOOOOOOOOOOXXXX#  =       ##XXXXX####XXXXXXXXXXXX",
+			"XXXXXXXXCCCCCCCCCCCCCCXXXXXXXXXXXXXX#          ###XX#####XXXXXXXXXXXX",
+			"XXXXXXXXXCCCCCCCCCOOOOOOOOOOXXXXXXXXX##    #     ##X#######XXXXXXXOOX",
+			"XXXXXXXXXCCOCCCOOOOOOOOOOOOOOOOOXXXXXXX#####       ##     #XXXXXXXXXX",
+			"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXXXXXXXXXXXX#X#         #     #XXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCOOOOOOOOOXXXXXXXXXXX##X#               #XXXXXXXXXX",
+			"XXXXXXXXXXCCCOOOOOCCCXXXXXXXXXXXXXXXXXXX#X#              ##XXXXXXXXXX",
+			"XXXXXXXXXXCCCCCCCCCCCHXXXXXXXXXXXXXXXXX#XX#               #XXXXXXXXXX"
+	};
+
+
+	public static String playDead3[]=
+		{
+				"XXXXXXXXXXXXXCCCCCCCCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+				"XXXXXXXXXXXXCCCCCCCCCXXXXXX@@@@@@@@@@@@@@@@@@@@@@@@@@@@XXXXXXXXXXXXXX",
+				"XXXXXXXXXXXCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXX@@@@@@@@XXXXXXXXXXXXXXXXXX",
+				"XXXXXXXXXXCCCCCCCCCCCCXXXXXXXXXXXXXX@@@@@@@@@@XXXXXXX@@@@@@@@@XXXXXXX",
+				"XXXXXXXXCCCCCCCCCCCCCCXXXXXXXXXXXX@X'     'XXXX@@XXXX@@@@@@@XXXXXXXXX",
+				"XXXXXXXXCCCCCCCCCCCCCCXXXXXX@@@XXXX         XXXXXXXXXXXXXXXXXXXXXXXXX",
+				"XXXXXXCCCCCCCCCCCCCCCCXXXXXX  XXXX          XXXXXX@@@@XXXXXXXXXxXXXXX",
+				"XXXXXXXCCCCCCCCCCCCCCCX@@@@@@@@XXXXX  =       XXXXXXXXX@@@@@@@XXXXXXX",
+				"XXXXXXXXCCCCCCCCCCCCCCXXXXXXX   XXXXXXXX           XX@@XXXXXXXXXXXXXX",
+				"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXXXXXXXXXXx    x      XXX@@@@@@@XXXXXXXXX",
+				"XXXXXXXXXCCCCCCCCCCCC@@@@@@@@@@@@@@XXXXXXXXX       XX     XXXXXXXXXXX",
+				"XXXXXXXXXCCCCCCCCCCCCCXXXXXXXX@@@@@@@@@@XXX         v     XXXXXXXXXXX",
+				"XXXXXXXXXXCCCCCCCCCCCCXXXXXXXXXXXXXXX    X X XXX          xxxxxXXXXXX",
+				"XXXXXXXXXXCCCCCCCCCCCXXXXXXXXXXXXXXXXXXXXXX              xXXXXXXXXXXX",
+				"XXXXXXXXXXCCCCCCCCCCCHXXXXXXXXXXXXXXXXXXXXX               XXXXXXXXXXX"
+		};
 	
 	
 }

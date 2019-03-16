@@ -18,7 +18,7 @@ public class IO
 	
 	public static void drawLine() //marks start and end of each page
 	{
-		narration("______________________________________________________________________________");
+		narration("_________________________________________________________________________________");
 		emptyLine(1);
 		lineCount=1;
 	}
@@ -206,8 +206,9 @@ public class IO
 	}
 
 
+	
 
-	static String startMenu[]=new String[1];
+	static String startMenu[];
 	public static void dead()
 	{
 		emptyLine(40);

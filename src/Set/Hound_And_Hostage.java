@@ -15,8 +15,6 @@ public class Hound_And_Hostage
 	choice,
 	switchPath, //for conditional path redirection
 	switchChoice, //like the above, but for choices
-	fightAct1="",
-	fightAct2="",
 	hsLW, //headShotLastWords
 	hsD //headShotDescrip
 	;
@@ -81,10 +79,9 @@ public class Hound_And_Hostage
 	public static void startScene()
 	{
 		//init:
-		PlayerData.initialize();
-		npcData.initialize();
+		Player.initialize();
+		Npc.initialize();
 		
-
 		IO.drawLine();
 		wakeUp();
 	}
@@ -94,6 +91,7 @@ public class Hound_And_Hostage
 	
 	private static void wakeUp() 
 	{
+		
 		IO.graphics(Graphics.wakeUp);
 		IO.narration("You suddenly gain consciousness and pain floods in. Your neck feels sore");
 		IO.narration("from hanging forward as you are in a sitting position.  You feel sick, your ");
@@ -117,7 +115,7 @@ public class Hound_And_Hostage
 		IO.narration("You move to get up but Hound pulls out a gun and points it ");
 		IO.narration("at you. \"One wrong move and you die,\" he growls. \"Where is it?\"");
 		IO.choices("Say \"What are you talking about?\"", "Attack Hound", "", "", "");
-		fightAct1="You tackle Hound to the ground.";
+		genData.fightAct1="You tackle Hound to the ground.";
 		choicesLeadTo("shotRightArm", "fightHound");
 	}
 
@@ -130,6 +128,7 @@ public class Hound_And_Hostage
 		switch(pdCnt)
 		{
 		case 1:
+			IO.graphics(Graphics.playDead1);
 			IO.narration("You feel a sharp pain on your arm. You peek for a second and see that a blue");
 			IO.narration("liquid is being injected into your veins.");
 			Methods.getInjection(false);
@@ -137,6 +136,7 @@ public class Hound_And_Hostage
 			switchPath="openEyes";
 			break;
 		case 2:
+			IO.graphics(Graphics.playDead2);
 			IO.narration("You feel the injection again and your pain begins to fade. But you begin to");
 			IO.narration("feel lightheaded and giddy, and it feels as though the room is shifting ");
 			IO.narration("and melting under your feet.");
@@ -146,15 +146,19 @@ public class Hound_And_Hostage
 			switchPath="boxCutter";
 			break;
 		case 3:
+			IO.graphics(Graphics.playDead3);
 			IO.narration("You hardly feel the needle this time. It feels as though if you stand up you'll");
 			IO.narration("float like a half-hearted helium balloon.");
 			Methods.getInjection(false);
-			IO.narration("The humming stops, leaving you in silence. You can feel your heart beating inside");
-			IO.narration("your head.");
+			IO.narration("The humming stops, leaving you in silence. You can feel your heart beating");
+			IO.narration("inside your head.");
 			IO.emptyLine(1);
-			IO.narration("Someone says, \"Shame if you die this way... after everything.\" You hear the crisp");
-			IO.narration("sound of every step as they walk towards you slowly.");
+			IO.narration("Someone says, \"Shame if you die this way... after everything.\" You hear the");
+			IO.narration("crisp sound of every step as they walk towards you slowly.");
 			switchPath="theHostage";
+			break;
+		case 4:
+			Methods.getInjection(false);
 			break;
 		}
 		
@@ -174,8 +178,8 @@ public class Hound_And_Hostage
 		IO.narration("Hound ignores your scream and says, \"Where is it?\"");
 		IO.choices("Say \"I dont't know!\"", "Retaliate", "", "", "");
 		
-		fightAct1="You kick Hound and he falls backwards.";
-		fightAct2="He quickly retrieves the gun and stands, blocking your way to the door.";
+		genData.fightAct1="You kick Hound and he falls backwards.";
+		genData.fightAct2="He quickly retrieves the gun and stands, blocking your way to the door.";
 		choicesLeadTo("boxCutter", "fightHound");
 	}
 
@@ -183,21 +187,27 @@ public class Hound_And_Hostage
 
 
 	private static void fightHound() 
-	{
-		if(!fightAct1.equals(""))
-		{
-			IO.narration(fightAct1);
-		}
-		
-		IO.emptyLine(1);
-		
-		if(!fightAct2.equals(""))
-		{
-			IO.narration(fightAct2);
-		}
-		
+	{			
 		//START FIGHT CODE------------------------------------------------
 		
+		Npc.hound.makeClone();
+		Player.forfeitFight=false;
+		
+		while(Npc.OPPONENT.alive && !Player.forfeitFight)
+		{
+			Methods.fight();
+		}
+		
+		if(Player.forfeitFight)
+		{
+			for(int x=0; x<genData.weapon.length; x++)
+			{
+				if(Player.weapon.equals(genData.weapon[x][1]))
+				{
+					
+				}
+			}
+		}
 		
 		
 		
@@ -207,13 +217,12 @@ public class Hound_And_Hostage
 		
 		
 		
-		
-		
+		Npc.hound.reflectClone();
 		//END FIGHT CODE--------------------------------------------------
 		
 		//reset
-		fightAct1="";
-		fightAct2="";
+		genData.fightAct1="";
+		genData.fightAct2="";
 	}
 
 
@@ -231,7 +240,7 @@ public class Hound_And_Hostage
 		IO.narration("You move to get up but immediately sink back as Hound punches you in the guts");
 		IO.narration("and grabs your hand with a vise-like grip. ");
 		IO.emptyLine(1);
-		IO.narration("\"We all know what they do to thieves, but The Group... they did not order me to");
+		IO.narration("\"We all know what they do to thieves, but The Group- they did not order me to");
 		IO.narration("chop off a hand in one clean strike. So,\" he says cooly, \"Why don't you just " );
 		IO.narration("tell me what you know?\"");
 		IO.emptyLine(1);
@@ -258,7 +267,7 @@ public class Hound_And_Hostage
 		IO.narration("\"Tell me now or the next one will not be as clean.\"");
 		IO.choices("Say \"I told you I dont know! I can't remember anything!\"", "Stay quiet", "", "", "");
 		
-		if(PlayerData.hp<=7)
+		if(Player.hp<=7)
 		{
 			choicesLeadTo("theHostage", "theHostage");
 		}
@@ -316,6 +325,7 @@ public class Hound_And_Hostage
 
 	private static void theHostage()
 	{
+		IO.graphics(Graphics.theHostage);
 		hostageInRoom=true;
 		pastHostageIntro=true;
 		
@@ -326,16 +336,16 @@ public class Hound_And_Hostage
 		else
 		{
 			//hound takes a break and helps himself with a pill
-			npcData.hound.change_HP_Atk(genData.pillVal, 0);
+			Npc.hound.change_HP_Atk(genData.pillVal, 0);
 			
 			IO.narration("You wake up as a cold water is poured over your head. After looking around");
 			IO.narration("you see that you are no longer alone with your tormentor.");
 			IO.emptyLine(1);
 		}
 		
-		IO.narration("A bleeding man kneels at gunpoint before Hound. He is beaten up worse than you.");
-		IO.narration("His mouth is duct taped. For a second he glances at you and meets your eyes.");
-		IO.narration("Hound sees this and turns back to you.");
+		IO.narration("A bleeding man kneels at gunpoint before Hound. He is beaten up worse than ");
+		IO.narration("you. His mouth is duct taped. For a second he glances at you and meets your");
+		IO.narration("eyes. Hound sees this and turns back to you.");
 		IO.emptyLine(1);
 		IO.narration("\"Tell me or he dies!\"");
 		IO.choices("Say \"Don't kill him!\"", "Say \"I don't know him\"", "" , "", "");
@@ -367,7 +377,7 @@ public class Hound_And_Hostage
 		IO.narration("his lifeless body.");
 		IO.emptyLine(2);
 
-		npcData.hostage.kill();
+		Npc.hostage.kill();
 		
 		IO.narration("The silence was broken by a single beep. Hound takes out a mobile phone and answers");
 		IO.narration("the call. You hear him say, \"The first on is dead sir... He doesn't seem to");
@@ -407,7 +417,7 @@ public class Hound_And_Hostage
 			IO.narration("Hound waits a moment longer before swallowing a pill and pocketing the metal");
 			IO.narration("tin mumbling, \"Just being nice.\"");
 			IO.emptyLine(1);
-			npcData.hound.change_HP_Atk(genData.pillVal, 0);
+			Npc.hound.change_HP_Atk(genData.pillVal, 0);
 			IO.narration("Hound suddenlty moves his arm and you flich. He laughs drily and says, \"Relax,");
 			IO.narration("I don't bite.\" He proceeds to pick up a bucket from behind your chair, set it");
 			IO.narration("infront of you, and sit on it. He sighs with a friendly smile, although his");
@@ -466,7 +476,7 @@ public class Hound_And_Hostage
 		IO.narration("know it. The Group can see it coming, which is why it offers you redemption.");
 		IO.narration("It wants you to play a vital role in saving thousands of lives. Do you accept?\"");
 		
-		if(hostageInRoom && npcData.hostage.alive)
+		if(hostageInRoom && Npc.hostage.alive)
 		{
 			IO.emptyLine(1);
 			IO.narration("The hostage suddenly starts screaming something incomprehensible. He meets your");
@@ -505,13 +515,15 @@ public class Hound_And_Hostage
 
 	private static void beatHostage() 
 	{
-		IO.narration("Hound kicks the hostag down until he lies still in a pool of blood. He straightens");
-		IO.narration("his tie, looks down and waits for the man to breathe, then walks towards you.");
+		IO.graphics(Graphics.beatHostage);
+		IO.narration("Hound kicks the hostag down until he lies still in a pool of blood. He ");
+		IO.narration("straightens his tie, looks down at the hostage, then walks towards you.");
 		IO.emptyLine(1);
 		IO.narration("He puts the tip of his gun between your eyes.");
 		IO.emptyLine(1);
-		IO.narration("\"You know something?\" Hound growls, \"People like us, we never do the right thing");
-		IO.narration("the fitst time. But me... heh, I can ALWAYS shoot to kill. This is your last chance.\"");
+		IO.narration("\"You know,\" Hound growls, \"people like us, we never do the right thing");
+		IO.narration("the first time. But me... heh, I can ALWAYS shoot to kill. This is your");
+		IO.narration("last chance.\"");
 		IO.choices("Attack Hound", "Do nothing", "", "", "");
 		choicesLeadTo("fightHound", "theCall");
 	}
@@ -594,7 +606,7 @@ public class Hound_And_Hostage
 		IO.narration("Hound nods and says, \"Good choice.\"");
 		IO.emptyLine(1);
 		
-		if(!PlayerData.handLeft && !PlayerData.handRight) //both hands have injured fingers
+		if(!Player.handLeft && !Player.handRight) //both hands have injured fingers
 		{
 			IO.narration("He gives you a dagger in its sheath. \"From The Group, as a sign of trust,\" he "); 
 			IO.narration("explains. \"My apologies for the fingers.\"");
@@ -607,25 +619,26 @@ public class Hound_And_Hostage
 			IO.narration("\"My apologies for the fingers.\"");
 			
 			Methods.changeWeapon("Gun");
-			npcData.hound.changeWeapon("Dagger");
+			Npc.hound.changeWeapon("Dagger");
 		}
 		
 		IO.narration("Hound offers to shake your hand.");
 		
-		if(PlayerData.weapon.equals("Gun"))
+		if(Player.weapon.equals("Gun"))
 		{
 			switchChoice="Shoot Hound";
-			fightAct1="Hound pauses as he looks down at the bleeding hole in his abdomen.";
-			fightAct2="He pulls out a dagger from its sheath hidden within his suit.";
+			genData.fightAct1="Hound pauses as he looks down at the bleeding hole in his abdomen.";
+			genData.fightAct2="He pulls out a dagger from its sheath hidden within his suit.";
 		}
 		else
 		{
 			switchChoice="Stab Hound";
-			fightAct1="Hound pauses as you pull the blade out of his abdomen.";
-			fightAct2="He pulls out out his gun.";
+			genData.fightAct1="Hound pauses as you pull the blade out of his abdomen.";
+			genData.fightAct2="He pulls out out his gun.";
 		}
 		
 		IO.choices("Shake his hand", switchChoice, "", "", "");
+		choicesLeadTo("", "fightHound");
 	}
 
 
@@ -657,11 +670,9 @@ public class Hound_And_Hostage
 		theGroupCalled=true;
 		hostageInRoom=false;
 		
-		IO.narration("The mobile rings again and Hound answers it.");
-		IO.emptyLine(1);
-		IO.narration("He blinks, looks at you, then says, \"Yes, sir\".");
-		IO.emptyLine(1);
-		IO.narration("He holsters his gun and grags the hostage out the door.");
+		IO.narration("The mobile rings again and Hound answers it. He blinks, looks at you,");
+		IO.narration("and then says, \"Yes, sir\". He holsters his gun and drags the ");
+		IO.narration("hostage out the door.");
 		IO.emptyLine(1);
 		IO.narration("You are now alone. You see something in the pool of blood.");
 		IO.choices("Investigate", "Escape", "", "", "");
