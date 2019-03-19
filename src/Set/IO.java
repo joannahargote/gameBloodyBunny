@@ -211,7 +211,6 @@ public class IO
 	static String startMenu[];
 	public static void dead()
 	{
-		emptyLine(40);
 		pressEnter("YOU DIED.",true);
 		StartMenu.main(startMenu);
 	}

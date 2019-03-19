@@ -201,9 +201,16 @@ public class Methods {
 			IO.emptyLine(1);
 			IO.narration(genData.fightAct2);
 			
-			stats();
+			if(Player.hp<1)
+			{
+				IO.dead();
+			}
+			else
+			{
+				stats();
+				IO.choices("Attack", "Take pills", "Administer injection", "Surrender (NO CODE YET)", "Run");
+			}
 			
-			IO.choices("Attack", "Take pills", "Administer injection", "Surrender (NO CODE YET)", "Run");
 			
 			switch(IO.pCHOICE) //processing player choice
 			{
@@ -247,7 +254,7 @@ public class Methods {
 					}
 					break;
 				case "Firearm":
-					atkMove="shot";
+					atkMove="shoot";
 					break;
 				default: 
 					atkMove="UNRECORDED WEAPON TYPE";
@@ -305,6 +312,7 @@ public class Methods {
 				
 				Player.hp-=opAtk;
 				
+				
 				break;
 			case "2": //pill
 				
@@ -344,6 +352,11 @@ public class Methods {
 			
 		}
 	}
+
+
+
+
+
 
 
 

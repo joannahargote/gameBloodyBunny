@@ -64,6 +64,7 @@ public class Hound_And_Hostage
 		case "theSilverRing": theSilverRing(ringGiven);
 		case "theCall": theCall(); break;
 		case "welcomeFriend": welcomeFriend(); break;
+		case "getFixedUp": getFixedUp();
 		
 		
 		default: 
@@ -246,7 +247,7 @@ public class Hound_And_Hostage
 		IO.emptyLine(1);
 		IO.narration("He positions a box cutter at the joint of your index finger. He looks at");
 		IO.narration("you and awaits your response.");
-		IO.choices("Say \"I swear i dont know what you're talking about!\"", "Pull your hand away", "", "", "");
+		IO.choices("Say \"I swear I dont know what you're talking about!\"", "Pull your hand away", "", "", "");
 		choicesLeadTo("cutRightF", "shotLeftF");
 	}
 
@@ -459,14 +460,14 @@ public class Hound_And_Hostage
 		}
 		else
 		{
-			IO.narration("Hound nods solemnly, then says, \"That puts you in quate a predicament, ");
+			IO.narration("Hound nods solemnly, then says, \"That puts you in quite a predicament, ");
 			IO.narration("doesn't it? ...We can help you.\"");
 		}
 		
 		IO.emptyLine(1);
 		IO.narration("He continues, \"You may not trust me after what happened, but you have to know");
 		IO.narration("the severity of the crime that you have committed. I know -knew- who you were");
-		IO.narration("and you have been manipulated to do something terrible at our expense.");
+		IO.narration("and you have been manipulated to do something terrible at our expense.\"");
 		IO.pressEnter("", true);
 		
 		
@@ -516,7 +517,7 @@ public class Hound_And_Hostage
 	private static void beatHostage() 
 	{
 		IO.graphics(Graphics.beatHostage);
-		IO.narration("Hound kicks the hostag down until he lies still in a pool of blood. He ");
+		IO.narration("Hound kicks the hostage down until he lies still in a pool of blood. He ");
 		IO.narration("straightens his tie, looks down at the hostage, then walks towards you.");
 		IO.emptyLine(1);
 		IO.narration("He puts the tip of his gun between your eyes.");
@@ -626,19 +627,21 @@ public class Hound_And_Hostage
 		
 		if(Player.weapon.equals("Gun"))
 		{
+			Npc.hound.hp-=20;
 			switchChoice="Shoot Hound";
 			genData.fightAct1="Hound pauses as he looks down at the bleeding hole in his abdomen.";
 			genData.fightAct2="He pulls out a dagger from its sheath hidden within his suit.";
 		}
 		else
 		{
+			Npc.hound.hp-=15;
 			switchChoice="Stab Hound";
 			genData.fightAct1="Hound pauses as you pull the blade out of his abdomen.";
 			genData.fightAct2="He pulls out out his gun.";
 		}
 		
 		IO.choices("Shake his hand", switchChoice, "", "", "");
-		choicesLeadTo("", "fightHound");
+		choicesLeadTo("welcomeFriend", "fightHound");
 	}
 
 
@@ -686,6 +689,25 @@ public class Hound_And_Hostage
 	private static void welcomeFriend() 
 	{
 		IO.pressEnter("welcomeFriend", true);
+		getFixedUp();
+	}
+
+
+
+
+	private static void getFixedUp() 
+	{
+		IO.pressEnter("getFixedUp", true);
+		disposeHostage();
+		
+	}
+	
+	
+	
+	
+	private static void disposeHostage()
+	{
+		IO.pressEnter("disposeHostage", true);
 	}
 
 
