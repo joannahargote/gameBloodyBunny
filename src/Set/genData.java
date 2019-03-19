@@ -16,6 +16,10 @@ public class genData
 	fightAct2=""
 	;
 	
+	public static boolean
+	shotInHeart
+	;
+	
 	
 	//allows me to loop through the arsenal
 	public static String weapon[][]=

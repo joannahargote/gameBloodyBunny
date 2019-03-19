@@ -27,7 +27,8 @@ public class Player
 		handRight,
 		armLeft,
 		armRight,
-		forfeitFight
+		forfeitFight,
+		surrenderFight
 		;
 	
 	
@@ -42,7 +43,7 @@ public class Player
 		fGraph=GrFight.player.clone();
 		strength=27;
 		pills=0;
-		injections=0;
+		injections=1;
 		handLeft=true;
 		handRight=true;
 		armLeft=true;

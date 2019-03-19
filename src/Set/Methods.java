@@ -2,6 +2,8 @@ package Set;
 
 import java.util.Random;
 
+
+
 public class Methods {
 
 
@@ -118,22 +120,34 @@ public class Methods {
 	
 	
 	
-	public static void headShot(String lastWords, String descrip)
+	public static void fatalShot(String lastWords, String descrip)
 	{
 		IO.narration(lastWords);
 		IO.emptyLine(1);
 		IO.narration(descrip);
 		IO.emptyLine(1);
-		IO.narration("Within that second everyhting went dark and quiet.");
+		
+		if(genData.shotInHeart)
+		{
+			IO.narration("A chill ran down your spine as your blood seeped through your fingers.");
+			IO.emptyLine(1);
+			IO.narration("You fell down and gave in to sleep.");
+		}
+		else //headshot
+		{
+			IO.narration("Within that second everything went dark and quiet.");
+		}
+			
 		
 		//let's see if you survive a headshot
 		if(fortuneSmiles(20))
 		{
+			IO.pressEnter("",true);
 			IO.narration("You somehow survive. JUMP TO NEXT CHAPTER!");
 		}
 		else
 		{
-			change_HP_Atk(Player.hp, 0);
+			change_HP_Atk(-Player.hp, 0);
 		}
 	}
 	
@@ -191,15 +205,24 @@ public class Methods {
 
 
 	
+	static int plAtk, opAtk; //player attack, opponent attack
+	static String atkMove="";
 	public static void fight() 
 	{
 		if(Npc.OPPONENT.alive) {
 			
+			// start status -----------------------------------------------------------------------------------------------------
 			IO.narration("- COMBAT ENGAGED -");
 			IO.emptyLine(1);
 			IO.narration(genData.fightAct1);
-			IO.emptyLine(1);
-			IO.narration(genData.fightAct2);
+			if(!genData.fightAct2.equals(""))
+			{
+				IO.emptyLine(1);
+				IO.narration(genData.fightAct2);
+			}
+			
+			
+			// end status -------------------------------------------------------------------------------------------------------
 			
 			if(Player.hp<1)
 			{
@@ -208,18 +231,15 @@ public class Methods {
 			else
 			{
 				stats();
-				IO.choices("Attack", "Take pills", "Administer injection", "Surrender (NO CODE YET)", "Run");
+				IO.choices("Attack", "Take pill", "Inject energy", "Yield", "Run");
 			}
 			
 			
 			switch(IO.pCHOICE) //processing player choice
 			{
+			
 			case "1": //attack
-				
-				int plAtk, opAtk; //player attack, opponent attack
-				String atkMove="";
-				
-				
+
 				//player---------------------------------------------------------------------
 				
 				plAtk=rand.nextInt(Player.strength);
@@ -267,80 +287,56 @@ public class Methods {
 				
 				//Opponent-------------------------------------------------------------------
 				
-				opAtk=rand.nextInt(Npc.OPPONENT.strength);
-						
-				if(genData.oWpAddAtk>0) 
-					//adds a random number between the atkValue of the weapon and 1/3 of it.
-					//value is solved in Methods.stats()
-				{
-					opAtk+=rand.nextInt(genData.oWpAddAtk-genData.oWpAddAtk/3)+(genData.oWpAddAtk/3);
-				}
-
-				
-				switch(Npc.OPPONENT.weaponType)
-				{
-				case "None":
-					if(fortuneSmiles(50))
-					{
-						atkMove="punches";
-					}
-					else
-					{
-						atkMove="kicks";
-					}
-					break;
-				case "Blade":
-					if(fortuneSmiles(50))
-					{
-						atkMove="stabs";
-					}
-					else
-					{
-						atkMove="slashes";
-					}
-					break;
-				case "Firearm":
-					atkMove="shoots";
-					break;
-				default: 
-					atkMove="UNRECORDED WEAPON TYPE";
-					break; 
-				}
-				
-
-				genData.fightAct2="Hound "+atkMove+" you in retaliation, dealing "+opAtk+" damage!";
-				
-				Player.hp-=opAtk;
+				opponentAttack();
 				
 				
 				break;
 			case "2": //pill
 				
+				if(Player.pills<1)
+				{
+					genData.fightAct1="You check your pockets and realize that you have no pills.";
+				}
+				else
+				{
+					genData.fightAct1="You take a pill, gaining "+genData.pillVal+" HP and "+genData.pillVal/3+" strength.";
+					Player.hp+=genData.pillVal;
+					Player.strength+=genData.pillVal/3;
+					Player.pills--;
+				}
 				
+				opponentAttack();
 				
 				
 				break;
 			case "3": //injection
 				
+				if(Player.injections<1)
+				{
+					genData.fightAct1="You take the syringe and realize that it is empty.";
+				}
+				else
+				{
+					genData.fightAct1="You inject yourself, gaining "+genData.shotVal+" in strength but losing "+genData.shotVal+" HP.";
+					Player.hp-=genData.shotVal;
+					Player.strength+=genData.shotVal;
+					Player.injections--;
+				}
 				
-				
+				opponentAttack();
 				
 				break;
 			case "4": //surrender
 				
-				
-				
-				
-				
+				Player.surrenderFight=true;
+
 				break;
 			case "5": //run
 				
+				Player.forfeitFight=true;
 				
 				break;
-			
-			
-			
-			
+
 			}
 			
 			
@@ -359,7 +355,66 @@ public class Methods {
 
 
 
+	private static void opponentAttack() 
+	{
+		opAtk=rand.nextInt(Npc.OPPONENT.strength);
+		
+		if(genData.oWpAddAtk>0) 
+			//adds a random number between the atkValue of the weapon and 1/3 of it.
+			//value is solved in Methods.stats()
+		{
+			opAtk+=rand.nextInt(genData.oWpAddAtk-genData.oWpAddAtk/3)+(genData.oWpAddAtk/3);
+		}
 
+		
+		switch(Npc.OPPONENT.weaponType)
+		{
+		case "None":
+			if(fortuneSmiles(50))
+			{
+				atkMove="punches";
+			}
+			else
+			{
+				atkMove="kicks";
+			}
+			break;
+		case "Blade":
+			if(fortuneSmiles(50))
+			{
+				atkMove="stabs";
+			}
+			else
+			{
+				atkMove="slashes";
+			}
+			break;
+		case "Firearm":
+			atkMove="shoots";
+			break;
+		default: 
+			atkMove="UNRECORDED WEAPON TYPE";
+			break; 
+		}
+		
+
+		
+		if(IO.pCHOICE.equals("1"))
+		{
+			genData.fightAct2="Hound "+atkMove+" you in retaliation, dealing "+opAtk+" damage!";
+		}
+		else
+		{
+			genData.fightAct2="Hound takes the opportunity and "+atkMove+" you, dealing "+opAtk+" damage!";
+		}
+		
+		Player.hp-=opAtk;
+		
+	}
+
+
+
+	
 
 	public static void stats() //shows fight status of player and opponent
 	{

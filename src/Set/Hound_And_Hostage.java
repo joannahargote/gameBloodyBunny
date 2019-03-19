@@ -28,6 +28,7 @@ public class Hound_And_Hostage
 	ringGiven=false
 	;
 	
+	
 	private static void choicesLeadTo(String s1, String s2)
 	{
 		//set path according to choice
@@ -60,7 +61,7 @@ public class Hound_And_Hostage
 		case "doYouKnow": doYouKnow(); break;
 		case "theGroupsOffer": theGroupsOffer(); break;
 		case "houndAsksAboutRing": houndAsksAboutRing(); break;
-		case "headShot": Methods.headShot(hsLW, hsD); break;
+		case "headShot": Methods.fatalShot(hsLW, hsD); break;
 		case "theSilverRing": theSilverRing(ringGiven);
 		case "theCall": theCall(); break;
 		case "welcomeFriend": welcomeFriend(); break;
@@ -117,6 +118,7 @@ public class Hound_And_Hostage
 		IO.narration("at you. \"One wrong move and you die,\" he growls. \"Where is it?\"");
 		IO.choices("Say \"What are you talking about?\"", "Attack Hound", "", "", "");
 		genData.fightAct1="You tackle Hound to the ground.";
+		genData.fightAct2="";
 		choicesLeadTo("shotRightArm", "fightHound");
 	}
 
@@ -193,29 +195,35 @@ public class Hound_And_Hostage
 		
 		Npc.hound.makeClone();
 		Player.forfeitFight=false;
+		IO.pCHOICE="0";
 		
 		while(Npc.OPPONENT.alive && !Player.forfeitFight)
 		{
 			Methods.fight();
-		}
-		
-		if(Player.forfeitFight)
-		{
-			for(int x=0; x<genData.weapon.length; x++)
+			
+			if(Player.forfeitFight)
 			{
-				if(Player.weapon.equals(genData.weapon[x][1]))
+				if(Methods.fortuneSmiles(70))//headshot
 				{
-					
+					Methods.fatalShot("You hear Hound call you a coward as you run to the door.", "He gives you two shots to the back of the head.");
 				}
+				else
+				{
+					genData.fightAct1="Hound catches you and beats you up, dealing "+Player.hp/3+" damage!";
+					genData.fightAct2="He stands over you, grinning. \"Come on, don't be a coward. Fight like the soldier that you are!\"";
+					Player.hp-=Player.hp/3;
+					Player.forfeitFight=false;
+				}
+
+			}
+			else if(Player.surrenderFight)
+			{
+				Methods.fatalShot("Hound pauses for a moment after you raised your hands in surrender.", "He raises his gun to your chest. \"Death before weakness. Don't you remember?\"");
+				genData.shotInHeart=true;
 			}
 		}
 		
-		
-		
-		
-		
-		
-		
+
 		
 		
 		Npc.hound.reflectClone();
